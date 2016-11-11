@@ -11,7 +11,7 @@ import retrofit2.Call;
 
 public interface IModel {
 
-    void enqueue(Call call);
+    void enqueue();
 
     void cancel();
 }

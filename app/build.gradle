@@ -27,4 +27,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:${BUILD_TOOLS_VERSION}"
     compile "com.android.support:design:${BUILD_TOOLS_VERSION}"
+    compile project(":Libs:MvvmLibs")
 }

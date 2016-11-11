@@ -1,5 +1,6 @@
 package com.android.rx_mvvm;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +10,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.rx.mvvmlibs.Model;
+import com.rx.mvvmlibs.Result;
+import com.rx.mvvmlibs.RxMvvmApplication;
+
+import rx.Observable;
+
 public class MainActivity extends AppCompatActivity {
+
+    Observable observable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                test();
             }
         });
+
+        observable = RxMvvmApplication.getInstance().getRetrofit().create(ApiNuoMi.class).rxGetCategory();
     }
 
     @Override
@@ -48,5 +60,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void test(){
+        Model<NuoMiCategoryBean> model = new Model<NuoMiCategoryBean>() {
+            @Override
+            protected Observable setApiInterface() {
+                return null;
+            }
+
+        };
+        model.enqueue();
     }
 }

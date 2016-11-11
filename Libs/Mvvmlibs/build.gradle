@@ -42,6 +42,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     compile "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
     compile "com.google.code.gson:gson:${GSON_VERSION}"
     compile "io.reactivex:rxandroid:${RXANDROID_VERSION}"
     compile "io.reactivex:rxjava:${RXJAVA_VERSION}"
