@@ -1,8 +1,10 @@
 package com.rx.mvvmlibs;
 
 import android.app.Application;
+import android.databinding.ObservableField;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.rx.mvvmlibs.component.DaggerRetrofitComponent;
 import com.rx.mvvmlibs.component.RetrofitComponent;
 
@@ -12,7 +14,7 @@ import retrofit2.Retrofit;
 
 
 /**
- * @ClassName: com.rx.mvvmlibs.RxMvvmApplication
+ * @ClassName: RxMvvmApplication
  * @author create by Tang
  * @date date 16/11/11 上午9:56
  * @Description: App初始化
@@ -23,10 +25,14 @@ public class RxMvvmApplication extends Application {
     private static final String TAG = "RxMvvmApplication";
     private static RxMvvmApplication myApp;
 
+
     private RetrofitComponent mvvmAppComponent;
 
     @Inject
     Retrofit retrofit;
+
+    @Inject
+    Gson gson;
 
     public static RxMvvmApplication getInstance(){
         return myApp;
@@ -53,6 +59,11 @@ public class RxMvvmApplication extends Application {
         mvvmAppComponent = DaggerRetrofitComponent.builder().build();
         mvvmAppComponent.inject(this);
         Log.d(TAG, "init: " + retrofit);
+
+    }
+
+    public Gson getGson(){
+        return gson;
     }
 
 

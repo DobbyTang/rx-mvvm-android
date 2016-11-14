@@ -1,7 +1,11 @@
 package com.rx.mvvmlibs.module;
 
+import android.databinding.ObservableField;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.bind.TypeAdapters;
+import com.rx.mvvmlibs.internal.ObservableFieldTypeAdapter;
 import com.rx.mvvmlibs.network.HeaderInterceptor;
 import com.rx.mvvmlibs.scope.ApplicationScope;
 
@@ -36,10 +40,16 @@ public class RetrofitModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(initOkHttpClient())
                 .build();
+
     }
 
-    private Gson initGson(){
-        return new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+    @Singleton
+    @Provides
+    public Gson initGson(){
+        return new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd hh:mm:ss")
+                .registerTypeAdapterFactory(TypeAdapters.newFactory(ObservableField.class, new ObservableFieldTypeAdapter()))
+                .create();
     }
 
 

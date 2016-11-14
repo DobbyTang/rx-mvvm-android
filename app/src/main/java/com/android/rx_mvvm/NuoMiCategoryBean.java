@@ -1,5 +1,7 @@
 package com.android.rx_mvvm;
 
+import android.databinding.ObservableField;
+
 import java.util.List;
 
 /**
@@ -11,11 +13,11 @@ import java.util.List;
 
 public class NuoMiCategoryBean {
 
-    //一级分类id
-    public String cat_id;
+
+    public ObservableField<String> cat_id;
 
     //一级分类名称
-    public String cat_name;
+    public ObservableField<String> cat_name;
 
     //二级分类列表
     public List<Subcategories> subcategories;

@@ -1,6 +1,5 @@
 package com.rx.mvvmlibs;
 
-import retrofit2.Call;
 
 /**
  * @ClassName: IModel
@@ -11,7 +10,19 @@ import retrofit2.Call;
 
 public interface IModel {
 
-    void enqueue();
+    /**
+     * @Method: enqueueRequest
+     * @author create by Tang
+     * @date date 16/11/14 下午3:39
+     * @Description: 添加到请求队列
+     */
+    void enqueueRequest();
 
-    void cancel();
+    /**
+     * @Method: cancelRequest
+     * @author create by Tang
+     * @date date 16/11/14 下午3:39
+     * @Description: 取消这次请求
+     */
+    void cancelRequest();
 }

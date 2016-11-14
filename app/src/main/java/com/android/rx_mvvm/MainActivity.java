@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +15,17 @@ import com.rx.mvvmlibs.Model;
 import com.rx.mvvmlibs.Result;
 import com.rx.mvvmlibs.RxMvvmApplication;
 
+import java.util.List;
+
+import retrofit2.Retrofit;
 import rx.Observable;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     Observable observable;
+    Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        observable = RxMvvmApplication.getInstance().getRetrofit().create(ApiNuoMi.class).rxGetCategory();
+        retrofit = RxMvvmApplication.getInstance().getRetrofit();
+        observable = retrofit.create(ApiNuoMi.class).rxGetCategory();
+
     }
 
     @Override
@@ -64,13 +73,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test(){
-        Model<NuoMiCategoryBean> model = new Model<NuoMiCategoryBean>() {
+        Model<List<NuoMiCategoryBean>> model = new Model<List<NuoMiCategoryBean>>(null) {
             @Override
             protected Observable setApiInterface() {
-                return null;
+                return RxMvvmApplication.getInstance().getRetrofit().create(ApiNuoMi.class).rxGetCategory();
+            }
+
+            @Override
+            public void resultData(List<NuoMiCategoryBean> nuoMiCategoryBean) {
+                Log.d(TAG, "resultData: " + nuoMiCategoryBean.get(0).cat_name.get());
             }
 
         };
-        model.enqueue();
+        model.enqueueRequest();
+
+        TestBean testBean = new TestBean();
+        testBean.testBoolean.set(true);
+        testBean.testFloat.set(1.27F);
+        testBean.testString.set("hello test");
+        testBean.testInt.set(10000);
+        RxMvvmApplication.getInstance().getGson().toJson(testBean);
     }
 }
