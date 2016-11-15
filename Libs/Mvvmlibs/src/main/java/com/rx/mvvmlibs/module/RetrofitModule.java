@@ -32,7 +32,7 @@ public class RetrofitModule {
 
     private String SERVER_PRODUCTION = "http://apis.baidu.com";
 
-    @Singleton
+    @ApplicationScope
     @Provides
     public Retrofit providesRetrofit(){
         return new Retrofit.Builder().baseUrl(SERVER_PRODUCTION)
@@ -43,7 +43,7 @@ public class RetrofitModule {
 
     }
 
-    @Singleton
+    @ApplicationScope
     @Provides
     public Gson initGson(){
         return new GsonBuilder()

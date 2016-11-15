@@ -2,7 +2,6 @@ package com.rx.mvvmlibs.internal;
 
 import android.databinding.ObservableField;
 
-import com.google.common.primitives.Booleans;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -14,7 +13,8 @@ import java.io.IOException;
  * @ClassName: ObservableFieldTypeAdapter
  * @author create by Tang
  * @date date 16/11/14 下午5:06
- * @Description: TODO
+ * @Description: ObservableField类的TypeAdapter
+ * 功能是使Gson支持ObservableField的序列化和反序列化
  */
 
 public class ObservableFieldTypeAdapter extends TypeAdapter<ObservableField>{
@@ -44,6 +44,8 @@ public class ObservableFieldTypeAdapter extends TypeAdapter<ObservableField>{
             out.value((Boolean)value.get());
         }else if (value.get() instanceof Float){
             out.value((Float) value.get());
+        }else if (value.get() instanceof Double){
+            out.value((Double) value.get());
         }
     }
 }

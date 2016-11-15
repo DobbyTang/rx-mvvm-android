@@ -1,6 +1,8 @@
 package com.rx.mvvmlibs;
 
 
+import rx.Scheduler;
+
 /**
  * @ClassName: IModel
  * @author create by Tang
@@ -25,4 +27,13 @@ public interface IModel {
      * @Description: 取消这次请求
      */
     void cancelRequest();
+
+    /**
+     * @Method: setResultScheduler
+     * @author create by Tang
+     * @date date 16/11/15 上午10:11
+     * @Description: 设置回调事件处理的线程
+     * 默认为ui线程
+     */
+    void setResultScheduler(Scheduler scheduler);
 }

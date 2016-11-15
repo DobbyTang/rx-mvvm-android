@@ -27,7 +27,7 @@ public interface IViewModel<Data> {
      * @Description:
      * 通知model层取消对应的请求
      */
-    void cancle();
+    void cancel();
     
     /**
      * @Method: setApiInterface
@@ -45,13 +45,39 @@ public interface IViewModel<Data> {
      * @Description: 
      * Model层回调的数据
      */
-    void modelResult(Result result);
-    
+    void result(Result<Data> result);
+
     /**
-     * @Method: modeResultData
+     * @Method: onSuccess
      * @author create by Tang
-     * @date date 16/11/14 下午5:22
-     * @Description: TODO
+     * @date date 16/11/15 上午10:02
+     * @Description: 请求成功回调
      */
-    void modeResultData(Data data);
+    void onSuccess();
+
+    /**
+     * @Method: showResultError
+     * @author create by Tang
+     * @date date 16/11/15 上午10:03
+     * @Description: 服务器错误回调
+     */
+    void onError(Throwable e);
+
+//    /**
+//     * @Method: showProgress
+//     * @author create by Tang
+//     * @date date 16/11/15 下午5:24
+//     * @Description: TODO
+//     */
+//    boolean showProgress(boolean enable);
+
+    /**
+     * @Method: setProgressType
+     * @author create by Tang
+     * @date date 16/11/15 下午5:04
+     * @Description: 设置加载进度条类型
+     */
+    void setProgressType(int type);
+
+
 }

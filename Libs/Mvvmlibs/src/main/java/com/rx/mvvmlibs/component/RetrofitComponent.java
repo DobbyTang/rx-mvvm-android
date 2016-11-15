@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
  * @Description: TODO
  */
 
-@Singleton
+@ApplicationScope
 @Component(modules = RetrofitModule.class)
 public interface RetrofitComponent {
 

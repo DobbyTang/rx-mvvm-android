@@ -1,6 +1,7 @@
 package com.android.rx_mvvm;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -73,25 +74,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test(){
-        Model<List<NuoMiCategoryBean>> model = new Model<List<NuoMiCategoryBean>>(null) {
-            @Override
-            protected Observable setApiInterface() {
-                return RxMvvmApplication.getInstance().getRetrofit().create(ApiNuoMi.class).rxGetCategory();
-            }
 
-            @Override
-            public void resultData(List<NuoMiCategoryBean> nuoMiCategoryBean) {
-                Log.d(TAG, "resultData: " + nuoMiCategoryBean.get(0).cat_name.get());
-            }
-
-        };
-        model.enqueueRequest();
 
         TestBean testBean = new TestBean();
         testBean.testBoolean.set(true);
         testBean.testFloat.set(1.27F);
         testBean.testString.set("hello test");
         testBean.testInt.set(10000);
-        RxMvvmApplication.getInstance().getGson().toJson(testBean);
+        Log.d(TAG, "test: " + RxMvvmApplication.getInstance().getGson().toJson(testBean));
+        Intent intent = new Intent(this,TestMvvmActivity.class);
+        startActivity(intent);
     }
 }
