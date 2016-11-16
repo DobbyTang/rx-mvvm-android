@@ -1,5 +1,7 @@
 package com.android.rx_mvvm;
 
+import android.app.Activity;
+
 import com.rx.mvvmlibs.Result;
 import com.rx.mvvmlibs.ViewModel;
 
@@ -13,6 +15,10 @@ import rx.Observable;
  */
 
 public class TestViewModel extends ViewModel{
+    public TestViewModel(Activity activity) {
+        super(activity);
+    }
+
     @Override
     public Observable setApiInterface() {
         return null;

@@ -2,7 +2,10 @@ package com.rx.mvvmlibs;
 
 
 
-import com.rx.mvvmlibs.bean.ProgressBean;
+import android.app.Activity;
+
+import com.rx.mvvmlibs.component.DaggerViewModelComponent;
+import com.rx.mvvmlibs.module.ViewModelModule;
 
 /**
  * @ClassName: ViewModel
@@ -13,41 +16,38 @@ import com.rx.mvvmlibs.bean.ProgressBean;
 
 public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
-    public ProgressBean progress;
+    private ViewModelWrapper viewModelWrapper;
 
-    private IModel model;
-
-    public ViewModel(){
-        progress = new ProgressBean();
-        this.model = new Model<Data>(this);
+    public ViewModel(Activity activity){
+        init(activity);
     }
 
     @Override
     public void enqueue() {
-        progress.showProgress.set(true);
-        model.enqueueRequest();
+        viewModelWrapper.progress.showProgress.set(true);
+        viewModelWrapper.model.enqueueRequest();
     }
 
     @Override
     public void cancel() {
-        model.cancelRequest();
+        viewModelWrapper.model.cancelRequest();
     }
 
     @Override
     public void onSuccess() {
-        progress.showProgress.set(false);
+        viewModelWrapper.progress.showProgress.set(false);
     }
 
     @Override
     public void onError(Throwable e) {
-        progress.showProgress.set(false);
+        viewModelWrapper. progress.showProgress.set(false);
     }
 
 
 
     @Override
     public void setProgressType(int type) {
-        progress.setProgressType(type);
+        viewModelWrapper.progress.setProgressType(type);
     }
 
     @Override
@@ -64,4 +64,13 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     public void onError(int errorCode, String errorDesc) {
 
     }
+
+    private void init(Activity activity){
+        viewModelWrapper = new ViewModelWrapper();
+        DaggerViewModelComponent.builder()
+                .viewModelModule(new ViewModelModule(this,activity)).build()
+                .inject(viewModelWrapper);
+
+    }
+
 }

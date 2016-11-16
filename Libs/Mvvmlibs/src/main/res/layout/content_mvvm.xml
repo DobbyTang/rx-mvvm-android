@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <data>
 
-        <variable
-            name="viewModel"
-            type="com.rx.mvvmlibs.ViewModel"/>
-
-    </data>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -19,7 +13,7 @@
         >
 
         <FrameLayout
-            android:id="@+id/content_mvvm"
+            android:id="@+id/mvvm_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/activity_vertical_margin"
@@ -28,43 +22,13 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             >
 
-            <ViewStub
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-                <ProgressBar
-                    android:id="@+id/mvvm_progress_bar"
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    style="?android:attr/progressBarStyle"
-                    />
+            <include
+                android:id="@+id/mvvm_error"
+                layout="@layout/error"/>
 
-                <LinearLayout
-                    android:id="@+id/mvvm_error_layout"
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="visible"
-                    android:layout_gravity="center"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/mvvm_error_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"/>
-
-                    <TextView
-                        android:id="@+id/mvvm_error_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="网络连接错误,点击从新连接"/>
-
-                </LinearLayout>
-
-            </ViewStub>
-
+            <include
+                android:id="@+id/mvvm_progress"
+                layout="@layout/progress"/>
 
 
         </FrameLayout>

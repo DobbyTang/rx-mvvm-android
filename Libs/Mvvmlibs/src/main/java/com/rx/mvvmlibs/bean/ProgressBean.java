@@ -2,14 +2,21 @@ package com.rx.mvvmlibs.bean;
 
 import android.databinding.ObservableField;
 
+import javax.inject.Inject;
+
 /**
  * @ClassName: ProgressBean
  * @author create by Tang
  * @date date 16/11/15 下午5:00
- * @Description: TODO
+ * @Description: 进度条实体类，用于控制进度条
  */
 
 public class ProgressBean {
+
+    @Inject
+    public ProgressBean(){
+
+    }
 
     //默认进度条
     public static final int PROGRESS_TYPE_DEFAULT = 1;

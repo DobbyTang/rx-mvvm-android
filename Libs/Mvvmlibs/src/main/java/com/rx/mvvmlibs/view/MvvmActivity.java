@@ -5,9 +5,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.rx.mvvmlibs.component.DaggerMvvmActivityComponent;
@@ -72,9 +69,9 @@ public abstract class MvvmActivity extends Activity implements IMvvmActivity{
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
 
-        ViewDataBinding contentViewDataBinding = onCreateView(getLayoutInflater(),contentMvvmBinding.contentMvvm);
+        ViewDataBinding contentViewDataBinding = onCreateView(getLayoutInflater(),contentMvvmBinding.mvvmFrameLayout);
         if (contentViewDataBinding != null )
-        contentMvvmBinding.contentMvvm
+        contentMvvmBinding.mvvmFrameLayout
                 .addView(contentViewDataBinding
                         .getRoot(),lp);
     }
