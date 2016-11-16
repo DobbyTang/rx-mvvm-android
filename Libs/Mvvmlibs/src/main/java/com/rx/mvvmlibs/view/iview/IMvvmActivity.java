@@ -4,7 +4,8 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.rx.mvvmlibs.IViewModel;
+import com.rx.mvvmlibs.ViewModel;
+
 
 /**
  * @ClassName: IMvvmActivity
@@ -29,5 +30,5 @@ public interface IMvvmActivity {
      * @date date 16/11/15 下午4:02
      * @Description: 绑定ViewModel
      */
-    IViewModel setViewModel();
+    ViewModel setViewModel();
 }

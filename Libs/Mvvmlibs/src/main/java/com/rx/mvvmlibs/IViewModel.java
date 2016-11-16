@@ -63,13 +63,13 @@ public interface IViewModel<Data> {
      */
     void onError(Throwable e);
 
-//    /**
-//     * @Method: showProgress
-//     * @author create by Tang
-//     * @date date 16/11/15 下午5:24
-//     * @Description: TODO
-//     */
-//    boolean showProgress(boolean enable);
+    /**
+     * @Method: showProgress
+     * @author create by Tang
+     * @date date 16/11/15 下午5:24
+     * @Description: TODO
+     */
+    void showProgress(boolean enable);
 
     /**
      * @Method: setProgressType

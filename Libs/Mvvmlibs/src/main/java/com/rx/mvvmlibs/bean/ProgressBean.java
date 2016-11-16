@@ -28,13 +28,6 @@ public class ProgressBean {
     public static final int PROGRESS_TYPE_DROP_DOWN = 3;
 
     //默认对加载进度条
-    public ObservableField<Integer> progressType = new ObservableField<>();
-
-    //是否选看是进度条
-    public ObservableField<Boolean> showProgress = new ObservableField<>();
-
-    public void setProgressType(int type){
-
-    }
+    public int progressType = PROGRESS_TYPE_DEFAULT;
 
 }

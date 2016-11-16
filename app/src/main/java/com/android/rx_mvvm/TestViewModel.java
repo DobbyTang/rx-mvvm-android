@@ -1,8 +1,11 @@
 package com.android.rx_mvvm;
 
 import android.app.Activity;
+import android.util.Log;
+import android.view.View;
 
 import com.rx.mvvmlibs.Result;
+import com.rx.mvvmlibs.RxMvvmApplication;
 import com.rx.mvvmlibs.ViewModel;
 
 import rx.Observable;
@@ -15,22 +18,25 @@ import rx.Observable;
  */
 
 public class TestViewModel extends ViewModel{
+
+    private static final String TAG = "TestViewModel";
+
     public TestViewModel(Activity activity) {
         super(activity);
     }
 
     @Override
     public Observable setApiInterface() {
-        return null;
+        return RxMvvmApplication.getInstance().getRetrofit().create(ApiNuoMi.class).rxGetCategory();
     }
 
     @Override
     public void result(Result result) {
-
+        Log.d(TAG, "result: ");
     }
 
-    @Override
-    public void setProgressType(int type) {
-
+    public void testClick(View view){
+        Log.d(TAG, "testClick: ");
+        enqueue();
     }
 }

@@ -1,10 +1,12 @@
 package com.rx.mvvmlibs;
 
+import android.app.ProgressDialog;
+
 import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
+import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
-import com.rx.mvvmlibs.databinding.ProgressBinding;
 
 import javax.inject.Inject;
 
@@ -28,12 +30,15 @@ public class ViewModelWrapper {
     ActivityMvvmBinding activityMvvmBinding;
 
     @Inject
-    ContentMvvmBinding contentMvvmBinding;
+    public ContentMvvmBinding contentMvvmBinding;
 
     @Inject
-    ProgressBinding progressBinding;
+    DefaultProgressBinding defaultProgressBinding;
 
     @Inject
     ErrorBinding errorBinding;
+
+    @Inject
+    ProgressDialog progressDialog;
 
 }

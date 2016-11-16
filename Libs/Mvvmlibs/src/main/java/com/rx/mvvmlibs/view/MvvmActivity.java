@@ -7,6 +7,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
+import com.rx.mvvmlibs.IViewModel;
 import com.rx.mvvmlibs.component.DaggerMvvmActivityComponent;
 import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
@@ -24,8 +25,6 @@ import javax.inject.Inject;
 
 public abstract class MvvmActivity extends Activity implements IMvvmActivity{
 
-    @Inject
-    ActivityMvvmBinding mvvmBinding;
 
     @Inject
     ContentMvvmBinding contentMvvmBinding;
@@ -33,6 +32,10 @@ public abstract class MvvmActivity extends Activity implements IMvvmActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DaggerMvvmActivityComponent.builder()
+                .mvvmActivityModule(new MvvmActivityModule(this))
+                .build()
+                .inject(this);
         init();
 
     }
@@ -61,18 +64,14 @@ public abstract class MvvmActivity extends Activity implements IMvvmActivity{
     }
 
     private void init(){
-        DaggerMvvmActivityComponent.builder()
-                .mvvmActivityModule(new MvvmActivityModule(this))
-                .build()
-                .inject(this);
 
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
 
-        ViewDataBinding contentViewDataBinding = onCreateView(getLayoutInflater(),contentMvvmBinding.mvvmFrameLayout);
+        ViewDataBinding contentViewDataBinding = onCreateView(getLayoutInflater()
+                ,contentMvvmBinding.mvvmFrameLayout);
         if (contentViewDataBinding != null )
         contentMvvmBinding.mvvmFrameLayout
-                .addView(contentViewDataBinding
-                        .getRoot(),lp);
+                .addView(contentViewDataBinding.getRoot(),lp);
     }
 }

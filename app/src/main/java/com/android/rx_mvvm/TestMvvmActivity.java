@@ -5,7 +5,8 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.rx.mvvmlibs.IViewModel;
+import com.android.rx_mvvm.databinding.ActivityTestBinding;
+import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.view.MvvmActivity;
 
 /**
@@ -17,14 +18,20 @@ import com.rx.mvvmlibs.view.MvvmActivity;
 
 public class TestMvvmActivity extends MvvmActivity{
 
+    private ActivityTestBinding binding;
+
+    TestViewModel testViewModel;
+
     @Override
     public ViewDataBinding onCreateView(LayoutInflater inflater, ViewGroup parent) {
-        new TestViewModel(this);
-        return DataBindingUtil.inflate(inflater,R.layout.content_main,parent,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.activity_test,parent,false);
+        binding.setTestViewModel(testViewModel);
+        return binding;
     }
 
     @Override
-    public IViewModel setViewModel() {
-        return null;
+    public ViewModel setViewModel() {
+        testViewModel = new TestViewModel(this);
+        return new TestViewModel(this);
     }
 }

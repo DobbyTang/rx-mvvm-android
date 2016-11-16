@@ -3,7 +3,9 @@ package com.rx.mvvmlibs;
 
 
 import android.app.Activity;
+import android.view.View;
 
+import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.component.DaggerViewModelComponent;
 import com.rx.mvvmlibs.module.ViewModelModule;
 
@@ -16,7 +18,7 @@ import com.rx.mvvmlibs.module.ViewModelModule;
 
 public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
-    private ViewModelWrapper viewModelWrapper;
+    public ViewModelWrapper viewModelWrapper;
 
     public ViewModel(Activity activity){
         init(activity);
@@ -24,30 +26,70 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     @Override
     public void enqueue() {
-        viewModelWrapper.progress.showProgress.set(true);
+        showProgress(true);
         viewModelWrapper.model.enqueueRequest();
     }
 
     @Override
     public void cancel() {
+        showProgress(false);
         viewModelWrapper.model.cancelRequest();
     }
 
     @Override
     public void onSuccess() {
-        viewModelWrapper.progress.showProgress.set(false);
+        showProgress(false);
     }
 
     @Override
     public void onError(Throwable e) {
-        viewModelWrapper. progress.showProgress.set(false);
+        showProgress(false);
     }
 
+    @Override
+    public void showProgress(boolean enable) {
+        switch (viewModelWrapper.progress.progressType){
+            case ProgressBean.PROGRESS_TYPE_DEFAULT:
+                if (enable){
+                    viewModelWrapper
+                            .defaultProgressBinding
+                            .mvvmProgressBar
+                            .setVisibility(View.VISIBLE);
 
+                }else {
+                    viewModelWrapper
+                            .defaultProgressBinding
+                            .mvvmProgressBar
+                            .setVisibility(View.GONE);
+                }
+                break;
+            case ProgressBean.PROGRESS_TYPE_DIALOG:
+                if (enable){
+                    viewModelWrapper.progressDialog.show();
+                }else {
+                    viewModelWrapper.progressDialog.dismiss();
+                }
+                break;
+
+            case ProgressBean.PROGRESS_TYPE_DROP_DOWN:
+                if (enable){
+                    viewModelWrapper.contentMvvmBinding.refreshLayout.setRefreshing(true);
+
+                }else {
+                    viewModelWrapper.contentMvvmBinding.refreshLayout.setRefreshing(false);
+                }
+                break;
+        }
+    }
 
     @Override
     public void setProgressType(int type) {
-        viewModelWrapper.progress.setProgressType(type);
+        if (type != ProgressBean.PROGRESS_TYPE_DROP_DOWN){
+            viewModelWrapper.contentMvvmBinding.refreshLayout.setClickable(false);
+        }else {
+            viewModelWrapper.contentMvvmBinding.refreshLayout.setClickable(true);
+        }
+        viewModelWrapper.progress.progressType = type;
     }
 
     @Override

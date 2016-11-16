@@ -1,11 +1,7 @@
 package com.rx.mvvmlibs.module;
 
-import android.app.Activity;
-import android.databinding.DataBindingUtil;
-
-import com.rx.mvvmlibs.R;
-import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
+import com.rx.mvvmlibs.view.MvvmActivity;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,22 +16,16 @@ import dagger.Provides;
 @Module
 public class MvvmActivityModule {
 
-    private Activity activity;
-    private ActivityMvvmBinding mvvmBinding;
+    private MvvmActivity activity;
 
-    public MvvmActivityModule(Activity activity){
+    public MvvmActivityModule(MvvmActivity activity){
         this.activity = activity;
     }
 
-    @Provides
-    public ActivityMvvmBinding providesActivityMvvmBinding(){
-        this.mvvmBinding = DataBindingUtil.setContentView(activity, R.layout.activity_mvvm);
-        return mvvmBinding;
-    }
 
     @Provides
     public ContentMvvmBinding providesContentMvvmBinding(){
-        return mvvmBinding.contentMvvm;
+        return activity.setViewModel().viewModelWrapper.contentMvvmBinding;
     }
 
 }
