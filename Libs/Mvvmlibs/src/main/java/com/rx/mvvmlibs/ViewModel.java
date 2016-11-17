@@ -2,17 +2,14 @@ package com.rx.mvvmlibs;
 
 
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.databinding.ViewDataBinding;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.component.DaggerViewModelComponent;
 import com.rx.mvvmlibs.module.ViewModelModule;
+import com.rx.mvvmlibs.network.Error;
 import com.rx.mvvmlibs.view.MvvmActivity;
 import com.rx.utillibs.LogUtil;
 
@@ -25,6 +22,7 @@ import com.rx.utillibs.LogUtil;
 
 public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
+    private boolean isSuccess;
 
     public ViewModelWrapper viewModelWrapper;
 
@@ -47,12 +45,14 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     @Override
     public void onSuccess() {
+        isSuccess = true;
         showProgress(false);
     }
 
     @Override
-    public void onError(Throwable e) {
+    public void onNetworkError(Throwable e) {
         showProgress(false);
+        onError(Error.CODE_NETWORK,Error.DESC_NETWORK);
     }
 
     @Override
@@ -114,7 +114,12 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     @Override
     public void onError(int errorCode, String errorDesc) {
+        /**
+         * 这里没有针对错误代码做处理
+         * 如果需要根据错误代码处理特殊情况需要手动实现
+         */
 
+        setErrorString();
     }
 
     private void init(MvvmActivity activity){

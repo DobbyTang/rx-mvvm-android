@@ -50,7 +50,7 @@ public class Model<Data> implements IModel{
 
             @Override
             public void onError(Throwable e) {
-                viewModel.onError(e);
+                viewModel.onNetworkError(e);
                 e.printStackTrace();
             }
 

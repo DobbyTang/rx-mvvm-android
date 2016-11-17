@@ -57,12 +57,12 @@ public interface IViewModel<Data> {
     void onSuccess();
 
     /**
-     * @Method: showResultError
+     * @Method: onNetworkError
      * @author create by Tang
      * @date date 16/11/15 上午10:03
-     * @Description: 服务器错误回调
+     * @Description: 网络错误
      */
-    void onError(Throwable e);
+    void onNetworkError(Throwable e);
 
     /**
      * @Method: showProgress
