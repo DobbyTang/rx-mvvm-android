@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.widget.FrameLayout;
 
 
 import com.rx.mvvmlibs.IModel;
@@ -14,6 +15,7 @@ import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
+import com.rx.mvvmlibs.view.MvvmActivity;
 
 import dagger.Module;
 import dagger.Provides;
@@ -28,19 +30,21 @@ import dagger.Provides;
 @Module
 public class ViewModelModule {
 
-    private Activity activity;
+    private MvvmActivity activity;
     private IViewModel viewModel;
+
     private ActivityMvvmBinding activityMvvmBinding;
     private ContentMvvmBinding contentMvvmBinding;
 
-    public ViewModelModule(IViewModel viewModel, Activity activity){
+    public ViewModelModule(IViewModel viewModel, MvvmActivity activity){
         this.activity = activity;
         this.viewModel = viewModel;
     }
 
     @Provides
     public ActivityMvvmBinding providesActivityMvvmBinding(){
-        activityMvvmBinding = DataBindingUtil.setContentView(activity, R.layout.activity_mvvm);
+        activityMvvmBinding = DataBindingUtil
+                .setContentView(activity, R.layout.activity_mvvm);
         return activityMvvmBinding;
     }
 
@@ -49,6 +53,20 @@ public class ViewModelModule {
         contentMvvmBinding = activityMvvmBinding.contentMvvm;
         return contentMvvmBinding;
     }
+
+    @Provides
+    ViewDataBinding providesChildBinding(){
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
+
+        ViewDataBinding childBinding = activity.onCreateView(activity.getLayoutInflater()
+                ,contentMvvmBinding.mvvmFrameLayout);
+        if (childBinding != null )
+            contentMvvmBinding.mvvmFrameLayout
+                    .addView(childBinding.getRoot(),lp);
+        return childBinding;
+    }
+
 
     @Provides
     public ErrorBinding providesErrorBinding(){

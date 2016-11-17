@@ -51,4 +51,5 @@ dependencies {
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"  //dagger公用api
     provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
     compile project(":Libs:BaseAppLibs")
+    compile project(":Libs:UtilLibs")
 }

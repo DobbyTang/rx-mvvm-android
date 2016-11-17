@@ -11,6 +11,7 @@ import rx.Observable;
 
 public interface IViewModel<Data> {
 
+
     /**
      * @Method: enqueue
      * @author create by Tang

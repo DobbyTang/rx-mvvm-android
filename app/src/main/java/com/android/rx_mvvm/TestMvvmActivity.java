@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.android.rx_mvvm.databinding.ActivityTestBinding;
 import com.rx.mvvmlibs.ViewModel;
+import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.view.MvvmActivity;
 
 /**
@@ -22,16 +23,19 @@ public class TestMvvmActivity extends MvvmActivity{
 
     TestViewModel testViewModel;
 
+
     @Override
     public ViewDataBinding onCreateView(LayoutInflater inflater, ViewGroup parent) {
         binding = DataBindingUtil.inflate(inflater,R.layout.activity_test,parent,false);
-        binding.setTestViewModel(testViewModel);
         return binding;
     }
 
     @Override
-    public ViewModel setViewModel() {
+    public ViewModel onBindingViewModel() {
         testViewModel = new TestViewModel(this);
-        return new TestViewModel(this);
+        testViewModel.setProgressType(ProgressBean.PROGRESS_TYPE_DROP_DOWN);
+        binding.setTestViewModel(testViewModel);
+        return testViewModel;
     }
+
 }

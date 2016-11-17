@@ -25,10 +25,16 @@ public interface IMvvmActivity {
     ViewDataBinding onCreateView(LayoutInflater inflater, ViewGroup parent);
 
     /**
-     * @Method: setViewModel
+     * @Method: onCreateViewModel
      * @author create by Tang
      * @date date 16/11/15 下午4:02
-     * @Description: 绑定ViewModel
+     * @Description:
+     * 绑定ViewModel
+     * 必须在该方法中生成ViewModel实例
      */
-    ViewModel setViewModel();
+    ViewModel onBindingViewModel();
+
+
+
+
 }

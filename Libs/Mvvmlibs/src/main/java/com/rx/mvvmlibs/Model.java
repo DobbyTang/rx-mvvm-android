@@ -4,6 +4,8 @@ package com.rx.mvvmlibs;
 import android.util.Log;
 
 
+import com.rx.utillibs.LogUtil;
+
 import javax.inject.Inject;
 
 import rx.Scheduler;
@@ -20,7 +22,6 @@ import rx.schedulers.Schedulers;
  */
 public class Model<Data> implements IModel{
 
-    private static final String TAG = "Model";
 
     private Subscriber subscriber;
 
@@ -35,40 +36,15 @@ public class Model<Data> implements IModel{
     public Model(IViewModel viewModel){
         this.viewModel = viewModel;
         this.resultScheduler = AndroidSchedulers.mainThread();
-        init();
     }
 
     @Override
     public void enqueueRequest() {
-        viewModel.setApiInterface()
-//                .doOnNext(next)
-                .subscribeOn(Schedulers.io())
-                .observeOn(resultScheduler)
-                .subscribe(subscriber);
-    }
 
-    @Override
-    public void cancelRequest() {
-        subscriber.unsubscribe();
-    }
-
-    @Override
-    public void setResultScheduler(Scheduler scheduler) {
-        this.resultScheduler = scheduler;
-    }
-
-    /**
-     * @Method: init
-     * @author create by Tang
-     * @date date 16/11/14 下午3:47
-     * @Description: 初始化Subscriber和Action1
-     * @subscriber: 观察者
-     * @next: 被观察者
-     */
-    private void init(){
         subscriber = new Subscriber<Result<Data>>() {
             @Override
             public void onCompleted() {
+                LogUtil.d(Model.this.getClass(), "onCompleted: onSuccess");
                 viewModel.onSuccess();
             }
 
@@ -80,19 +56,30 @@ public class Model<Data> implements IModel{
 
             @Override
             public void onNext(Result<Data> result) {
-                Log.d(TAG, "onNext: = " + Thread.currentThread().getName()) ;
-                Log.d(TAG, "onNext: result error num = " + result.errNum.get() );
                 viewModel.result(result);
 
             }
         };
 
-//        next = new Action1<Result<Data>> () {
-//
-//            @Override
-//            public void call(Result<Data> result) {
-//                Log.d(TAG, "call: next thread = " + Thread.currentThread().getName());
-//            }
-//        };
+        viewModel.setApiInterface()
+                .subscribeOn(Schedulers.io())
+                .observeOn(resultScheduler)
+                .subscribe(subscriber);
     }
+
+    @Override
+    public void cancelRequest() {
+        if (subscriber != null && !subscriber.isUnsubscribed()){
+            LogUtil.d(this.getClass(), "cancelRequest: ");
+            subscriber.unsubscribe();
+        }
+    }
+
+    @Override
+    public void setResultScheduler(Scheduler scheduler) {
+        this.resultScheduler = scheduler;
+    }
+
+
+
 }

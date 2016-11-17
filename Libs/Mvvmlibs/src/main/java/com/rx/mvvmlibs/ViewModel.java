@@ -3,11 +3,18 @@ package com.rx.mvvmlibs;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.databinding.ViewDataBinding;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.component.DaggerViewModelComponent;
 import com.rx.mvvmlibs.module.ViewModelModule;
+import com.rx.mvvmlibs.view.MvvmActivity;
+import com.rx.utillibs.LogUtil;
 
 /**
  * @ClassName: ViewModel
@@ -18,11 +25,13 @@ import com.rx.mvvmlibs.module.ViewModelModule;
 
 public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
+
     public ViewModelWrapper viewModelWrapper;
 
-    public ViewModel(Activity activity){
+    public ViewModel(MvvmActivity activity){
         init(activity);
     }
+
 
     @Override
     public void enqueue() {
@@ -56,11 +65,17 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
                             .mvvmProgressBar
                             .setVisibility(View.VISIBLE);
 
+                    viewModelWrapper.childBinding.getRoot().setVisibility(View.GONE);
+
                 }else {
                     viewModelWrapper
                             .defaultProgressBinding
                             .mvvmProgressBar
                             .setVisibility(View.GONE);
+
+                    viewModelWrapper.childBinding.getRoot().setVisibility(View.VISIBLE);
+
+
                 }
                 break;
             case ProgressBean.PROGRESS_TYPE_DIALOG:
@@ -72,12 +87,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
                 break;
 
             case ProgressBean.PROGRESS_TYPE_DROP_DOWN:
-                if (enable){
-                    viewModelWrapper.contentMvvmBinding.refreshLayout.setRefreshing(true);
-
-                }else {
-                    viewModelWrapper.contentMvvmBinding.refreshLayout.setRefreshing(false);
-                }
+                viewModelWrapper.contentMvvmBinding.refreshLayout.setRefreshing(enable);
                 break;
         }
     }
@@ -85,9 +95,9 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     @Override
     public void setProgressType(int type) {
         if (type != ProgressBean.PROGRESS_TYPE_DROP_DOWN){
-            viewModelWrapper.contentMvvmBinding.refreshLayout.setClickable(false);
+            viewModelWrapper.contentMvvmBinding.refreshLayout.setEnabled(false);
         }else {
-            viewModelWrapper.contentMvvmBinding.refreshLayout.setClickable(true);
+            viewModelWrapper.contentMvvmBinding.refreshLayout.setEnabled(true);
         }
         viewModelWrapper.progress.progressType = type;
     }
@@ -107,11 +117,29 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     }
 
-    private void init(Activity activity){
+    private void init(MvvmActivity activity){
         viewModelWrapper = new ViewModelWrapper();
         DaggerViewModelComponent.builder()
                 .viewModelModule(new ViewModelModule(this,activity)).build()
                 .inject(viewModelWrapper);
+
+        viewModelWrapper.contentMvvmBinding.refreshLayout
+                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                LogUtil.d(this.getClass(), "onRefresh: ");
+            }
+        });
+
+
+        viewModelWrapper.progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                LogUtil.d(this.getClass(), "onCancel: ");
+                cancel();
+
+            }
+        });
 
     }
 

@@ -13,10 +13,6 @@ import javax.inject.Inject;
 
 public class ProgressBean {
 
-    @Inject
-    public ProgressBean(){
-
-    }
 
     //默认进度条
     public static final int PROGRESS_TYPE_DEFAULT = 1;
@@ -28,6 +24,13 @@ public class ProgressBean {
     public static final int PROGRESS_TYPE_DROP_DOWN = 3;
 
     //默认对加载进度条
-    public int progressType = PROGRESS_TYPE_DEFAULT;
+    public int progressType;
+
+    @Inject
+    public ProgressBean(){
+        progressType = PROGRESS_TYPE_DEFAULT;
+    }
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.rx.mvvmlibs;
 
 import android.app.ProgressDialog;
+import android.databinding.ViewDataBinding;
 
 import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
@@ -30,7 +31,10 @@ public class ViewModelWrapper {
     ActivityMvvmBinding activityMvvmBinding;
 
     @Inject
-    public ContentMvvmBinding contentMvvmBinding;
+    ContentMvvmBinding contentMvvmBinding;
+
+    @Inject
+    public ViewDataBinding childBinding;
 
     @Inject
     DefaultProgressBinding defaultProgressBinding;

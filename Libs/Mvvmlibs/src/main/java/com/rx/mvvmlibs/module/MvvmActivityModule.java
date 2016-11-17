@@ -1,5 +1,7 @@
 package com.rx.mvvmlibs.module;
 
+
+import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.view.MvvmActivity;
 
@@ -18,14 +20,16 @@ public class MvvmActivityModule {
 
     private MvvmActivity activity;
 
+    private ViewModel viewModel;
+
     public MvvmActivityModule(MvvmActivity activity){
         this.activity = activity;
     }
 
-
     @Provides
-    public ContentMvvmBinding providesContentMvvmBinding(){
-        return activity.setViewModel().viewModelWrapper.contentMvvmBinding;
+    public ViewModel providesViewModel(){
+        viewModel = activity.onBindingViewModel();
+        return viewModel;
     }
 
 }

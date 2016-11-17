@@ -15,8 +15,23 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{testViewModel.testClick}"
-            android:text="test"/>
+            android:layout_gravity="center"
+            android:onClick="@{v ->testViewModel.defaultClick(v)}"
+            android:text="默认进度条"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{v -> testViewModel.dialogClick(v)}"
+            android:text="对话框进度条"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{v -> testViewModel.dropdownClick(v)}"
+            android:text="下拉进度条"/>
 
     </LinearLayout>
 </layout>
