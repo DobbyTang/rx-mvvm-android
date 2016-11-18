@@ -28,7 +28,6 @@ public class ProgressBean {
 
     @Inject
     public ProgressBean(){
-        progressType = PROGRESS_TYPE_DEFAULT;
     }
 
 

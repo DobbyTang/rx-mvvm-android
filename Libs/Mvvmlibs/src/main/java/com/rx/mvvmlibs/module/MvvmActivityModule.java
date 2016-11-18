@@ -2,7 +2,6 @@ package com.rx.mvvmlibs.module;
 
 
 import com.rx.mvvmlibs.ViewModel;
-import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.view.MvvmActivity;
 
 import dagger.Module;

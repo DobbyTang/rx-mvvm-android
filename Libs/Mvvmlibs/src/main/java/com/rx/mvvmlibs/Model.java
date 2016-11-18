@@ -56,7 +56,7 @@ public class Model<Data> implements IModel{
 
             @Override
             public void onNext(Result<Data> result) {
-                viewModel.result(result);
+                viewModel.onResult(result);
 
             }
         };

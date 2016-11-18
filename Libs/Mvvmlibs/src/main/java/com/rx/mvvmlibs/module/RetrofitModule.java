@@ -30,12 +30,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
 
-    private String SERVER_PRODUCTION = "http://apis.baidu.com";
+    private String serverUrl;
+
+    private int timeout;
+
+    public RetrofitModule(String url,int timeout){
+        this.serverUrl = url;
+        this.timeout = timeout;
+
+    }
 
     @ApplicationScope
     @Provides
     public Retrofit providesRetrofit(){
-        return new Retrofit.Builder().baseUrl(SERVER_PRODUCTION)
+        return new Retrofit.Builder().baseUrl(serverUrl)
                 .addConverterFactory(initGsonConverterFactory())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(initOkHttpClient())
@@ -62,7 +70,7 @@ public class RetrofitModule {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(new HeaderInterceptor())
                 .retryOnConnectionFailure(true)
-                .connectTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(timeout, TimeUnit.SECONDS)
                 .build();
     }
 

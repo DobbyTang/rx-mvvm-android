@@ -38,13 +38,20 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
         return nuomi;
     }
 
+
     @Override
-    public void result(Result<List<NuoMiCategoryBean>> result) {
-        LogUtil.d(this.getClass(), "result: " + result.data.get(0).cat_name.get());
-        Snackbar.make(viewModelWrapper.childBinding.getRoot()
-                ,result.data.get(0).cat_name.get(),Snackbar.LENGTH_SHORT).show();
+    public void result(List<NuoMiCategoryBean> resultData) {
+        Snackbar.make(
+                viewModelWrapper.childBinding.getRoot()
+                ,resultData.get(0).cat_name.get()
+                , Snackbar.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void init() {
+        super.init();
+        setProgressType(ProgressBean.PROGRESS_TYPE_DROP_DOWN);
+    }
 
     public void defaultClick(View view){
         setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);

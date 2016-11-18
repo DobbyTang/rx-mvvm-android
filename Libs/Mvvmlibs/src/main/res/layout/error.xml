@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="error"
+            type="com.rx.mvvmlibs.bean.ErrorBean"/>
+
+    </data>
+
         <LinearLayout
             android:id="@+id/mvvm_error_layout"
             android:layout_width="wrap_content"
@@ -14,13 +22,13 @@
                 android:id="@+id/mvvm_error_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@{error.drawable}"/>
 
             <TextView
                 android:id="@+id/mvvm_error_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="网络连接错误,点击从新连接"/>
+                android:text="@{error.message}"/>
 
         </LinearLayout>
 

@@ -11,7 +11,6 @@ import rx.Observable;
 
 public interface IViewModel<Data> {
 
-
     /**
      * @Method: enqueue
      * @author create by Tang
@@ -39,6 +38,15 @@ public interface IViewModel<Data> {
      */
     Observable setApiInterface();
 
+
+    /**
+     * @Method: onReconnection
+     * @author create by Tang
+     * @date date 16/11/18 上午10:19
+     * @Description: 重连回调
+     */
+    void onReconnection();
+
     /**
      * @Method: modelResult
      * @author create by Tang
@@ -46,7 +54,7 @@ public interface IViewModel<Data> {
      * @Description: 
      * Model层回调的数据
      */
-    void result(Result<Data> result);
+    void onResult(Result<Data> result);
 
     /**
      * @Method: onSuccess
@@ -79,6 +87,14 @@ public interface IViewModel<Data> {
      * @Description: 设置加载进度条类型
      */
     void setProgressType(int type);
+
+    /**
+     * @Method: init
+     * @author create by Tang
+     * @date date 16/11/18 上午10:54
+     * @Description: 可以在此方法作一些初始化操作
+     */
+    void init();
 
 
 }

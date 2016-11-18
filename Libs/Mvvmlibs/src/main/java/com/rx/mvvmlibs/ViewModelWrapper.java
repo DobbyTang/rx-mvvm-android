@@ -3,6 +3,7 @@ package com.rx.mvvmlibs;
 import android.app.ProgressDialog;
 import android.databinding.ViewDataBinding;
 
+import com.rx.mvvmlibs.bean.ErrorBean;
 import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
@@ -23,6 +24,9 @@ public class ViewModelWrapper {
 
     @Inject
     ProgressBean progress;
+
+    @Inject
+    ErrorBean error;
 
     @Inject
     IModel model;

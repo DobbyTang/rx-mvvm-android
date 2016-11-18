@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.rx.mvvmlibs.component.DaggerRetrofitComponent;
 import com.rx.mvvmlibs.component.RetrofitComponent;
+import com.rx.mvvmlibs.module.RetrofitModule;
 
 import javax.inject.Inject;
 
@@ -24,9 +25,6 @@ public class RxMvvmApplication extends Application {
 
     private static final String TAG = "RxMvvmApplication";
     private static RxMvvmApplication myApp;
-
-
-    private RetrofitComponent mvvmAppComponent;
 
     @Inject
     Retrofit retrofit;
@@ -47,7 +45,7 @@ public class RxMvvmApplication extends Application {
     }
 
     protected void init(){
-        reSetRetrofit();
+        initRetrofit();
     }
 
     public Retrofit getRetrofit(){
@@ -55,9 +53,12 @@ public class RxMvvmApplication extends Application {
         return retrofit;
     }
 
-    public void reSetRetrofit(){
-        mvvmAppComponent = DaggerRetrofitComponent.builder().build();
-        mvvmAppComponent.inject(this);
+    public void initRetrofit(){
+        DaggerRetrofitComponent
+                .builder()
+                .retrofitModule(new RetrofitModule("http://apis.baidu.com",15))
+                .build()
+                .inject(this);
         Log.d(TAG, "init: " + retrofit);
 
     }

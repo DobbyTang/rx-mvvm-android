@@ -3,6 +3,7 @@ package com.android.rx_mvvm;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.rx_mvvm.databinding.ActivityTestBinding;
@@ -33,7 +34,6 @@ public class TestMvvmActivity extends MvvmActivity{
     @Override
     public ViewModel onBindingViewModel() {
         testViewModel = new TestViewModel(this);
-        testViewModel.setProgressType(ProgressBean.PROGRESS_TYPE_DROP_DOWN);
         binding.setTestViewModel(testViewModel);
         return testViewModel;
     }

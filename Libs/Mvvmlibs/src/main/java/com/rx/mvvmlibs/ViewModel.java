@@ -3,6 +3,8 @@ package com.rx.mvvmlibs;
 
 
 import android.content.DialogInterface;
+import android.databinding.ObservableField;
+import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
@@ -26,8 +28,13 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     public ViewModelWrapper viewModelWrapper;
 
+    private MvvmActivity activity;
+
+    public abstract void result(Data resultData);
+
     public ViewModel(MvvmActivity activity){
-        init(activity);
+        this.activity = activity;
+        init();
     }
 
 
@@ -44,14 +51,34 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     }
 
     @Override
+    public void onReconnection() {
+        LogUtil.d(ViewModel.this.getClass(), "onRefresh: ");
+        if (viewModelWrapper.progress.progressType != ProgressBean.PROGRESS_TYPE_DROP_DOWN
+                && viewModelWrapper.errorBinding.getRoot().getVisibility() == View.VISIBLE){
+            viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);
+        }
+        enqueue();
+    }
+
+    @Override
+    public void onResult(Result<Data> result) {
+        if (result.errNum == 0){
+            result(result.data);
+        }else {
+            onError(result.errNum,result.errMsg);
+        }
+    }
+
+    @Override
     public void onSuccess() {
         isSuccess = true;
+        viewModelWrapper.childBinding.getRoot().setVisibility(View.VISIBLE);
+        viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);
         showProgress(false);
     }
 
     @Override
     public void onNetworkError(Throwable e) {
-        showProgress(false);
         onError(Error.CODE_NETWORK,Error.DESC_NETWORK);
     }
 
@@ -103,13 +130,13 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     }
 
     @Override
-    public int setErrorImageResource() {
-        return 0;
+    public Drawable setErrorImageResource() {
+        return activity.getResources().getDrawable(R.mipmap.ic_launcher);
     }
 
     @Override
     public String setErrorString() {
-        return null;
+        return "网络错误，点击重新连接";
     }
 
     @Override
@@ -118,21 +145,29 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
          * 这里没有针对错误代码做处理
          * 如果需要根据错误代码处理特殊情况需要手动实现
          */
+        showProgress(false);
+        if (!isSuccess){
+            viewModelWrapper.childBinding.getRoot().setVisibility(View.GONE);
+            viewModelWrapper.errorBinding.getRoot().setVisibility(View.VISIBLE);
+        }
 
-        setErrorString();
     }
 
-    private void init(MvvmActivity activity){
+    @Override
+    public void init(){
         viewModelWrapper = new ViewModelWrapper();
         DaggerViewModelComponent.builder()
                 .viewModelModule(new ViewModelModule(this,activity)).build()
                 .inject(viewModelWrapper);
+        viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
+        setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);
 
         viewModelWrapper.contentMvvmBinding.refreshLayout
+
                 .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                LogUtil.d(this.getClass(), "onRefresh: ");
+                onReconnection();
             }
         });
 
@@ -140,9 +175,15 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         viewModelWrapper.progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                LogUtil.d(this.getClass(), "onCancel: ");
                 cancel();
 
+            }
+        });
+
+        viewModelWrapper.errorBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onReconnection();
             }
         });
 

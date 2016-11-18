@@ -1,7 +1,5 @@
 package com.rx.mvvmlibs;
 
-import android.databinding.ObservableField;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -13,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Result<Data> {
     @SerializedName(value = "errNum",alternate = {"status","errno"})
-    public ObservableField<Integer> errNum;
+    public int errNum;
 
     @SerializedName(value = "errMsg",alternate = {"msg"})
     public String errMsg;
