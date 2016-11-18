@@ -81,20 +81,14 @@ public interface IViewModel<Data> {
     void showProgress(boolean enable);
 
     /**
-     * @Method: setProgressType
-     * @author create by Tang
-     * @date date 16/11/15 下午5:04
-     * @Description: 设置加载进度条类型
-     */
-    void setProgressType(int type);
-
-    /**
      * @Method: init
      * @author create by Tang
      * @date date 16/11/18 上午10:54
      * @Description: 可以在此方法作一些初始化操作
      */
     void init();
+
+
 
 
 }

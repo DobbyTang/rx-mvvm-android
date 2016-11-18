@@ -1,10 +1,10 @@
 package com.rx.mvvmlibs.module;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.util.Log;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
 
@@ -15,7 +15,6 @@ import com.rx.mvvmlibs.Model;
 import com.rx.mvvmlibs.R;
 import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.bean.ErrorBean;
-import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
@@ -87,6 +86,7 @@ public class ViewModelModule {
     public DefaultProgressBinding providesProgressBinding(){
         return contentMvvmBinding.mvvmDefaultProgress;
     }
+
 
     @Provides
     public ErrorBean providesError(){

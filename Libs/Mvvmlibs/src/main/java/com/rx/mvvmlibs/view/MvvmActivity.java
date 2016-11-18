@@ -1,17 +1,13 @@
 package com.rx.mvvmlibs.view;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.widget.FrameLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
-import com.rx.mvvmlibs.IViewModel;
 import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.component.DaggerMvvmActivityComponent;
-import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
-import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.module.MvvmActivityModule;
 import com.rx.mvvmlibs.view.iview.IMvvmActivity;
 
@@ -24,7 +20,7 @@ import javax.inject.Inject;
  * @Description: TODO
  */
 
-public abstract class MvvmActivity extends Activity implements IMvvmActivity{
+public abstract class MvvmActivity extends AppCompatActivity implements IMvvmActivity{
 
     @Inject
     ViewModel viewModel;
@@ -36,6 +32,7 @@ public abstract class MvvmActivity extends Activity implements IMvvmActivity{
                 .mvvmActivityModule(new MvvmActivityModule(this))
                 .build()
                 .inject(this);
+        init();
 
     }
 
@@ -43,6 +40,16 @@ public abstract class MvvmActivity extends Activity implements IMvvmActivity{
     protected void onPause() {
         super.onPause();
         viewModel.cancel();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -68,4 +75,8 @@ public abstract class MvvmActivity extends Activity implements IMvvmActivity{
 
     }
 
+    @Override
+    public void init() {
+        // TODO: 16/11/18
+    }
 }

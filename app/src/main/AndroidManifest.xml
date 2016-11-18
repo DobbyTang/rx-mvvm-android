@@ -22,7 +22,7 @@
         </activity>
 
 
-        <activity android:name=".TestMvvmActivity"/>
+        <activity android:name=".TestMvvmActivity" android:label="test"/>
     </application>
 
 </manifest>

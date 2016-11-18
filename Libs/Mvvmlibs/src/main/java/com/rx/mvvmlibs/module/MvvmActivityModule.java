@@ -19,7 +19,6 @@ public class MvvmActivityModule {
 
     private MvvmActivity activity;
 
-    private ViewModel viewModel;
 
     public MvvmActivityModule(MvvmActivity activity){
         this.activity = activity;
@@ -27,8 +26,7 @@ public class MvvmActivityModule {
 
     @Provides
     public ViewModel providesViewModel(){
-        viewModel = activity.onBindingViewModel();
-        return viewModel;
+        return  activity.onBindingViewModel();
     }
 
 }

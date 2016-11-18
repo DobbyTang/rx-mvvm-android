@@ -1,16 +1,12 @@
 package com.android.rx_mvvm;
 
-import android.app.Activity;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 
-import com.rx.mvvmlibs.Result;
+import com.android.rx_mvvm.bean.NuoMiCategoryBean;
 import com.rx.mvvmlibs.RxMvvmApplication;
 import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.bean.ProgressBean;
-import com.rx.mvvmlibs.view.MvvmActivity;
-import com.rx.utillibs.LogUtil;
 
 import java.util.List;
 
@@ -30,7 +26,7 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
 
     public TestViewModel(TestMvvmActivity activity) {
         super(activity);
-        nuomi = RxMvvmApplication.getInstance().getRetrofit().create(ApiNuoMi.class).rxGetCategory();
+        nuomi = RxMvvmApplication.getInstance().getRetrofit().create(BaiduApi.class).rxGetCategory();
     }
 
     @Override
@@ -51,6 +47,7 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
     public void init() {
         super.init();
         setProgressType(ProgressBean.PROGRESS_TYPE_DROP_DOWN);
+
     }
 
     public void defaultClick(View view){

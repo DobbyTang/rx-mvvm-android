@@ -38,4 +38,10 @@ public class TestMvvmActivity extends MvvmActivity{
         return testViewModel;
     }
 
+    @Override
+    public void init() {
+        super.init();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle("test111");
+    }
 }

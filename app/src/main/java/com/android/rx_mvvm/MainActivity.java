@@ -1,6 +1,5 @@
 package com.android.rx_mvvm;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,11 +11,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.rx.mvvmlibs.Model;
-import com.rx.mvvmlibs.Result;
+import com.android.rx_mvvm.bean.TestBean;
 import com.rx.mvvmlibs.RxMvvmApplication;
-
-import java.util.List;
 
 import retrofit2.Retrofit;
 import rx.Observable;
@@ -46,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         retrofit = RxMvvmApplication.getInstance().getRetrofit();
-        observable = retrofit.create(ApiNuoMi.class).rxGetCategory();
+        observable = retrofit.create(BaiduApi.class).rxGetCategory();
 
     }
 

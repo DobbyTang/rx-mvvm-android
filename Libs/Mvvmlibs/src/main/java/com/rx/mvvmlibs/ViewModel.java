@@ -3,7 +3,6 @@ package com.rx.mvvmlibs;
 
 
 import android.content.DialogInterface;
-import android.databinding.ObservableField;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -120,16 +119,6 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     }
 
     @Override
-    public void setProgressType(int type) {
-        if (type != ProgressBean.PROGRESS_TYPE_DROP_DOWN){
-            viewModelWrapper.contentMvvmBinding.refreshLayout.setEnabled(false);
-        }else {
-            viewModelWrapper.contentMvvmBinding.refreshLayout.setEnabled(true);
-        }
-        viewModelWrapper.progress.progressType = type;
-    }
-
-    @Override
     public Drawable setErrorImageResource() {
         return activity.getResources().getDrawable(R.mipmap.ic_launcher);
     }
@@ -153,14 +142,18 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     }
 
+
     @Override
     public void init(){
         viewModelWrapper = new ViewModelWrapper();
         DaggerViewModelComponent.builder()
                 .viewModelModule(new ViewModelModule(this,activity)).build()
                 .inject(viewModelWrapper);
+
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
+        activity.setSupportActionBar(viewModelWrapper.activityMvvmBinding.toolbar);
         setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewModelWrapper.contentMvvmBinding.refreshLayout
 
@@ -188,5 +181,15 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         });
 
     }
+
+    public void setProgressType(int type) {
+        if (type != ProgressBean.PROGRESS_TYPE_DROP_DOWN){
+            viewModelWrapper.contentMvvmBinding.refreshLayout.setEnabled(false);
+        }else {
+            viewModelWrapper.contentMvvmBinding.refreshLayout.setEnabled(true);
+        }
+        viewModelWrapper.progress.progressType = type;
+    }
+
 
 }

@@ -22,6 +22,6 @@ public class Result<Data> {
      * @Description: 兼容不同的情况
      * @restData: 百度api,天气data
      */
-    @SerializedName(value = "data",alternate = {"retData","categories","shop"})
+    @SerializedName(value = "data",alternate = {"retData","categories","shop","subjects"})
     public Data data;
 }

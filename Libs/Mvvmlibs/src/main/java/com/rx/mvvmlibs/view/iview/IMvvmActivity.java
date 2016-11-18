@@ -28,15 +28,17 @@ public interface IMvvmActivity {
      * @Method: onCreateViewModel
      * @author create by Tang
      * @date date 16/11/15 下午4:02
-     * @Description:
-     * 绑定ViewModel
+     * @Description: 绑定ViewModel
      * 必须在该方法中生成ViewModel实例
      */
     ViewModel onBindingViewModel();
 
-
-
-
-
+    /**
+     * @Method: init
+     * @author create by Tang
+     * @date date 16/11/18 下午5:16
+     * @Description: 可以在这里做一些初始化操作d
+     */
+    void init();
 
 }

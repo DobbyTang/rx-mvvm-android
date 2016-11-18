@@ -1,4 +1,4 @@
-package com.android.rx_mvvm;
+package com.android.rx_mvvm.bean;
 
 import android.databinding.ObservableField;
 
