@@ -1,12 +1,10 @@
 package com.rx.mvvmlibs;
 
 import android.app.Application;
-import android.databinding.ObservableField;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rx.mvvmlibs.component.DaggerRetrofitComponent;
-import com.rx.mvvmlibs.component.RetrofitComponent;
 import com.rx.mvvmlibs.module.RetrofitModule;
 
 import javax.inject.Inject;

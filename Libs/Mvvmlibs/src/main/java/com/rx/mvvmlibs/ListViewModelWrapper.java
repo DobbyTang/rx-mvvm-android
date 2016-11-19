@@ -1,6 +1,11 @@
 package com.rx.mvvmlibs;
 
+import android.databinding.ViewDataBinding;
+
 import com.rx.mvvmlibs.bean.ErrorBean;
+import com.rx.mvvmlibs.databinding.ActivityMvvmListBinding;
+import com.rx.mvvmlibs.databinding.ContentMvvmListBinding;
+import com.rx.mvvmlibs.databinding.ErrorBinding;
 
 import javax.inject.Inject;
 
@@ -12,6 +17,18 @@ import javax.inject.Inject;
  */
 
 public class ListViewModelWrapper {
+
+    @Inject
+    ActivityMvvmListBinding activityMvvmListBinding;
+
+    @Inject
+    ContentMvvmListBinding contentMvvmListBinding;
+
+    @Inject
+    ViewDataBinding childBinding;
+
+    @Inject
+    ErrorBinding errorBinding;
 
     @Inject
     ErrorBean error;

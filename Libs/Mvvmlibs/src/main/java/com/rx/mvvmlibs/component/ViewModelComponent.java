@@ -1,13 +1,7 @@
 package com.rx.mvvmlibs.component;
 
-import android.app.ProgressDialog;
 
-import com.rx.mvvmlibs.IModel;
 import com.rx.mvvmlibs.ViewModelWrapper;
-import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
-import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
-import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
-import com.rx.mvvmlibs.databinding.ErrorBinding;
 import com.rx.mvvmlibs.module.ViewModelModule;
 
 import dagger.Component;

@@ -40,14 +40,6 @@ public interface IViewModel<Data> {
 
 
     /**
-     * @Method: onReconnection
-     * @author create by Tang
-     * @date date 16/11/18 上午10:19
-     * @Description: 重连回调
-     */
-    void onReconnection();
-
-    /**
      * @Method: modelResult
      * @author create by Tang
      * @date date 16/11/14 下午4:08

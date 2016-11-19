@@ -1,7 +1,5 @@
 package com.rx.mvvmlibs;
 
-
-
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -47,16 +45,6 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     public void cancel() {
         showProgress(false);
         viewModelWrapper.model.cancelRequest();
-    }
-
-    @Override
-    public void onReconnection() {
-        LogUtil.d(ViewModel.this.getClass(), "onRefresh: ");
-        if (viewModelWrapper.progress.progressType != ProgressBean.PROGRESS_TYPE_DROP_DOWN
-                && viewModelWrapper.errorBinding.getRoot().getVisibility() == View.VISIBLE){
-            viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);
-        }
-        enqueue();
     }
 
     @Override
@@ -180,6 +168,21 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
             }
         });
 
+    }
+
+    /**
+     * @Method: onReconnection
+     * @author create by Tang
+     * @date date 16/11/19 下午3:40
+     * @Description: 重连事件
+     */
+    public void onReconnection() {
+        LogUtil.d(ViewModel.this.getClass(), "onRefresh: ");
+        if (viewModelWrapper.progress.progressType != ProgressBean.PROGRESS_TYPE_DROP_DOWN
+                && viewModelWrapper.errorBinding.getRoot().getVisibility() == View.VISIBLE){
+            viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);
+        }
+        enqueue();
     }
 
     public void setProgressType(int type) {

@@ -1,7 +1,6 @@
 package com.rx.mvvmlibs;
 
 
-import android.util.Log;
 
 
 import com.rx.utillibs.LogUtil;
@@ -11,7 +10,6 @@ import javax.inject.Inject;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -20,7 +18,7 @@ import rx.schedulers.Schedulers;
  * @date date 16/11/10 下午2:11
  * @Description: MVVM的Model实现
  */
-public class Model<Data> implements IModel{
+public class Model implements IModel{
 
 
     private Subscriber subscriber;
@@ -41,7 +39,7 @@ public class Model<Data> implements IModel{
     @Override
     public void enqueueRequest() {
 
-        subscriber = new Subscriber<Result<Data>>() {
+        subscriber = new Subscriber<Result>() {
             @Override
             public void onCompleted() {
                 LogUtil.d(Model.this.getClass(), "onCompleted: onSuccess");
@@ -55,7 +53,7 @@ public class Model<Data> implements IModel{
             }
 
             @Override
-            public void onNext(Result<Data> result) {
+            public void onNext(Result result) {
                 viewModel.onResult(result);
 
             }

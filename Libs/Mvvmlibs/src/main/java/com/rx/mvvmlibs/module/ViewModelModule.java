@@ -70,9 +70,10 @@ public class ViewModelModule {
 
         ViewDataBinding childBinding = activity.onCreateView(activity.getLayoutInflater()
                 ,contentMvvmBinding.mvvmFrameLayout);
-        if (childBinding != null )
+        if (childBinding != null ){
             contentMvvmBinding.mvvmFrameLayout
                     .addView(childBinding.getRoot(),lp);
+        }
         return childBinding;
     }
 
@@ -95,7 +96,7 @@ public class ViewModelModule {
 
     @Provides
     public IModel providesModel(){
-        return new Model<>(viewModel);
+        return new Model(viewModel);
     }
 
     @Provides

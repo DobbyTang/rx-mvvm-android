@@ -12,12 +12,14 @@ import com.rx.mvvmlibs.ListViewModel;
 public interface IListMvvmActivity {
 
     /**
-     * @ClassName: IListMvvmActivity
+     * @ClassName: onReBindingViewModel
      * @author create by Tang
      * @date date 16/11/18 下午4:05
-     * @Description: TODO
+     * @Description:
+     * 替换默认ViewModel
+     * 重新绑定ViewModel
      */
-    ListViewModel onBindingViewModel();
+    ListViewModel onReBindingViewModel();
 
     /**
      * @Method: init

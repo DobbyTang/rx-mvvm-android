@@ -1,6 +1,8 @@
 package com.rx.mvvmlibs.component;
 
+import com.rx.mvvmlibs.ListViewModelWrapper;
 import com.rx.mvvmlibs.module.ListMvvmActivityModule;
+import com.rx.mvvmlibs.module.ListViewModelModule;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
 
 import dagger.Component;
@@ -12,8 +14,8 @@ import dagger.Component;
  * @Description: TODO
  */
 
-@Component(modules = ListMvvmActivityModule.class)
+@Component(modules = ListViewModelModule.class)
 public interface ListViewModelComponent {
 
-    void inject(ListMvvmActivity listMvvmActivity);
+    void inject(ListViewModelWrapper listViewModelWrapper);
 }
