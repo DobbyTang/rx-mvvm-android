@@ -4,13 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.rx.mvvmlibs.component.DaggerListViewModelComponent;
-import com.rx.mvvmlibs.module.ListMvvmActivityModule;
 import com.rx.mvvmlibs.module.ListViewModelModule;
+import com.rx.mvvmlibs.network.BasicParamsInterceptor;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
 
 import java.util.List;
 
-import rx.Observable;
 
 /**
  * @ClassName: ListViewModel
@@ -19,32 +18,30 @@ import rx.Observable;
  * @Description: 用于处理列表型数据
  */
 
-public class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
+public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
 
     public ListViewModelWrapper viewModelWrapper;
 
-    private ListMvvmActivity acitivty;
+    private ListMvvmActivity activity;
 
     Data data;
 
-    public ListViewModel(ListMvvmActivity acitivty){
-        this.acitivty = acitivty;
+    public ListViewModel(ListMvvmActivity activity){
+        this.activity = activity;
         init();
     }
 
     @Override
     public void enqueue() {
+        showProgress(true);
+        viewModelWrapper.model.enqueueRequest();
 
     }
 
     @Override
     public void cancel() {
-
-    }
-
-    @Override
-    public Observable setApiInterface() {
-        return null;
+        showProgress(false);
+        viewModelWrapper.model.cancelRequest();
     }
 
     @Override
@@ -63,7 +60,7 @@ public class ListViewModel<Data extends List> implements IListViewModel<Data>,IE
 
     @Override
     public void onSuccess() {
-
+        showProgress(false);
     }
 
     @Override
@@ -73,20 +70,20 @@ public class ListViewModel<Data extends List> implements IListViewModel<Data>,IE
 
     @Override
     public void showProgress(boolean enable) {
-
+        viewModelWrapper.contentMvvmListBinding.refreshLayout.setEnabled(enable);
     }
 
     @Override
     public void init() {
         viewModelWrapper = new ListViewModelWrapper();
         DaggerListViewModelComponent.builder()
-                .listViewModelModule(new ListViewModelModule(this,acitivty))
+                .listViewModelModule(new ListViewModelModule(this,activity))
                 .build()
                 .inject(viewModelWrapper);
 
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
-        acitivty.setSupportActionBar(viewModelWrapper.activityMvvmListBinding.toolbar);
-        acitivty.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.setSupportActionBar(viewModelWrapper.activityMvvmListBinding.toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewModelWrapper.contentMvvmListBinding.refreshLayout
 
@@ -111,7 +108,7 @@ public class ListViewModel<Data extends List> implements IListViewModel<Data>,IE
 
     @Override
     public void onError(int errorCode, String errorDesc) {
-
+        showProgress(false);
     }
 
     @Override
@@ -124,12 +121,13 @@ public class ListViewModel<Data extends List> implements IListViewModel<Data>,IE
         if (data != null){
             data.clear();
         }
-        enqueue();
+        loading();
     }
 
     @Override
     public void loading () {
-
+        // TODO: 16/11/19 处理分页数据
+        enqueue();
     }
 
     @Override
