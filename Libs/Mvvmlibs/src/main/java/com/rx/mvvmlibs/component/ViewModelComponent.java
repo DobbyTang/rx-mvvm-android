@@ -2,7 +2,10 @@ package com.rx.mvvmlibs.component;
 
 
 import com.rx.mvvmlibs.ViewModelWrapper;
+import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
+import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.module.ViewModelModule;
+import com.rx.mvvmlibs.scope.ViewModelScope;
 
 import dagger.Component;
 
@@ -13,8 +16,13 @@ import dagger.Component;
  * @Description:
  */
 
+@ViewModelScope
 @Component(modules = ViewModelModule.class)
 public interface ViewModelComponent {
 
     void inject(ViewModelWrapper viewModelWrapper);
+
+    ActivityMvvmBinding getActivityMvvmBinding();
+
+    ContentMvvmBinding getContentMvvmBinding();
 }

@@ -29,7 +29,7 @@ public class ViewModelWrapper {
     ErrorBean error;
 
     @Inject
-    IModel model;
+    public IModel model;
 
     @Inject
     ActivityMvvmBinding activityMvvmBinding;

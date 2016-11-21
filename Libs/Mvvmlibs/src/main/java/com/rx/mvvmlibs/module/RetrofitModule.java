@@ -6,12 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.TypeAdapters;
 import com.rx.mvvmlibs.internal.ObservableFieldTypeAdapter;
-import com.rx.mvvmlibs.network.HeaderInterceptor;
-import com.rx.mvvmlibs.scope.ApplicationScope;
+import com.rx.mvvmlibs.network.BaseParamsInterceptor;
+import com.rx.mvvmlibs.scope.RetrofitScope;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -34,24 +32,43 @@ public class RetrofitModule {
 
     private int timeout;
 
+    private BaseParamsInterceptor.Builder interceptorBuilder;
+
     public RetrofitModule(String url,int timeout){
         this.serverUrl = url;
         this.timeout = timeout;
 
     }
 
-    @ApplicationScope
+    @RetrofitScope
     @Provides
-    public Retrofit providesRetrofit(){
+    public BaseParamsInterceptor.Builder providesInterceptorBuilder(){
+        interceptorBuilder = new BaseParamsInterceptor.Builder();
+        return interceptorBuilder;
+    }
+
+    @RetrofitScope
+    @Provides
+    public Retrofit providesRetrofit(OkHttpClient okHttpClient){
         return new Retrofit.Builder().baseUrl(serverUrl)
                 .addConverterFactory(initGsonConverterFactory())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(initOkHttpClient())
+                .client(okHttpClient)
                 .build();
 
     }
 
-    @ApplicationScope
+    @RetrofitScope
+    @Provides
+    public OkHttpClient initOkHttpClient(BaseParamsInterceptor.Builder builder){
+        return new OkHttpClient.Builder()
+                .addNetworkInterceptor(builder.build())
+                .retryOnConnectionFailure(true)
+                .connectTimeout(timeout, TimeUnit.SECONDS)
+                .build();
+    }
+
+    @RetrofitScope
     @Provides
     public Gson initGson(){
         return new GsonBuilder()
@@ -64,18 +81,6 @@ public class RetrofitModule {
     private GsonConverterFactory initGsonConverterFactory(){
         return GsonConverterFactory.create(initGson());
     }
-
-
-    private OkHttpClient initOkHttpClient(){
-        return new OkHttpClient.Builder()
-                .addNetworkInterceptor(new HeaderInterceptor())
-                .retryOnConnectionFailure(true)
-                .connectTimeout(timeout, TimeUnit.SECONDS)
-                .build();
-    }
-
-
-
 
 
 

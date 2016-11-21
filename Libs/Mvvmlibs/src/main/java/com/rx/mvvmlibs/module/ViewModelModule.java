@@ -3,8 +3,6 @@ package com.rx.mvvmlibs.module;
 import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
 
@@ -19,7 +17,9 @@ import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
+import com.rx.mvvmlibs.scope.ViewModelScope;
 import com.rx.mvvmlibs.view.MvvmActivity;
+import com.rx.mvvmlibs.view.MvvmFragment;
 import com.rx.utillibs.LogUtil;
 
 import dagger.Module;
@@ -36,39 +36,38 @@ import dagger.Provides;
 public class ViewModelModule {
 
     private MvvmActivity activity;
+    private MvvmFragment fragment;
     private IViewModel viewModel;
-    private IErrorInfo errorInfo;
-
-    private ActivityMvvmBinding activityMvvmBinding;
-    private ContentMvvmBinding contentMvvmBinding;
 
     public ViewModelModule(ViewModel viewModel, MvvmActivity activity){
         this.activity = activity;
         this.viewModel = viewModel;
-        this.errorInfo = viewModel;
     }
 
+    public ViewModelModule(ViewModel viewModel, MvvmFragment fragment){
+        this.fragment = fragment;
+        this.viewModel = viewModel;
+    }
+
+    @ViewModelScope
     @Provides
     public ActivityMvvmBinding providesActivityMvvmBinding(){
-        activityMvvmBinding = DataBindingUtil
-                .setContentView(activity, R.layout.activity_mvvm);
-        return activityMvvmBinding;
+        return DataBindingUtil.setContentView(activity, R.layout.activity_mvvm);
     }
 
+    @ViewModelScope
     @Provides
-    public ContentMvvmBinding providesContentMvvmBinding(){
-        LogUtil.d(getClass(), "providesContentMvvmBinding: ");
-        contentMvvmBinding = activityMvvmBinding.contentMvvm;
-        return contentMvvmBinding;
+    public ContentMvvmBinding providesContentMvvmBinding(ActivityMvvmBinding activityMvvmBinding){
+        return activityMvvmBinding.contentMvvm;
     }
 
+    @ViewModelScope
     @Provides
-    ViewDataBinding providesChildBinding(){
-        LogUtil.d(getClass(),"providesChildBinding: ");
+    ViewDataBinding providesChildBinding(ContentMvvmBinding contentMvvmBinding){
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
 
-        ViewDataBinding childBinding = activity.onCreateView(activity.getLayoutInflater()
+        ViewDataBinding childBinding = activity.onCreateBinding(activity.getLayoutInflater()
                 ,contentMvvmBinding.mvvmFrameLayout);
         if (childBinding != null ){
             contentMvvmBinding.mvvmFrameLayout
@@ -78,27 +77,31 @@ public class ViewModelModule {
     }
 
 
+    @ViewModelScope
     @Provides
-    public ErrorBinding providesErrorBinding(){
+    public ErrorBinding providesErrorBinding(ContentMvvmBinding contentMvvmBinding){
         return contentMvvmBinding.mvvmError;
     }
 
+    @ViewModelScope
     @Provides
-    public DefaultProgressBinding providesProgressBinding(){
+    public DefaultProgressBinding providesProgressBinding(ContentMvvmBinding contentMvvmBinding){
         return contentMvvmBinding.mvvmDefaultProgress;
     }
 
-
+    @ViewModelScope
     @Provides
     public ErrorBean providesError(){
-        return new ErrorBean(errorInfo.setErrorImageResource(),errorInfo.setErrorString());
+        return new ErrorBean();
     }
 
+    @ViewModelScope
     @Provides
     public IModel providesModel(){
         return new Model(viewModel);
     }
 
+    @ViewModelScope
     @Provides
     public ProgressDialog providesProgressDialog(){
         ProgressDialog dialog = new ProgressDialog(activity);

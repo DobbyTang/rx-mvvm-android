@@ -1,5 +1,9 @@
 package com.rx.mvvmlibs;
 
+import android.support.v7.widget.RecyclerView;
+
+import com.rx.mvvmlibs.view.BindingListAdapter;
+
 /**
  * @ClassName: IListViewModel
  * @author create by Tang
@@ -8,14 +12,6 @@ package com.rx.mvvmlibs;
  */
 
 public interface IListViewModel<Data> extends IViewModel<Data>{
-
-    /**
-     * @Method: reSetRecyclerView
-     * @author create by Tang
-     * @date date 16/11/19 上午10:20
-     * @Description: 重设RecyclerView布局
-     */
-    int reSetRecyclerView();
 
     /**
      * @Method: refresh
@@ -32,6 +28,10 @@ public interface IListViewModel<Data> extends IViewModel<Data>{
      * @Description: 加载下一页
      */
     void loading();
+
+    BindingListAdapter setAdapter();
+
+    RecyclerView.LayoutManager setLayoutManager();
 
     /**
      * @Method: setCount

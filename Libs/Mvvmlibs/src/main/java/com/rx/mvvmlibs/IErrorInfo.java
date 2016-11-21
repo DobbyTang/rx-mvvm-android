@@ -17,7 +17,7 @@ public interface IErrorInfo {
      * @date date 16/10/26 上午10:31
      * @Description: 设置错误显示图片
      */
-    Drawable setErrorImageResource();
+    void setErrorImageResource(Drawable drawable);
 
     /**
      * @Method: setErrorString
@@ -25,7 +25,7 @@ public interface IErrorInfo {
      * @date date 16/10/26 上午10:31
      * @Description: 设置错误显示信息
      */
-    String  setErrorString();
+    void setErrorString(String msg);
 
 
     /**

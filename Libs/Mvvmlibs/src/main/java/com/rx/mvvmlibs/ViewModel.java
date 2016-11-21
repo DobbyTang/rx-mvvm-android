@@ -27,11 +27,13 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     private MvvmActivity activity;
 
+
     public abstract void result(Data resultData);
 
     public ViewModel(MvvmActivity activity){
         this.activity = activity;
-        init();
+        viewModelWrapper = new ViewModelWrapper();
+        initActivity(activity);
     }
 
 
@@ -51,6 +53,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     public void onResult(Result<Data> result) {
         if (result.errNum == 0){
             result(result.data);
+            onSuccess();
         }else {
             onError(result.errNum,result.errMsg);
         }
@@ -107,13 +110,13 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     }
 
     @Override
-    public Drawable setErrorImageResource() {
-        return activity.getResources().getDrawable(R.mipmap.ic_launcher);
+    public void setErrorImageResource(Drawable drawable) {
+        viewModelWrapper.error.drawable.set(drawable);
     }
 
     @Override
-    public String setErrorString() {
-        return "网络错误，点击重新连接";
+    public void setErrorString(String msg) {
+        viewModelWrapper.error.message.set(msg);
     }
 
     @Override
@@ -126,6 +129,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         if (!isSuccess){
             viewModelWrapper.childBinding.getRoot().setVisibility(View.GONE);
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.VISIBLE);
+            setErrorString(errorDesc);
         }
 
     }
@@ -133,11 +137,10 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     @Override
     public void init(){
-        viewModelWrapper = new ViewModelWrapper();
-        DaggerViewModelComponent.builder()
-                .viewModelModule(new ViewModelModule(this,activity)).build()
-                .inject(viewModelWrapper);
 
+
+        viewModelWrapper.error.drawable.set(activity.getResources().getDrawable(R.mipmap.ic_launcher));
+        viewModelWrapper.error.message.set("网络错误，请重新加载");
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
         activity.setSupportActionBar(viewModelWrapper.activityMvvmBinding.toolbar);
         setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);
@@ -183,6 +186,17 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);
         }
         enqueue();
+    }
+
+    private void initActivity(MvvmActivity activity){
+        DaggerViewModelComponent.builder()
+                .viewModelModule(new ViewModelModule(this,activity)).build()
+                .inject(viewModelWrapper);
+        init();
+    }
+
+    private void initFragment(){
+
     }
 
     public void setProgressType(int type) {

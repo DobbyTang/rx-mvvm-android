@@ -1,8 +1,13 @@
 package com.rx.mvvmlibs.component;
 
 import com.rx.mvvmlibs.ListViewModelWrapper;
+import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
+import com.rx.mvvmlibs.databinding.ActivityMvvmListBinding;
+import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
+import com.rx.mvvmlibs.databinding.ContentMvvmListBinding;
 import com.rx.mvvmlibs.module.ListMvvmActivityModule;
 import com.rx.mvvmlibs.module.ListViewModelModule;
+import com.rx.mvvmlibs.scope.ListViewModelScope;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
 
 import dagger.Component;
@@ -14,8 +19,13 @@ import dagger.Component;
  * @Description: TODO
  */
 
+@ListViewModelScope
 @Component(modules = ListViewModelModule.class)
 public interface ListViewModelComponent {
 
     void inject(ListViewModelWrapper listViewModelWrapper);
+
+    ActivityMvvmListBinding getActivityMvvmBinding();
+
+    ContentMvvmListBinding getContentMvvmBinding();
 }

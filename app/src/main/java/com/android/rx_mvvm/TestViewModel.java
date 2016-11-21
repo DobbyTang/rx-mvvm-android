@@ -26,12 +26,10 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
 
     public TestViewModel(TestMvvmActivity activity) {
         super(activity);
-        nuomi = RxMvvmApplication.getInstance().getRetrofit().create(BaiduApi.class).rxGetCategory();
-    }
-
-    @Override
-    public Observable setApiInterface() {
-        return nuomi;
+        nuomi = viewModelWrapper.model.getRetrofit().create(BaiduApi.class).rxGetCategory();
+        viewModelWrapper.model
+                .getBuilder()
+                .addHeader("apikey","05cecef32508c4bd5853a0fed178e322");
     }
 
 
@@ -41,6 +39,11 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
                 viewModelWrapper.childBinding.getRoot()
                 ,resultData.get(0).cat_name.get()
                 , Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public Observable setApiInterface() {
+        return nuomi;
     }
 
     @Override

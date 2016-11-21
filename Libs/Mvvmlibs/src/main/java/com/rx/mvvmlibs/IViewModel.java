@@ -1,5 +1,6 @@
 package com.rx.mvvmlibs;
 
+import retrofit2.Retrofit;
 import rx.Observable;
 
 /**
@@ -28,7 +29,7 @@ public interface IViewModel<Data> {
      * 通知model层取消对应的请求
      */
     void cancel();
-    
+
     /**
      * @Method: setApiInterface
      * @author create by Tang

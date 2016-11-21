@@ -17,14 +17,20 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
-public class BasicParamsInterceptor implements Interceptor {
+/**
+ * @ClassName: BaseParamsInterceptor
+ * @author create by Tang
+ * @date date 16/11/21 下午2:25
+ * @Description: 自定义okHttp3拦截器
+ */
+public class BaseParamsInterceptor implements Interceptor {
 
     Map<String, String> queryParamsMap = new HashMap<>();
     Map<String, String> paramsMap = new HashMap<>();
     Map<String, String> headerParamsMap = new HashMap<>();
     List<String> headerLinesList = new ArrayList<>();
 
-    private BasicParamsInterceptor() {
+    private BaseParamsInterceptor() {
 
     }
 
@@ -116,10 +122,10 @@ public class BasicParamsInterceptor implements Interceptor {
 
     public static class Builder {
 
-        BasicParamsInterceptor interceptor;
+        BaseParamsInterceptor interceptor;
 
         public Builder() {
-            interceptor = new BasicParamsInterceptor();
+            interceptor = new BaseParamsInterceptor();
         }
 
         public Builder addParam(String key, String value) {
@@ -127,22 +133,22 @@ public class BasicParamsInterceptor implements Interceptor {
             return this;
         }
 
-        public Builder addParamsMap(Map<String, String> paramsMap) {
+        public Builder addParams(Map<String, String> paramsMap) {
             interceptor.paramsMap.putAll(paramsMap);
             return this;
         }
 
-        public Builder addHeaderParam(String key, String value) {
+        public Builder addHeader(String key, String value) {
             interceptor.headerParamsMap.put(key, value);
             return this;
         }
 
-        public Builder addHeaderParamsMap(Map<String, String> headerParamsMap) {
+        public Builder addHeader(Map<String, String> headerParamsMap) {
             interceptor.headerParamsMap.putAll(headerParamsMap);
             return this;
         }
 
-        public Builder addHeaderLine(String headerLine) {
+        public Builder addHeader(String headerLine) {
             int index = headerLine.indexOf(":");
             if (index == -1) {
                 throw new IllegalArgumentException("Unexpected header: " + headerLine);
@@ -151,7 +157,7 @@ public class BasicParamsInterceptor implements Interceptor {
             return this;
         }
 
-        public Builder addHeaderLinesList(List<String> headerLinesList) {
+        public Builder addHeader(List<String> headerLinesList) {
             for (String headerLine: headerLinesList) {
                 int index = headerLine.indexOf(":");
                 if (index == -1) {
@@ -172,7 +178,7 @@ public class BasicParamsInterceptor implements Interceptor {
             return this;
         }
 
-        public BasicParamsInterceptor build() {
+        public BaseParamsInterceptor build() {
             return interceptor;
         }
 

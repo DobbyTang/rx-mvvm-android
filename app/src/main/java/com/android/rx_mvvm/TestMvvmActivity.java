@@ -24,7 +24,7 @@ public class TestMvvmActivity extends MvvmActivity{
 
 
     @Override
-    public ViewDataBinding onCreateView(LayoutInflater inflater, ViewGroup parent) {
+    public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent) {
         binding = DataBindingUtil.inflate(inflater,R.layout.activity_test,parent,false);
         return binding;
     }

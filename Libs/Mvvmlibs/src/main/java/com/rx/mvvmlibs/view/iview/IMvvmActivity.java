@@ -22,7 +22,7 @@ public interface IMvvmActivity {
      * @date date 16/11/15 下午4:01
      * @Description: 创建子Activity布局
      */
-    ViewDataBinding onCreateView(LayoutInflater inflater, ViewGroup parent);
+    ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent);
 
     /**
      * @Method: onCreateViewModel

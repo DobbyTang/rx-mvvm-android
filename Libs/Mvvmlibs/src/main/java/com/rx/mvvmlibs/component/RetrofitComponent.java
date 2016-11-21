@@ -2,9 +2,7 @@ package com.rx.mvvmlibs.component;
 
 import com.rx.mvvmlibs.RxMvvmApplication;
 import com.rx.mvvmlibs.module.RetrofitModule;
-import com.rx.mvvmlibs.scope.ApplicationScope;
-
-import javax.inject.Singleton;
+import com.rx.mvvmlibs.scope.RetrofitScope;
 
 import dagger.Component;
 import retrofit2.Retrofit;
@@ -16,7 +14,7 @@ import retrofit2.Retrofit;
  * @Description: TODO
  */
 
-@ApplicationScope
+@RetrofitScope
 @Component(modules = RetrofitModule.class)
 public interface RetrofitComponent {
 

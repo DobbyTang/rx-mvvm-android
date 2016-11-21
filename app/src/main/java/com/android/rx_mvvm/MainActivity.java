@@ -81,4 +81,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,TestMvvmActivity.class);
         startActivity(intent);
     }
+
+    public void listClick(View view){
+        Intent intent = new Intent(MainActivity.this,TestListMvvmActivity.class);
+        startActivity(intent);
+    }
 }

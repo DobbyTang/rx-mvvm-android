@@ -24,9 +24,6 @@ public class ListMvvmActivityModule {
 
     @Provides
     public ListViewModel providesListViewModel(){
-        if (activity.onReBindingViewModel() == null){
-            return new ListViewModel(activity);
-        }
         return activity.onReBindingViewModel();
     }
 }

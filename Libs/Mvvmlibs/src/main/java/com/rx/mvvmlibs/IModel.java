@@ -1,6 +1,9 @@
 package com.rx.mvvmlibs;
 
 
+import com.rx.mvvmlibs.network.BaseParamsInterceptor;
+
+import retrofit2.Retrofit;
 import rx.Scheduler;
 
 /**
@@ -36,4 +39,14 @@ public interface IModel {
      * 默认为ui线程
      */
     void setResultScheduler(Scheduler scheduler);
+
+    Retrofit getRetrofit();
+
+    /**
+     * @Method: getBuilder
+     * @author create by Tang
+     * @date date 16/11/21 上午10:59
+     * @Description: okHttp拦截器
+     */
+    BaseParamsInterceptor.Builder getBuilder();
 }

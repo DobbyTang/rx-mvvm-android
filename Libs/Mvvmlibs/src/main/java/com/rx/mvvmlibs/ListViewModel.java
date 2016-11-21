@@ -2,11 +2,16 @@ package com.rx.mvvmlibs;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.rx.mvvmlibs.component.DaggerListViewModelComponent;
 import com.rx.mvvmlibs.module.ListViewModelModule;
-import com.rx.mvvmlibs.network.BasicParamsInterceptor;
+import com.rx.mvvmlibs.network.Error;
+import com.rx.mvvmlibs.params.PaginationParams;
+import com.rx.mvvmlibs.view.BindingListAdapter;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
+import com.rx.utillibs.LogUtil;
 
 import java.util.List;
 
@@ -20,9 +25,16 @@ import java.util.List;
 
 public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
 
+    //分页取数据数，默认为10
+    private int count = 10;
+
+    private boolean isSuccess;
+
     public ListViewModelWrapper viewModelWrapper;
 
+
     private ListMvvmActivity activity;
+
 
     Data data;
 
@@ -49,23 +61,28 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
         if (result.errNum == 0){
             if (data == null){
                 data = result.data;
+                onSuccess();
             }else {
                 data.addAll(result.data);
             }
+            viewModelWrapper.adapter.setData(data);
         }else {
-            // TODO: 16/11/19 错误处理
+            onError(result.errNum,result.errMsg);
         }
         
     }
 
     @Override
     public void onSuccess() {
+        isSuccess = true;
+        viewModelWrapper.recyclerView.setVisibility(View.VISIBLE);
+        viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);
         showProgress(false);
     }
 
     @Override
     public void onNetworkError(Throwable e) {
-
+        onError(Error.CODE_NETWORK,Error.DESC_NETWORK);
     }
 
     @Override
@@ -82,6 +99,8 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
                 .inject(viewModelWrapper);
 
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
+        viewModelWrapper.recyclerView.setLayoutManager(setLayoutManager());
+        viewModelWrapper.recyclerView.setAdapter(viewModelWrapper.adapter);
         activity.setSupportActionBar(viewModelWrapper.activityMvvmListBinding.toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -93,28 +112,30 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
                         refresh();
                     }
                 });
+        enqueue();
 
     }
 
     @Override
-    public Drawable setErrorImageResource() {
-        return null;
+    public void setErrorImageResource(Drawable drawable) {
+        viewModelWrapper.error.drawable.set(drawable);
     }
 
     @Override
-    public String setErrorString() {
-        return null;
+    public void setErrorString(String msg) {
+        viewModelWrapper.error.message.set(msg);
     }
 
     @Override
     public void onError(int errorCode, String errorDesc) {
         showProgress(false);
+        if (!isSuccess){
+            viewModelWrapper.recyclerView.setVisibility(View.GONE);
+            viewModelWrapper.errorBinding.getRoot().setVisibility(View.VISIBLE);
+            setErrorString(errorDesc);
+        }
     }
 
-    @Override
-    public int reSetRecyclerView() {
-        return 0;
-    }
 
     @Override
     public void refresh() {
@@ -126,13 +147,12 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     @Override
     public void loading () {
-        // TODO: 16/11/19 处理分页数据
         enqueue();
     }
 
     @Override
     public void setCount(int count) {
-
+        this.count = count;
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.rx.mvvmlibs;
 
 import android.databinding.ViewDataBinding;
+import android.support.v7.widget.RecyclerView;
 
 import com.rx.mvvmlibs.bean.ErrorBean;
 import com.rx.mvvmlibs.databinding.ActivityMvvmListBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmListBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
+import com.rx.mvvmlibs.view.BindingListAdapter;
 
 import javax.inject.Inject;
 
@@ -25,7 +27,10 @@ public class ListViewModelWrapper {
     ContentMvvmListBinding contentMvvmListBinding;
 
     @Inject
-    ViewDataBinding childBinding;
+    RecyclerView recyclerView;
+
+    @Inject
+    BindingListAdapter adapter;
 
     @Inject
     ErrorBinding errorBinding;
@@ -34,5 +39,5 @@ public class ListViewModelWrapper {
     ErrorBean error;
 
     @Inject
-    IModel model;
+    public IModel model;
 }

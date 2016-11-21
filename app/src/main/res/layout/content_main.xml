@@ -14,10 +14,11 @@
         tools:context="com.android.rx_mvvm.MainActivity"
         tools:showIn="@layout/activity_main">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!" />
+            android:text="Test List"
+            android:onClick="listClick"/>
     </RelativeLayout>
 
 </layout>

@@ -65,7 +65,4 @@ public class RxMvvmApplication extends Application {
         return gson;
     }
 
-
-
-
 }

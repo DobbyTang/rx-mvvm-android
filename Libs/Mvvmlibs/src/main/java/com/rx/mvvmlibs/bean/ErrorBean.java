@@ -20,8 +20,7 @@ public class ErrorBean {
     public ObservableField<String> message = new ObservableField<>();
 
     @Inject
-    public ErrorBean(Drawable drawable,String message){
-        this.drawable.set(drawable);
-        this.message.set(message);
+    public ErrorBean(){
+
     }
 }

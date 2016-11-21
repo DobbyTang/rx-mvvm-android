@@ -2,7 +2,7 @@ package com.rx.mvvmlibs.module;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 
 import com.rx.mvvmlibs.IErrorInfo;
 import com.rx.mvvmlibs.IModel;
@@ -13,6 +13,8 @@ import com.rx.mvvmlibs.bean.ErrorBean;
 import com.rx.mvvmlibs.databinding.ActivityMvvmListBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmListBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
+import com.rx.mvvmlibs.scope.ListViewModelScope;
+import com.rx.mvvmlibs.view.BindingListAdapter;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
 import com.rx.utillibs.LogUtil;
 
@@ -33,61 +35,53 @@ public class ListViewModelModule {
     private ListMvvmActivity activity;
     private IErrorInfo errorInfo;
 
-    private ActivityMvvmListBinding activityMvvmBinding;
-    private ContentMvvmListBinding contentMvvmBinding;
-
     public ListViewModelModule(ListViewModel listViewModel, ListMvvmActivity activity){
         this.listViewModel = listViewModel;
         this.errorInfo = listViewModel;
         this.activity = activity;
     }
 
+    @ListViewModelScope
     @Provides
     public ActivityMvvmListBinding providesActivityMvvmListBinding(){
-        activityMvvmBinding = DataBindingUtil
-                .setContentView(activity, R.layout.activity_mvvm);
-        return activityMvvmBinding;
+
+        return DataBindingUtil
+                .setContentView(activity, R.layout.activity_mvvm_list);
     }
 
+    @ListViewModelScope
     @Provides
-    public ContentMvvmListBinding providesContentMvvmListBinding(){
+    public ContentMvvmListBinding providesContentMvvmListBinding(ActivityMvvmListBinding activityMvvmBinding){
         LogUtil.d(getClass(), "providesContentMvvmBinding: ");
-        contentMvvmBinding = activityMvvmBinding.contentMvvmList;
-        return contentMvvmBinding;
+        return activityMvvmBinding.contentMvvmList;
     }
 
+    @ListViewModelScope
     @Provides
-    public ViewDataBinding providesChildBinding(){
-        int childLayoutId;
-        if (listViewModel.reSetRecyclerView() == 0){
-            childLayoutId = R.layout.default_list;
-        }else {
-            childLayoutId = listViewModel.reSetRecyclerView();
-        }
-        SwipeRefreshLayout.LayoutParams lp = new SwipeRefreshLayout.LayoutParams(
-                SwipeRefreshLayout.LayoutParams.MATCH_PARENT
-                ,SwipeRefreshLayout.LayoutParams.MATCH_PARENT);
-        ViewDataBinding childBinding = DataBindingUtil.inflate(
-                activity.getLayoutInflater()
-                ,childLayoutId
-                ,contentMvvmBinding.refreshLayout
-                ,false);
-        if (childBinding != null){
-            contentMvvmBinding.refreshLayout.addView(childBinding.getRoot(),lp);
-        }
-        return childBinding;
+    public RecyclerView providesRecyclerView(ContentMvvmListBinding contentMvvmBinding){
+
+        return contentMvvmBinding.recyclerView;
     }
 
+    @ListViewModelScope
     @Provides
-    public ErrorBinding providesErrorBinding(){
+    public BindingListAdapter providesBindingListAdapter(){
+        return listViewModel.setAdapter();
+    }
+
+    @ListViewModelScope
+    @Provides
+    public ErrorBinding providesErrorBinding(ContentMvvmListBinding contentMvvmBinding){
         return contentMvvmBinding.error;
     }
 
+    @ListViewModelScope
     @Provides
     public ErrorBean providesError(){
-        return new ErrorBean(errorInfo.setErrorImageResource(),errorInfo.setErrorString());
+        return new ErrorBean();
     }
 
+    @ListViewModelScope
     @Provides
     public IModel providesModel(){
         return new Model(listViewModel);

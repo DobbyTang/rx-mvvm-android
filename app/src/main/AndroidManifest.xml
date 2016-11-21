@@ -23,6 +23,8 @@
 
 
         <activity android:name=".TestMvvmActivity" android:label="test"/>
+        <activity android:name=".TestListMvvmActivity" android:label="testList"/>
+
     </application>
 
 </manifest>

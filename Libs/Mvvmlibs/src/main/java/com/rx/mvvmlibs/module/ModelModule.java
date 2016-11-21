@@ -1,8 +1,12 @@
 package com.rx.mvvmlibs.module;
 
-import com.rx.mvvmlibs.ViewModel;
+import com.rx.mvvmlibs.IViewModel;
+import com.rx.mvvmlibs.Result;
+import com.rx.utillibs.LogUtil;
 
 import dagger.Module;
+import dagger.Provides;
+import rx.Subscriber;
 
 /**
  * @ClassName: ModelModule
@@ -14,9 +18,10 @@ import dagger.Module;
 @Module
 public class ModelModule {
 
-    private ViewModel viewModel;
+    private IViewModel viewModel;
 
-    public ModelModule(ViewModel viewModel){
+    public ModelModule(IViewModel viewModel){
         this.viewModel = viewModel;
     }
+
 }
