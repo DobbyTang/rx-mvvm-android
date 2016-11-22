@@ -1,15 +1,18 @@
 package com.rx.mvvmlibs;
 
 import android.content.DialogInterface;
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.component.DaggerViewModelComponent;
+import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.module.ViewModelModule;
 import com.rx.mvvmlibs.network.Error;
 import com.rx.mvvmlibs.view.MvvmActivity;
+import com.rx.mvvmlibs.view.MvvmFragment;
 import com.rx.utillibs.LogUtil;
 
 /**
@@ -34,6 +37,11 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         this.activity = activity;
         viewModelWrapper = new ViewModelWrapper();
         initActivity(activity);
+
+    }
+
+    public ViewModel(MvvmFragment mvvmFragment){
+
     }
 
 
@@ -141,10 +149,8 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         viewModelWrapper.error.drawable.set(activity.getResources().getDrawable(R.mipmap.ic_launcher));
         viewModelWrapper.error.message.set("网络错误，请重新加载");
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
-        activity.setSupportActionBar(viewModelWrapper.activityMvvmBinding.toolbar);
-        setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);
         viewModelWrapper.contentMvvmBinding.refreshLayout
 
                 .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -188,9 +194,15 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     }
 
     private void initActivity(MvvmActivity activity){
+        ActivityMvvmBinding activityMvvmBinding
+                = DataBindingUtil.setContentView(activity,R.layout.activity_mvvm);
         DaggerViewModelComponent.builder()
-                .viewModelModule(new ViewModelModule(this,activity)).build()
+                .viewModelModule(new ViewModelModule(this,activity,activityMvvmBinding.contentMvvm))
+                .build()
                 .inject(viewModelWrapper);
+        activity.setSupportActionBar(activityMvvmBinding.toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         init();
     }
 

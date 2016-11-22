@@ -6,6 +6,7 @@ import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.module.ViewModelModule;
 import com.rx.mvvmlibs.scope.ViewModelScope;
+import com.rx.mvvmlibs.view.MvvmActivity;
 
 import dagger.Component;
 
@@ -22,7 +23,6 @@ public interface ViewModelComponent {
 
     void inject(ViewModelWrapper viewModelWrapper);
 
-    ActivityMvvmBinding getActivityMvvmBinding();
-
     ContentMvvmBinding getContentMvvmBinding();
+
 }

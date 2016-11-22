@@ -8,13 +8,13 @@ import com.rx.mvvmlibs.ViewModel;
 
 
 /**
- * @ClassName: IMvvmActivity
+ * @ClassName: BindingViewModel
  * @author create by Tang
  * @date date 16/11/15 下午3:12
- * @Description: IMvvmActivity
+ * @Description: BindingViewModel
  */
 
-public interface IMvvmActivity {
+public interface BindingViewModel {
 
     /**
      * @Method: onCreateView

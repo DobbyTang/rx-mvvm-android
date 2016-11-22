@@ -32,9 +32,6 @@ public class ViewModelWrapper {
     public IModel model;
 
     @Inject
-    ActivityMvvmBinding activityMvvmBinding;
-
-    @Inject
     ContentMvvmBinding contentMvvmBinding;
 
     @Inject

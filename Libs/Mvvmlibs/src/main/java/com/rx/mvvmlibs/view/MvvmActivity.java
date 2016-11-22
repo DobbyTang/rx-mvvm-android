@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.component.DaggerMvvmActivityComponent;
 import com.rx.mvvmlibs.module.MvvmActivityModule;
-import com.rx.mvvmlibs.view.iview.IMvvmActivity;
+import com.rx.mvvmlibs.view.iview.BindingViewModel;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
  * @Description: TODO
  */
 
-public abstract class MvvmActivity extends AppCompatActivity implements IMvvmActivity{
+public abstract class MvvmActivity extends AppCompatActivity implements BindingViewModel {
 
     @Inject
     ViewModel viewModel;
@@ -77,6 +77,6 @@ public abstract class MvvmActivity extends AppCompatActivity implements IMvvmAct
 
     @Override
     public void init() {
-        // TODO: 16/11/18
+
     }
 }
