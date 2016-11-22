@@ -24,6 +24,7 @@ import com.rx.utillibs.LogUtil;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
 
 /**
  * @ClassName: ViewModelModule

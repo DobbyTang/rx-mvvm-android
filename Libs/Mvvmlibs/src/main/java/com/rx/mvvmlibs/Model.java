@@ -12,6 +12,7 @@ import com.rx.utillibs.LogUtil;
 import javax.inject.Inject;
 
 import retrofit2.Retrofit;
+import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
@@ -55,7 +56,7 @@ public class Model implements IModel{
     @Override
     public void enqueueRequest() {
 
-        subscription = viewModel.setApiInterface()
+        subscription = viewModel.setApiInterface(retrofit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
                 .subscribe(new Subscriber<Result>() {

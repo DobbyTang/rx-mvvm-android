@@ -12,7 +12,7 @@ import javax.inject.Scope;
  * @Description: TODO
  */
 
-@ListViewModelScope
+@Scope
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ListViewModelScope {
 }

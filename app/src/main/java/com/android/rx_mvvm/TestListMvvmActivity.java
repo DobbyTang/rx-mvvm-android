@@ -1,7 +1,16 @@
 package com.android.rx_mvvm;
 
+import android.app.Activity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
 import com.rx.mvvmlibs.ListViewModel;
+import com.rx.mvvmlibs.view.BindingListAdapter;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
+import com.rx.utillibs.LogUtil;
+
+import retrofit2.Retrofit;
+import rx.Observable;
 
 /**
  * @ClassName: TestListMvvmActivity
@@ -11,8 +20,36 @@ import com.rx.mvvmlibs.view.ListMvvmActivity;
  */
 
 public class TestListMvvmActivity extends ListMvvmActivity{
+
     @Override
-    public ListViewModel onReBindingViewModel() {
-        return new TestListViewModel(this);
+    public ListViewModel onBindingViewModel() {
+        return new ListViewModel(this) {
+            @Override
+            public Observable setApiInterface(Retrofit retrofit) {
+                return retrofit.create(BaiduApi.class).rxGetCategory();
+            }
+
+            @Override
+            public BindingListAdapter setAdapter() {
+                LogUtil.d(TestListMvvmActivity.this.getClass(),"setAdapter");
+                return new TestAdapter();
+            }
+
+            @Override
+            public RecyclerView.LayoutManager setLayoutManager(Activity activity) {
+                LogUtil.d(TestListMvvmActivity.this.getClass(),"setLayoutManager");
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                return linearLayoutManager;
+            }
+
+            @Override
+            public void init() {
+                super.init();
+                viewModelWrapper.model
+                        .getBuilder()
+                        .addHeader("apikey","05cecef32508c4bd5853a0fed178e322");
+            }
+        };
     }
 }

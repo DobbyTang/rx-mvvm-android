@@ -3,6 +3,7 @@ package com.rx.mvvmlibs.module;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 
 import com.rx.mvvmlibs.IErrorInfo;
 import com.rx.mvvmlibs.IModel;
@@ -33,18 +34,15 @@ public class ListViewModelModule {
 
     private ListViewModel listViewModel;
     private ListMvvmActivity activity;
-    private IErrorInfo errorInfo;
 
     public ListViewModelModule(ListViewModel listViewModel, ListMvvmActivity activity){
         this.listViewModel = listViewModel;
-        this.errorInfo = listViewModel;
         this.activity = activity;
     }
 
     @ListViewModelScope
     @Provides
     public ActivityMvvmListBinding providesActivityMvvmListBinding(){
-
         return DataBindingUtil
                 .setContentView(activity, R.layout.activity_mvvm_list);
     }
@@ -52,14 +50,16 @@ public class ListViewModelModule {
     @ListViewModelScope
     @Provides
     public ContentMvvmListBinding providesContentMvvmListBinding(ActivityMvvmListBinding activityMvvmBinding){
-        LogUtil.d(getClass(), "providesContentMvvmBinding: ");
         return activityMvvmBinding.contentMvvmList;
     }
 
     @ListViewModelScope
     @Provides
-    public RecyclerView providesRecyclerView(ContentMvvmListBinding contentMvvmBinding){
+    public RecyclerView providesRecyclerView(ContentMvvmListBinding contentMvvmBinding
+            ,BindingListAdapter adapter, RecyclerView.LayoutManager layoutManager){
 
+        contentMvvmBinding.recyclerView.setLayoutManager(layoutManager);
+        contentMvvmBinding.recyclerView.setAdapter(adapter);
         return contentMvvmBinding.recyclerView;
     }
 
@@ -67,6 +67,12 @@ public class ListViewModelModule {
     @Provides
     public BindingListAdapter providesBindingListAdapter(){
         return listViewModel.setAdapter();
+    }
+
+    @ListViewModelScope
+    @Provides
+    public RecyclerView.LayoutManager providesLayoutManager(){
+        return listViewModel.setLayoutManager(activity);
     }
 
     @ListViewModelScope

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.rx.mvvmlibs.ListViewModel;
+import com.rx.mvvmlibs.R;
 import com.rx.mvvmlibs.component
         .DaggerListMvvmActivityComponent;
 import com.rx.mvvmlibs.module.ListMvvmActivityModule;
@@ -36,6 +37,7 @@ public abstract class ListMvvmActivity extends AppCompatActivity implements ILis
                 .build()
                 .inject(this);
         init();
+
     }
 
     @Override
@@ -75,6 +77,11 @@ public abstract class ListMvvmActivity extends AppCompatActivity implements ILis
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public ListViewModel onBindingViewModel() {
+        return null;
     }
 
     @Override

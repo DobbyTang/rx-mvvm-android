@@ -2,14 +2,13 @@ package com.rx.mvvmlibs;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.rx.mvvmlibs.component.DaggerListViewModelComponent;
 import com.rx.mvvmlibs.module.ListViewModelModule;
 import com.rx.mvvmlibs.network.Error;
-import com.rx.mvvmlibs.params.PaginationParams;
-import com.rx.mvvmlibs.view.BindingListAdapter;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
 import com.rx.utillibs.LogUtil;
 
@@ -40,7 +39,13 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     public ListViewModel(ListMvvmActivity activity){
         this.activity = activity;
+        viewModelWrapper = new ListViewModelWrapper();
         init();
+        viewModelWrapper.contentMvvmListBinding.refreshLayout
+                .setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP
+                        ,24, activity.getResources().getDisplayMetrics()));
+        enqueue();
     }
 
     @Override
@@ -61,10 +66,10 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
         if (result.errNum == 0){
             if (data == null){
                 data = result.data;
-                onSuccess();
             }else {
                 data.addAll(result.data);
             }
+            onSuccess();
             viewModelWrapper.adapter.setData(data);
         }else {
             onError(result.errNum,result.errMsg);
@@ -87,20 +92,17 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     @Override
     public void showProgress(boolean enable) {
-        viewModelWrapper.contentMvvmListBinding.refreshLayout.setEnabled(enable);
+        viewModelWrapper.contentMvvmListBinding.refreshLayout.setRefreshing(enable);
     }
 
     @Override
     public void init() {
-        viewModelWrapper = new ListViewModelWrapper();
         DaggerListViewModelComponent.builder()
                 .listViewModelModule(new ListViewModelModule(this,activity))
                 .build()
                 .inject(viewModelWrapper);
 
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
-        viewModelWrapper.recyclerView.setLayoutManager(setLayoutManager());
-        viewModelWrapper.recyclerView.setAdapter(viewModelWrapper.adapter);
         activity.setSupportActionBar(viewModelWrapper.activityMvvmListBinding.toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -112,8 +114,6 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
                         refresh();
                     }
                 });
-        enqueue();
-
     }
 
     @Override

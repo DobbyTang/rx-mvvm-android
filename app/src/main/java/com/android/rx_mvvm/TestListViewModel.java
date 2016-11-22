@@ -1,5 +1,6 @@
 package com.android.rx_mvvm;
 
+import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import com.rx.utillibs.LogUtil;
 
 import java.util.List;
 
+import retrofit2.Retrofit;
 import rx.Observable;
 
 /**
@@ -22,19 +24,14 @@ import rx.Observable;
 
 public class TestListViewModel extends ListViewModel<List<NuoMiCategoryBean>>{
 
-    ListMvvmActivity activity;
 
     public TestListViewModel(ListMvvmActivity activity) {
         super(activity);
-        this.activity = activity;
-        viewModelWrapper.model
-                .getBuilder()
-                .addHeader("apikey","05cecef32508c4bd5853a0fed178e322");
     }
 
     @Override
-    public Observable setApiInterface() {
-        return viewModelWrapper.model.getRetrofit().create(BaiduApi.class).rxGetCategory();
+    public Observable setApiInterface(Retrofit retrofit) {
+        return retrofit.create(BaiduApi.class).rxGetCategory();
     }
 
     @Override
@@ -44,9 +41,18 @@ public class TestListViewModel extends ListViewModel<List<NuoMiCategoryBean>>{
     }
 
     @Override
-    public RecyclerView.LayoutManager setLayoutManager() {
+    public RecyclerView.LayoutManager setLayoutManager(Activity activity) {
+        LogUtil.d(getClass(),"setLayoutManager");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         return linearLayoutManager;
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        viewModelWrapper.model
+                .getBuilder()
+                .addHeader("apikey","05cecef32508c4bd5853a0fed178e322");
     }
 }

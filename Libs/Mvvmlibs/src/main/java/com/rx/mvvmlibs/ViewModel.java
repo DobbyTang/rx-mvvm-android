@@ -138,7 +138,6 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     @Override
     public void init(){
 
-
         viewModelWrapper.error.drawable.set(activity.getResources().getDrawable(R.mipmap.ic_launcher));
         viewModelWrapper.error.message.set("网络错误，请重新加载");
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);

@@ -19,7 +19,7 @@ public interface IListMvvmActivity {
      * 替换默认ViewModel
      * 重新绑定ViewModel
      */
-    ListViewModel onReBindingViewModel();
+    ListViewModel onBindingViewModel();
 
     /**
      * @Method: init

@@ -1,5 +1,6 @@
 package com.rx.mvvmlibs;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 
 import com.rx.mvvmlibs.view.BindingListAdapter;
@@ -31,7 +32,7 @@ public interface IListViewModel<Data> extends IViewModel<Data>{
 
     BindingListAdapter setAdapter();
 
-    RecyclerView.LayoutManager setLayoutManager();
+    RecyclerView.LayoutManager setLayoutManager(Activity activity);
 
     /**
      * @Method: setCount

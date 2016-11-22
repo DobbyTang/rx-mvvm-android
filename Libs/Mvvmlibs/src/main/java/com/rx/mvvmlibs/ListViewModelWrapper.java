@@ -21,7 +21,7 @@ import javax.inject.Inject;
 public class ListViewModelWrapper {
 
     @Inject
-    ActivityMvvmListBinding activityMvvmListBinding;
+    public ActivityMvvmListBinding activityMvvmListBinding;
 
     @Inject
     ContentMvvmListBinding contentMvvmListBinding;

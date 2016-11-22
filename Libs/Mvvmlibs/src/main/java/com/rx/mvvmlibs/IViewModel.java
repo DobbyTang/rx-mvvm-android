@@ -37,7 +37,7 @@ public interface IViewModel<Data> {
      * @Description:
      * 设置对应的接口文件
      */
-    Observable setApiInterface();
+    Observable setApiInterface(Retrofit retrofit);
 
 
     /**
