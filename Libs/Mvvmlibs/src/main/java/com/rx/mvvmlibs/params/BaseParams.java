@@ -22,7 +22,7 @@ public class BaseParams {
      * @date date 16/8/23 下午3:20
      * @Description: 把实体类转换成Map类
      */
-    public Map<String,Object> toMap() {
+    public Map<String,String> toMap() {
         Class<? extends BaseParams> clazz = this.getClass();
         Class<? extends Object> superClass = clazz.getSuperclass();
 
@@ -33,7 +33,7 @@ public class BaseParams {
             return Collections.EMPTY_MAP;
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         try {
 
             for (Field field : fields) {

@@ -48,5 +48,5 @@ public interface IListViewModel<Data> extends IViewModel<Data>{
      * @date date 16/11/19 下午3:05
      * @Description: 刷新指定页面
      */
-    void refreshIndexPage();
+    void refreshIndexPage(int index);
 }

@@ -12,7 +12,6 @@ import com.rx.utillibs.LogUtil;
 import javax.inject.Inject;
 
 import retrofit2.Retrofit;
-import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;

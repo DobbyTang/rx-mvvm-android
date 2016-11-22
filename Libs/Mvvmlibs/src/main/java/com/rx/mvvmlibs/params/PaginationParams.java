@@ -1,6 +1,8 @@
 package com.rx.mvvmlibs.params;
 
 
+import javax.inject.Inject;
+
 /**
  * @ClassName: PaginationParams
  * @author create by Tang
@@ -10,8 +12,12 @@ package com.rx.mvvmlibs.params;
 
 public class PaginationParams extends BaseParams{
 
-    private String countKey;
+    public int count;
 
-    private String pageKey;
+    public int page;
+
+    public PaginationParams(){
+
+    }
 
 }

@@ -2,7 +2,10 @@ package com.rx.mvvmlibs.module;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
 
 import com.rx.mvvmlibs.IErrorInfo;
@@ -34,6 +37,7 @@ public class ListViewModelModule {
 
     private ListViewModel listViewModel;
     private ListMvvmActivity activity;
+
 
     public ListViewModelModule(ListViewModel listViewModel, ListMvvmActivity activity){
         this.listViewModel = listViewModel;

@@ -32,7 +32,14 @@ public class TestListMvvmActivity extends ListMvvmActivity{
             @Override
             public BindingListAdapter setAdapter() {
                 LogUtil.d(TestListMvvmActivity.this.getClass(),"setAdapter");
-                return new TestAdapter();
+                TestAdapter adapter = new TestAdapter();
+                adapter.setOnItemClickListener(new BindingListAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, Object o) {
+                        refreshIndexPage(position);
+                    }
+                });
+                return adapter;
             }
 
             @Override
@@ -49,6 +56,7 @@ public class TestListMvvmActivity extends ListMvvmActivity{
                 viewModelWrapper.model
                         .getBuilder()
                         .addHeader("apikey","05cecef32508c4bd5853a0fed178e322");
+                setCount(7);
             }
         };
     }

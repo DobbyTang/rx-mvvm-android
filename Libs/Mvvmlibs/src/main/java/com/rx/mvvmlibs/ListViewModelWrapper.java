@@ -33,6 +33,9 @@ public class ListViewModelWrapper {
     BindingListAdapter adapter;
 
     @Inject
+    RecyclerView.LayoutManager layoutManager;
+
+    @Inject
     ErrorBinding errorBinding;
 
     @Inject
@@ -40,4 +43,9 @@ public class ListViewModelWrapper {
 
     @Inject
     public IModel model;
+
+    @Inject
+    public ListViewModelWrapper(){
+
+    }
 }
