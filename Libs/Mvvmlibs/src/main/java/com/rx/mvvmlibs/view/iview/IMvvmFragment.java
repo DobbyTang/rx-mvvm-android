@@ -4,6 +4,8 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
+
 /**
  * @ClassName: IMvvmFragment
  * @author create by Tang
@@ -13,11 +15,5 @@ import android.view.ViewGroup;
 
 public interface IMvvmFragment {
 
-    /**
-     * @Method: onCreateBinding
-     * @author create by Tang
-     * @date date 16/11/21 下午4:19
-     * @Description: TODO
-     */
-    ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent);
+    ContentMvvmBinding getContentMvvmBinding();
 }

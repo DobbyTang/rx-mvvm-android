@@ -1,5 +1,9 @@
 package com.rx.mvvmlibs;
 
+import android.databinding.ViewDataBinding;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
 import retrofit2.Retrofit;
 import rx.Observable;
 
@@ -11,6 +15,14 @@ import rx.Observable;
  */
 
 public interface IViewModel<Data> {
+
+    /**
+     * @Method: onCreateView
+     * @author create by Tang
+     * @date date 16/11/15 下午4:01
+     * @Description: 创建子布局
+     */
+    ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent);
 
     /**
      * @Method: enqueue

@@ -1,8 +1,11 @@
 package com.android.rx_mvvm;
 
 import android.app.Activity;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import com.android.rx_mvvm.bean.NuoMiCategoryBean;
 import com.rx.mvvmlibs.ListViewModel;
@@ -27,6 +30,11 @@ public class TestListViewModel extends ListViewModel<List<NuoMiCategoryBean>>{
 
     public TestListViewModel(ListMvvmActivity activity) {
         super(activity);
+    }
+
+    @Override
+    public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent) {
+        return null;
     }
 
     @Override

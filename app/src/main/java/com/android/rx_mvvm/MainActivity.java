@@ -86,4 +86,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,TestListMvvmActivity.class);
         startActivity(intent);
     }
+
+    public void mvvmFragment(View view){
+        Intent intent = new Intent(MainActivity.this,TestMvvmFragmentActivity.class);
+        startActivity(intent);
+    }
 }

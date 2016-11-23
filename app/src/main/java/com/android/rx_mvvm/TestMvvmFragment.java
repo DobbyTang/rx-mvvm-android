@@ -7,31 +7,26 @@ import android.view.ViewGroup;
 
 import com.android.rx_mvvm.databinding.ActivityTestBinding;
 import com.rx.mvvmlibs.ViewModel;
-import com.rx.mvvmlibs.view.MvvmActivity;
-import com.rx.utillibs.LogUtil;
+import com.rx.mvvmlibs.view.MvvmFragment;
 
 /**
- * @ClassName: TestMvvmActivity
+ * @ClassName: TestMvvmFragment
  * @author create by Tang
- * @date date 16/11/15 上午11:37
+ * @date date 16/11/23 上午11:12
  * @Description: TODO
  */
 
-public class TestMvvmActivity extends MvvmActivity{
+public class TestMvvmFragment extends MvvmFragment{
 
+    private ActivityTestBinding binding;
 
     TestViewModel testViewModel;
 
+
+
     @Override
     public ViewModel onBindingViewModel() {
-        LogUtil.d("");
         testViewModel = new TestViewModel(this);
-
         return testViewModel;
-    }
-
-    @Override
-    public void init() {
-        super.init();
     }
 }

@@ -8,21 +8,13 @@ import com.rx.mvvmlibs.ViewModel;
 
 
 /**
- * @ClassName: BindingViewModel
+ * @ClassName: BindViewModel
  * @author create by Tang
  * @date date 16/11/15 下午3:12
- * @Description: BindingViewModel
+ * @Description: BindViewModel
  */
 
-public interface BindingViewModel {
-
-    /**
-     * @Method: onCreateView
-     * @author create by Tang
-     * @date date 16/11/15 下午4:01
-     * @Description: 创建子Activity布局
-     */
-    ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent);
+public interface BindViewModel {
 
     /**
      * @Method: onCreateViewModel

@@ -1,8 +1,11 @@
 package com.android.rx_mvvm;
 
 import android.app.Activity;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import com.rx.mvvmlibs.ListViewModel;
 import com.rx.mvvmlibs.view.BindingListAdapter;
@@ -24,6 +27,11 @@ public class TestListMvvmActivity extends ListMvvmActivity{
     @Override
     public ListViewModel onBindingViewModel() {
         return new ListViewModel(this) {
+            @Override
+            public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent) {
+                return null;
+            }
+
             @Override
             public Observable setApiInterface(Retrofit retrofit) {
                 return retrofit.create(BaiduApi.class).rxGetCategory();

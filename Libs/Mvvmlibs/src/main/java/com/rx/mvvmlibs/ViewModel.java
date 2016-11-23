@@ -1,5 +1,6 @@
 package com.rx.mvvmlibs;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
@@ -26,22 +27,19 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     private boolean isSuccess;
 
-    public ViewModelWrapper viewModelWrapper;
+    public ViewModelWrapper viewModelWrapper = new ViewModelWrapper();
 
-    private MvvmActivity activity;
-
-
-    public abstract void result(Data resultData);
+    private Context context;
 
     public ViewModel(MvvmActivity activity){
-        this.activity = activity;
-        viewModelWrapper = new ViewModelWrapper();
+        this.context = activity;
         initActivity(activity);
 
     }
 
-    public ViewModel(MvvmFragment mvvmFragment){
-
+    public ViewModel(MvvmFragment fragment){
+        this.context = fragment.getContext();
+        initFragment(fragment);
     }
 
 
@@ -146,7 +144,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     @Override
     public void init(){
 
-        viewModelWrapper.error.drawable.set(activity.getResources().getDrawable(R.mipmap.ic_launcher));
+        viewModelWrapper.error.drawable.set(context.getResources().getDrawable(R.mipmap.ic_launcher));
         viewModelWrapper.error.message.set("网络错误，请重新加载");
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
 
@@ -178,6 +176,9 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     }
 
+    public abstract void result(Data resultData);
+
+
     /**
      * @Method: onReconnection
      * @author create by Tang
@@ -206,8 +207,14 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         init();
     }
 
-    private void initFragment(){
+    private void initFragment(MvvmFragment fragment){
 
+        DaggerViewModelComponent.builder()
+                .viewModelModule(new ViewModelModule(this,fragment,fragment.getContentMvvmBinding()))
+                .build()
+                .inject(viewModelWrapper);
+
+        init();
     }
 
     public void setProgressType(int type) {

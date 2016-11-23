@@ -24,6 +24,7 @@
 
         <activity android:name=".TestMvvmActivity" android:label="test"/>
         <activity android:name=".TestListMvvmActivity" android:label="testList"/>
+        <activity android:name=".TestMvvmFragmentActivity" android:label="Test Fragment"/>
 
     </application>
 

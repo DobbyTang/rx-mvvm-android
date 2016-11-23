@@ -1,7 +1,8 @@
 package com.rx.mvvmlibs.component;
 
-import com.rx.mvvmlibs.module.MvvmActivityModule;
+import com.rx.mvvmlibs.module.BindViewModelModule;
 import com.rx.mvvmlibs.view.MvvmActivity;
+import com.rx.mvvmlibs.view.iview.BindViewModel;
 
 import dagger.Component;
 
@@ -12,8 +13,8 @@ import dagger.Component;
  * @Description: TODO
  */
 
-@Component(modules = MvvmActivityModule.class)
+@Component(modules = BindViewModelModule.class)
 public interface MvvmActivityComponent {
 
-    void inject(MvvmActivity mvvmActivity);
+    void inject(MvvmActivity bindViewModel);
 }

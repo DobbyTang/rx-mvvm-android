@@ -8,8 +8,8 @@ import android.view.MenuItem;
 
 import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.component.DaggerMvvmActivityComponent;
-import com.rx.mvvmlibs.module.MvvmActivityModule;
-import com.rx.mvvmlibs.view.iview.BindingViewModel;
+import com.rx.mvvmlibs.module.BindViewModelModule;
+import com.rx.mvvmlibs.view.iview.BindViewModel;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
  * @Description: TODO
  */
 
-public abstract class MvvmActivity extends AppCompatActivity implements BindingViewModel {
+public abstract class MvvmActivity extends AppCompatActivity implements BindViewModel {
 
     @Inject
     ViewModel viewModel;
@@ -29,7 +29,7 @@ public abstract class MvvmActivity extends AppCompatActivity implements BindingV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerMvvmActivityComponent.builder()
-                .mvvmActivityModule(new MvvmActivityModule(this))
+                .bindViewModelModule(new BindViewModelModule(this))
                 .build()
                 .inject(this);
         init();
@@ -39,7 +39,9 @@ public abstract class MvvmActivity extends AppCompatActivity implements BindingV
     @Override
     protected void onPause() {
         super.onPause();
-        viewModel.cancel();
+        if (viewModel != null){
+            viewModel.cancel();
+        }
     }
 
     @Override

@@ -2,32 +2,26 @@ package com.rx.mvvmlibs.module;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
 
-import com.rx.mvvmlibs.IErrorInfo;
 import com.rx.mvvmlibs.IModel;
 import com.rx.mvvmlibs.IViewModel;
 import com.rx.mvvmlibs.Model;
-import com.rx.mvvmlibs.R;
 import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.bean.ErrorBean;
-import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
 import com.rx.mvvmlibs.scope.ViewModelScope;
 import com.rx.mvvmlibs.view.MvvmActivity;
 import com.rx.mvvmlibs.view.MvvmFragment;
-import com.rx.mvvmlibs.view.iview.BindingViewModel;
-import com.rx.utillibs.LogUtil;
+import com.rx.mvvmlibs.view.iview.BindViewModel;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.Retrofit;
 
 /**
  * @ClassName: ViewModelModule
@@ -42,7 +36,7 @@ public class ViewModelModule {
     private ContentMvvmBinding contentMvvmBinding;
     private Context context;
     private IViewModel viewModel;
-    private BindingViewModel bindingViewModel;
+    private BindViewModel bindingViewModel;
 
     public ViewModelModule(ViewModel viewModel, MvvmActivity activity, ContentMvvmBinding contentMvvmBinding){
         this.viewModel = viewModel;
@@ -51,13 +45,12 @@ public class ViewModelModule {
         this.bindingViewModel = activity;
     }
 
-
-//
-//    @ViewModelScope
-//    @Provides
-//    public ActivityMvvmBinding providesActivityMvvmBinding(){
-//        return DataBindingUtil.setContentView(activity, R.layout.activity_mvvm);
-//    }
+    public ViewModelModule(ViewModel viewModel, MvvmFragment fragment, ContentMvvmBinding contentMvvmBinding){
+        this.viewModel = viewModel;
+        this.context = fragment.getContext();
+        this.contentMvvmBinding = contentMvvmBinding;
+        this.bindingViewModel = fragment;
+    }
 
     @ViewModelScope
     @Provides
@@ -72,7 +65,7 @@ public class ViewModelModule {
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
 
-        ViewDataBinding childBinding = bindingViewModel.onCreateBinding(LayoutInflater.from(context)
+        ViewDataBinding childBinding = viewModel.onCreateBinding(LayoutInflater.from(context)
                 ,contentMvvmBinding.mvvmFrameLayout);
         if (childBinding != null ){
             contentMvvmBinding.mvvmFrameLayout
