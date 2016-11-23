@@ -31,7 +31,7 @@ public class TestListMvvmActivity extends ListMvvmActivity{
 
             @Override
             public BindingListAdapter setAdapter() {
-                LogUtil.d(TestListMvvmActivity.this.getClass(),"setAdapter");
+                LogUtil.d("setAdapter");
                 TestAdapter adapter = new TestAdapter();
                 adapter.setOnItemClickListener(new BindingListAdapter.OnItemClickListener() {
                     @Override
@@ -44,7 +44,7 @@ public class TestListMvvmActivity extends ListMvvmActivity{
 
             @Override
             public RecyclerView.LayoutManager setLayoutManager(Activity activity) {
-                LogUtil.d(TestListMvvmActivity.this.getClass(),"setLayoutManager");
+                LogUtil.d("setLayoutManager");
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 return linearLayoutManager;

@@ -95,7 +95,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
                 }else {
                     //计算出需要替换的第一个数据在dataList中的位置
                     int start = (mPage - mStartPage) * mCount;
-                    LogUtil.d(ListViewModel.this.getClass(),"refresh index = " + mPage);
+                    LogUtil.d("refresh index = " + mPage);
                     ListUtils.replaceAssign(start,data,result.data);
                     mIndex = -1;
                 }
@@ -215,10 +215,9 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     @Override
     public void refresh() {
-        LogUtil.d(ListViewModel.this.getClass(),"onRefresh");
+        LogUtil.d("onRefresh");
         if (data != null){
             data.clear();
-            LogUtil.d(ListViewModel.this.getClass(), "refresh: clear");
         }
         loading();
     }

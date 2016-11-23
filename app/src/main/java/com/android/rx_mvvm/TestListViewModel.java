@@ -36,13 +36,13 @@ public class TestListViewModel extends ListViewModel<List<NuoMiCategoryBean>>{
 
     @Override
     public BindingListAdapter setAdapter() {
-        LogUtil.d(getClass(),"setAdapter");
+        LogUtil.d("setAdapter");
         return new TestAdapter();
     }
 
     @Override
     public RecyclerView.LayoutManager setLayoutManager(Activity activity) {
-        LogUtil.d(getClass(),"setLayoutManager");
+        LogUtil.d("setLayoutManager");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         return linearLayoutManager;

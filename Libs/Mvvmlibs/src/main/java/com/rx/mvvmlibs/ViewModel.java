@@ -185,7 +185,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
      * @Description: 重连事件
      */
     public void onReconnection() {
-        LogUtil.d(ViewModel.this.getClass(), "onRefresh: ");
+        LogUtil.d( "onRefresh: ");
         if (viewModelWrapper.progress.progressType != ProgressBean.PROGRESS_TYPE_DROP_DOWN
                 && viewModelWrapper.errorBinding.getRoot().getVisibility() == View.VISIBLE){
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);

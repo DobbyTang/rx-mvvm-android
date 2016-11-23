@@ -61,7 +61,7 @@ public class Model implements IModel{
                 .subscribe(new Subscriber<Result>() {
                     @Override
                     public void onCompleted() {
-                        LogUtil.d(Model.this.getClass(), "onCompleted: onSuccess");
+                        LogUtil.d( "onSuccess");
                     }
 
                     @Override
@@ -81,7 +81,7 @@ public class Model implements IModel{
     @Override
     public void cancelRequest() {
         if (subscription != null && !subscription.isUnsubscribed()){
-            LogUtil.d(this.getClass(), "cancelRequest: ");
+            LogUtil.d("");
             subscription.unsubscribe();
         }
     }
