@@ -18,14 +18,20 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test List"
+            android:text="糯米分类Fragment"
+            android:onClick="mvvmFragment"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="糯米分类List Activity"
             android:onClick="listClick"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test fragment"
-            android:onClick="mvvmFragment"/>
+            android:text="糯米分类List Fragment"
+            android:onClick="listFragmentClick"/>
     </LinearLayout>
 
 </layout>

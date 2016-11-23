@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rx.mvvmlibs.R;
-import com.rx.mvvmlibs.ViewModel;
-import com.rx.mvvmlibs.component.DaggerMvvmFragmentComponent;
-import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
+import com.rx.mvvmlibs.RetrofitViewModel;
+import com.rx.mvvmlibs.component.DaggerRetrofitMvvmFragmentComponent;
+import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmBinding;
 import com.rx.mvvmlibs.module.BindViewModelModule;
 import com.rx.mvvmlibs.view.iview.BindViewModel;
 import com.rx.mvvmlibs.view.iview.IMvvmFragment;
@@ -19,34 +19,34 @@ import com.rx.mvvmlibs.view.iview.IMvvmFragment;
 import javax.inject.Inject;
 
 /**
- * @ClassName: MvvmFragment
+ * @ClassName: RetrofitMvvmFragment
  * @author create by Tang
  * @date date 16/11/21 下午4:10
  * @Description: TODO
  */
-public abstract class MvvmFragment extends Fragment implements IMvvmFragment,BindViewModel {
+public abstract class RetrofitMvvmFragment extends Fragment implements IMvvmFragment,BindViewModel {
 
     @Inject
-    ViewModel viewModel;
+    RetrofitViewModel viewModel;
 
-    private ContentMvvmBinding contentMvvmBinding;
+    private ContentRetrofitMvvmBinding contentMvvmBinding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        contentMvvmBinding = DataBindingUtil.inflate(inflater,R.layout.content_mvvm,container,false);
+        contentMvvmBinding = DataBindingUtil.inflate(inflater,R.layout.content_retrofit_mvvm,container,false);
         init();
         return contentMvvmBinding.getRoot();
     }
 
     @Override
-    public ContentMvvmBinding getContentMvvmBinding() {
+    public ContentRetrofitMvvmBinding getContentMvvmBinding() {
         return contentMvvmBinding;
     }
 
     @Override
     public void init() {
-        DaggerMvvmFragmentComponent
+        DaggerRetrofitMvvmFragmentComponent
                 .builder()
                 .bindViewModelModule(new BindViewModelModule(this))
                 .build()

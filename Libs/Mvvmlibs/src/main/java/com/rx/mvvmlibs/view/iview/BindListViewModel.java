@@ -1,6 +1,6 @@
 package com.rx.mvvmlibs.view.iview;
 
-import com.rx.mvvmlibs.ListViewModel;
+import com.rx.mvvmlibs.RetrofitListViewModel;
 
 /**
  * @ClassName: IListMvvmActivity
@@ -9,7 +9,7 @@ import com.rx.mvvmlibs.ListViewModel;
  * @Description: TODO
  */
 
-public interface IListMvvmActivity {
+public interface BindListViewModel {
 
     /**
      * @ClassName: onReBindingViewModel
@@ -19,7 +19,7 @@ public interface IListMvvmActivity {
      * 替换默认ViewModel
      * 重新绑定ViewModel
      */
-    ListViewModel onBindingViewModel();
+    RetrofitListViewModel onBindingViewModel();
 
     /**
      * @Method: init

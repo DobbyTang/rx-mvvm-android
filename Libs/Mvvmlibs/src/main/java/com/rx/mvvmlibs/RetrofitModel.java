@@ -3,7 +3,7 @@ package com.rx.mvvmlibs;
 
 
 
-import com.rx.mvvmlibs.component.DaggerModelComponent;
+import com.rx.mvvmlibs.component.DaggerRetrofitModelComponent;
 import com.rx.mvvmlibs.module.ModelModule;
 import com.rx.mvvmlibs.module.RetrofitModule;
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
@@ -19,12 +19,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * @ClassName: Model
+ * @ClassName: RetrofitModel
  * @author create by Tang
  * @date date 16/11/10 下午2:11
  * @Description: MVVM的Model实现
  */
-public class Model implements IModel{
+public class RetrofitModel implements IModel{
 
     private Subscription subscription;
 
@@ -42,10 +42,10 @@ public class Model implements IModel{
     private int defaultTimeOut = 15;
 
     @Inject
-    public Model(IViewModel viewModel){
+    public RetrofitModel(IViewModel viewModel){
         this.viewModel = viewModel;
         this.resultScheduler = AndroidSchedulers.mainThread();
-        DaggerModelComponent
+        DaggerRetrofitModelComponent
                 .builder()
                 .modelModule(new ModelModule(viewModel))
                 .retrofitModule(new RetrofitModule(defaultUrl,defaultTimeOut))

@@ -78,12 +78,16 @@ public class MainActivity extends AppCompatActivity {
         testBean.testString.set("hello test");
         testBean.testInt.set(10000);
         Log.d(TAG, "test: " + RxMvvmApplication.getInstance().getGson().toJson(testBean));
-        Intent intent = new Intent(this,TestMvvmActivity.class);
+        Intent intent = new Intent(this,TestRetrofitMvvmActivity.class);
         startActivity(intent);
     }
 
     public void listClick(View view){
-        Intent intent = new Intent(MainActivity.this,TestListMvvmActivity.class);
+        Intent intent = new Intent(MainActivity.this,TestRetrofitListMvvmActivity.class);
+        startActivity(intent);
+
+    }    public void listFragmentClick(View view){
+        Intent intent = new Intent(MainActivity.this,TestListMvvmFragmentActivity.class);
         startActivity(intent);
     }
 

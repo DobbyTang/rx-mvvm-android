@@ -1,20 +1,21 @@
 package com.rx.mvvmlibs;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 
-import com.rx.mvvmlibs.component.DaggerListViewModelComponent;
+import com.rx.mvvmlibs.component.DaggerRetrofitListViewModelComponent;
+import com.rx.mvvmlibs.databinding.ActivityRetrofitMvvmListBinding;
 import com.rx.mvvmlibs.module.ListViewModelModule;
 import com.rx.mvvmlibs.network.Error;
 import com.rx.mvvmlibs.params.PaginationParams;
-import com.rx.mvvmlibs.view.ListMvvmActivity;
+import com.rx.mvvmlibs.view.RetrofitListMvvmActivity;
+import com.rx.mvvmlibs.view.RetrofitListMvvmFragment;
 import com.rx.utillibs.ListUtils;
 import com.rx.utillibs.LogUtil;
 
@@ -23,14 +24,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 
+
 /**
- * @ClassName: ListViewModel
+ * @ClassName: RetrofitListMvvmActivity
  * @author create by Tang
  * @date date 16/11/18 下午3:49
  * @Description: 用于处理列表型数据
  */
 
-public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
+public abstract class RetrofitListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
 
     //分页取数据数，默认为10
     private int mCount = 10;
@@ -54,17 +56,20 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
     public ListViewModelWrapper viewModelWrapper;
 
 
-    private ListMvvmActivity activity;
-
     Data data;
 
     private int lastVisibleItem;
     private int[] lastPositions;
 
-    public ListViewModel(ListMvvmActivity activity){
-        this.activity = activity;
+    public RetrofitListViewModel(RetrofitListMvvmActivity activity){
         viewModelWrapper = new ListViewModelWrapper();
-        init();
+        initActivity(activity);
+        refresh();
+    }
+
+    public RetrofitListViewModel(RetrofitListMvvmFragment fragment){
+        viewModelWrapper = new ListViewModelWrapper();
+        initFragment(fragment);
         refresh();
     }
 
@@ -133,10 +138,6 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     @Override
     public void init() {
-        DaggerListViewModelComponent.builder()
-                .listViewModelModule(new ListViewModelModule(this,activity))
-                .build()
-                .inject(viewModelWrapper);
 
         viewModelWrapper.contentMvvmListBinding.recyclerView
                 .addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -178,8 +179,6 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
         });
 
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
-        activity.setSupportActionBar(viewModelWrapper.activityMvvmListBinding.toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewModelWrapper.contentMvvmListBinding.refreshLayout
 
@@ -262,6 +261,31 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
             enqueue();
         }
+    }
+
+    private void initActivity(RetrofitListMvvmActivity activity){
+        ActivityRetrofitMvvmListBinding activityMvvmListBinding
+                = DataBindingUtil.setContentView(activity, R.layout.activity_retrofit_mvvm_list);
+        DaggerRetrofitListViewModelComponent.builder()
+                .listViewModelModule(new ListViewModelModule(
+                        this,activity,activityMvvmListBinding.contentMvvmList))
+                .build()
+                .inject(viewModelWrapper);
+
+        activity.setSupportActionBar(activityMvvmListBinding.toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        init();
+    }
+
+    private void initFragment(RetrofitListMvvmFragment fragment){
+        DaggerRetrofitListViewModelComponent.builder()
+                .listViewModelModule(new ListViewModelModule(
+                        this,fragment.getContext(),fragment.getContentMvvmListBinding()))
+                .build()
+                .inject(viewModelWrapper);
+
+
+        init();
     }
 
     /**

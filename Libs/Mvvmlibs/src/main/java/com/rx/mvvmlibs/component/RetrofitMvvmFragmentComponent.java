@@ -1,19 +1,19 @@
 package com.rx.mvvmlibs.component;
 
 import com.rx.mvvmlibs.module.BindViewModelModule;
-import com.rx.mvvmlibs.view.MvvmFragment;
+import com.rx.mvvmlibs.view.RetrofitMvvmFragment;
 
 import dagger.Component;
 
 /**
- * @ClassName: MvvmFragmentComponent
+ * @ClassName: RetrofitMvvmFragmentComponent
  * @author create by Tang
  * @date date 16/11/23 下午2:12
  * @Description: TODO
  */
 
 @Component(modules = BindViewModelModule.class)
-public interface MvvmFragmentComponent {
+public interface RetrofitMvvmFragmentComponent {
 
-    void inject(MvvmFragment fragment);
+    void inject(RetrofitMvvmFragment fragment);
 }

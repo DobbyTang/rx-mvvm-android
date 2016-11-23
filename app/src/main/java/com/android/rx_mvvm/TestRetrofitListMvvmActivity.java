@@ -1,32 +1,32 @@
 package com.android.rx_mvvm;
 
-import android.app.Activity;
+import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.rx.mvvmlibs.ListViewModel;
+import com.rx.mvvmlibs.RetrofitListViewModel;
 import com.rx.mvvmlibs.view.BindingListAdapter;
-import com.rx.mvvmlibs.view.ListMvvmActivity;
+import com.rx.mvvmlibs.view.RetrofitListMvvmActivity;
 import com.rx.utillibs.LogUtil;
 
 import retrofit2.Retrofit;
 import rx.Observable;
 
 /**
- * @ClassName: TestListMvvmActivity
+ * @ClassName: TestRetrofitListMvvmActivity
  * @author create by Tang
  * @date date 16/11/21 下午5:23
  * @Description: TODO
  */
 
-public class TestListMvvmActivity extends ListMvvmActivity{
+public class TestRetrofitListMvvmActivity extends RetrofitListMvvmActivity {
 
     @Override
-    public ListViewModel onBindingViewModel() {
-        return new ListViewModel(this) {
+    public RetrofitListViewModel onBindingViewModel() {
+        return new RetrofitListViewModel(this) {
             @Override
             public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent) {
                 return null;
@@ -51,9 +51,9 @@ public class TestListMvvmActivity extends ListMvvmActivity{
             }
 
             @Override
-            public RecyclerView.LayoutManager setLayoutManager(Activity activity) {
+            public RecyclerView.LayoutManager setLayoutManager(Context context) {
                 LogUtil.d("setLayoutManager");
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 return linearLayoutManager;
             }

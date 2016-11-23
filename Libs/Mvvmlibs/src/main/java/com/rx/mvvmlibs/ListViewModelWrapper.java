@@ -4,8 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 
 import com.rx.mvvmlibs.bean.ErrorBean;
-import com.rx.mvvmlibs.databinding.ActivityMvvmListBinding;
-import com.rx.mvvmlibs.databinding.ContentMvvmListBinding;
+import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmListBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
 import com.rx.mvvmlibs.view.BindingListAdapter;
 
@@ -21,10 +20,7 @@ import javax.inject.Inject;
 public class ListViewModelWrapper {
 
     @Inject
-    public ActivityMvvmListBinding activityMvvmListBinding;
-
-    @Inject
-    ContentMvvmListBinding contentMvvmListBinding;
+    ContentRetrofitMvvmListBinding contentMvvmListBinding;
 
     @Inject
     RecyclerView recyclerView;

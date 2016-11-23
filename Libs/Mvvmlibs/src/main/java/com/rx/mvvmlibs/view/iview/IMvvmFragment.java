@@ -1,10 +1,7 @@
 package com.rx.mvvmlibs.view.iview;
 
-import android.databinding.ViewDataBinding;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
-import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
+import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmBinding;
 
 /**
  * @ClassName: IMvvmFragment
@@ -15,5 +12,5 @@ import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 
 public interface IMvvmFragment {
 
-    ContentMvvmBinding getContentMvvmBinding();
+    ContentRetrofitMvvmBinding getContentMvvmBinding();
 }

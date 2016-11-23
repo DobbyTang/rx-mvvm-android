@@ -30,7 +30,7 @@
             android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            class="com.android.rx_mvvm.TestRetrofitMvvmFragment"
+            android:name="com.android.rx_mvvm.TestMvvmRetrofitListFragment"
             />
 
     </LinearLayout>

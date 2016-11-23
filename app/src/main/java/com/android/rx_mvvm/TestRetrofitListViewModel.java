@@ -1,35 +1,37 @@
 package com.android.rx_mvvm;
 
-import android.app.Activity;
+import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.android.rx_mvvm.bean.NuoMiCategoryBean;
-import com.rx.mvvmlibs.ListViewModel;
+import com.rx.mvvmlibs.RetrofitListViewModel;
 import com.rx.mvvmlibs.view.BindingListAdapter;
-import com.rx.mvvmlibs.view.ListMvvmActivity;
+import com.rx.mvvmlibs.view.RetrofitListMvvmActivity;
+import com.rx.mvvmlibs.view.RetrofitListMvvmFragment;
 import com.rx.utillibs.LogUtil;
-
-import java.util.List;
 
 import retrofit2.Retrofit;
 import rx.Observable;
 
 /**
- * @ClassName: TestListViewModel
+ * @ClassName: TestRetrofitListMvvmActivity
  * @author create by Tang
  * @date date 16/11/21 下午5:24
  * @Description: TODO
  */
 
-public class TestListViewModel extends ListViewModel<List<NuoMiCategoryBean>>{
+public class TestRetrofitListViewModel extends RetrofitListViewModel {
 
 
-    public TestListViewModel(ListMvvmActivity activity) {
+    public TestRetrofitListViewModel(RetrofitListMvvmActivity activity) {
         super(activity);
+    }
+
+    public TestRetrofitListViewModel(RetrofitListMvvmFragment fragment) {
+        super(fragment);
     }
 
     @Override
@@ -49,9 +51,9 @@ public class TestListViewModel extends ListViewModel<List<NuoMiCategoryBean>>{
     }
 
     @Override
-    public RecyclerView.LayoutManager setLayoutManager(Activity activity) {
+    public RecyclerView.LayoutManager setLayoutManager(Context context) {
         LogUtil.d("setLayoutManager");
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         return linearLayoutManager;
     }

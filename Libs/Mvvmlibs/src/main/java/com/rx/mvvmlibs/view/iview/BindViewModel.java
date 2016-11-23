@@ -1,10 +1,6 @@
 package com.rx.mvvmlibs.view.iview;
 
-import android.databinding.ViewDataBinding;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-
-import com.rx.mvvmlibs.ViewModel;
+import com.rx.mvvmlibs.RetrofitViewModel;
 
 
 /**
@@ -23,7 +19,7 @@ public interface BindViewModel {
      * @Description: 绑定ViewModel
      * 必须在该方法中生成ViewModel实例
      */
-    ViewModel onBindingViewModel();
+    RetrofitViewModel onBindingViewModel();
 
     /**
      * @Method: init

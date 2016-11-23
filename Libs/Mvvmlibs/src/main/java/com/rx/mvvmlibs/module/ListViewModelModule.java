@@ -1,26 +1,16 @@
 package com.rx.mvvmlibs.module;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.TypedValue;
 
-import com.rx.mvvmlibs.IErrorInfo;
 import com.rx.mvvmlibs.IModel;
-import com.rx.mvvmlibs.ListViewModel;
-import com.rx.mvvmlibs.Model;
-import com.rx.mvvmlibs.R;
+import com.rx.mvvmlibs.RetrofitListViewModel;
+import com.rx.mvvmlibs.RetrofitModel;
 import com.rx.mvvmlibs.bean.ErrorBean;
-import com.rx.mvvmlibs.databinding.ActivityMvvmListBinding;
-import com.rx.mvvmlibs.databinding.ContentMvvmListBinding;
+import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmListBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
 import com.rx.mvvmlibs.scope.ListViewModelScope;
 import com.rx.mvvmlibs.view.BindingListAdapter;
-import com.rx.mvvmlibs.view.ListMvvmActivity;
-import com.rx.utillibs.LogUtil;
 
 import dagger.Module;
 import dagger.Provides;
@@ -35,31 +25,28 @@ import dagger.Provides;
 @Module
 public class ListViewModelModule {
 
-    private ListViewModel listViewModel;
-    private ListMvvmActivity activity;
+    private RetrofitListViewModel listViewModel;
+    private Context context;
+    private ContentRetrofitMvvmListBinding contentMvvmListBinding;
 
 
-    public ListViewModelModule(ListViewModel listViewModel, ListMvvmActivity activity){
+    public ListViewModelModule(RetrofitListViewModel listViewModel, Context context
+            , ContentRetrofitMvvmListBinding binding){
+
         this.listViewModel = listViewModel;
-        this.activity = activity;
+        this.context = context;
+        this.contentMvvmListBinding = binding;
     }
 
     @ListViewModelScope
     @Provides
-    public ActivityMvvmListBinding providesActivityMvvmListBinding(){
-        return DataBindingUtil
-                .setContentView(activity, R.layout.activity_mvvm_list);
+    public ContentRetrofitMvvmListBinding providesContentMvvmListBinding(){
+        return contentMvvmListBinding;
     }
 
     @ListViewModelScope
     @Provides
-    public ContentMvvmListBinding providesContentMvvmListBinding(ActivityMvvmListBinding activityMvvmBinding){
-        return activityMvvmBinding.contentMvvmList;
-    }
-
-    @ListViewModelScope
-    @Provides
-    public RecyclerView providesRecyclerView(ContentMvvmListBinding contentMvvmBinding
+    public RecyclerView providesRecyclerView(ContentRetrofitMvvmListBinding contentMvvmBinding
             ,BindingListAdapter adapter, RecyclerView.LayoutManager layoutManager){
 
         contentMvvmBinding.recyclerView.setLayoutManager(layoutManager);
@@ -76,12 +63,12 @@ public class ListViewModelModule {
     @ListViewModelScope
     @Provides
     public RecyclerView.LayoutManager providesLayoutManager(){
-        return listViewModel.setLayoutManager(activity);
+        return listViewModel.setLayoutManager(context);
     }
 
     @ListViewModelScope
     @Provides
-    public ErrorBinding providesErrorBinding(ContentMvvmListBinding contentMvvmBinding){
+    public ErrorBinding providesErrorBinding(ContentRetrofitMvvmListBinding contentMvvmBinding){
         return contentMvvmBinding.error;
     }
 
@@ -94,7 +81,7 @@ public class ListViewModelModule {
     @ListViewModelScope
     @Provides
     public IModel providesModel(){
-        return new Model(listViewModel);
+        return new RetrofitModel(listViewModel);
     }
 
 

@@ -7,35 +7,28 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.rx.mvvmlibs.ListViewModel;
-import com.rx.mvvmlibs.R;
-import com.rx.mvvmlibs.component
-        .DaggerListMvvmActivityComponent;
-import com.rx.mvvmlibs.module.ListMvvmActivityModule;
-import com.rx.mvvmlibs.view.iview.IListMvvmActivity;
+import com.rx.mvvmlibs.RetrofitListViewModel;
+import com.rx.mvvmlibs.component.DaggerRetrofitListMvvmActivityComponent;
+import com.rx.mvvmlibs.module.BindListViewModelModule;
+import com.rx.mvvmlibs.view.iview.BindListViewModel;
 
 import javax.inject.Inject;
 
 /**
- * @ClassName: ListMvvmActivity
+ * @ClassName: RetrofitListMvvmActivity
  * @author create by Tang
  * @date date 16/11/18 下午3:54
  * @Description: 列表型activty
  */
 
-public abstract class ListMvvmActivity extends AppCompatActivity implements IListMvvmActivity{
+public abstract class RetrofitListMvvmActivity extends AppCompatActivity implements BindListViewModel {
 
     @Inject
-    ListViewModel listViewModel;
+    RetrofitListViewModel listViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerListMvvmActivityComponent
-                .builder()
-                .listMvvmActivityModule(new ListMvvmActivityModule(this))
-                .build()
-                .inject(this);
         init();
 
     }
@@ -80,12 +73,16 @@ public abstract class ListMvvmActivity extends AppCompatActivity implements ILis
     }
 
     @Override
-    public ListViewModel onBindingViewModel() {
+    public RetrofitListViewModel onBindingViewModel() {
         return null;
     }
 
     @Override
     public void init() {
-        // TODO: 16/11/19
+        DaggerRetrofitListMvvmActivityComponent
+                .builder()
+                .bindListViewModelModule(new BindListViewModelModule(this))
+                .build()
+                .inject(this);
     }
 }

@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 
 import com.android.rx_mvvm.bean.NuoMiCategoryBean;
 import com.android.rx_mvvm.databinding.ActivityTestBinding;
-import com.rx.mvvmlibs.RxMvvmApplication;
-import com.rx.mvvmlibs.ViewModel;
+import com.rx.mvvmlibs.RetrofitViewModel;
 import com.rx.mvvmlibs.bean.ProgressBean;
-import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
-import com.rx.mvvmlibs.view.MvvmFragment;
+import com.rx.mvvmlibs.view.RetrofitMvvmFragment;
 
 import java.util.List;
 
@@ -23,13 +21,13 @@ import retrofit2.Retrofit;
 import rx.Observable;
 
 /**
- * @ClassName: TestViewModel
+ * @ClassName: TestRetrofitViewModel
  * @author create by Tang
  * @date date 16/11/15 下午4:56
  * @Description: TODO
  */
 
-public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
+public class TestRetrofitViewModel extends RetrofitViewModel<List<NuoMiCategoryBean>> {
 
 
     private Observable nuomi;
@@ -39,7 +37,7 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
 
     private Context context;
 
-    public TestViewModel(TestMvvmActivity activity) {
+    public TestRetrofitViewModel(TestRetrofitMvvmActivity activity) {
         super(activity);
         this.context = activity;
         viewModelWrapper.model
@@ -49,7 +47,7 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>>{
 
 
 
-    public TestViewModel(MvvmFragment fragment) {
+    public TestRetrofitViewModel(RetrofitMvvmFragment fragment) {
         super(fragment);
         this.context = fragment.getContext();
         viewModelWrapper.model

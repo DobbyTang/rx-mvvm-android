@@ -9,16 +9,13 @@ import android.widget.FrameLayout;
 
 import com.rx.mvvmlibs.IModel;
 import com.rx.mvvmlibs.IViewModel;
-import com.rx.mvvmlibs.Model;
-import com.rx.mvvmlibs.ViewModel;
+import com.rx.mvvmlibs.RetrofitModel;
+import com.rx.mvvmlibs.RetrofitViewModel;
 import com.rx.mvvmlibs.bean.ErrorBean;
-import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
+import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmBinding;
 import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
 import com.rx.mvvmlibs.scope.ViewModelScope;
-import com.rx.mvvmlibs.view.MvvmActivity;
-import com.rx.mvvmlibs.view.MvvmFragment;
-import com.rx.mvvmlibs.view.iview.BindViewModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,34 +30,25 @@ import dagger.Provides;
 @Module
 public class ViewModelModule {
 
-    private ContentMvvmBinding contentMvvmBinding;
+    private ContentRetrofitMvvmBinding contentMvvmBinding;
     private Context context;
     private IViewModel viewModel;
-    private BindViewModel bindingViewModel;
 
-    public ViewModelModule(ViewModel viewModel, MvvmActivity activity, ContentMvvmBinding contentMvvmBinding){
+    public ViewModelModule(RetrofitViewModel viewModel, Context context, ContentRetrofitMvvmBinding contentMvvmBinding){
         this.viewModel = viewModel;
-        this.context = activity;
+        this.context = context;
         this.contentMvvmBinding = contentMvvmBinding;
-        this.bindingViewModel = activity;
-    }
-
-    public ViewModelModule(ViewModel viewModel, MvvmFragment fragment, ContentMvvmBinding contentMvvmBinding){
-        this.viewModel = viewModel;
-        this.context = fragment.getContext();
-        this.contentMvvmBinding = contentMvvmBinding;
-        this.bindingViewModel = fragment;
     }
 
     @ViewModelScope
     @Provides
-    public ContentMvvmBinding providesContentMvvmBinding(){
+    public ContentRetrofitMvvmBinding providesContentMvvmBinding(){
         return contentMvvmBinding;
     }
 
     @ViewModelScope
     @Provides
-    ViewDataBinding providesChildBinding(ContentMvvmBinding contentMvvmBinding){
+    ViewDataBinding providesChildBinding(ContentRetrofitMvvmBinding contentMvvmBinding){
 
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
@@ -76,13 +64,13 @@ public class ViewModelModule {
 
     @ViewModelScope
     @Provides
-    public ErrorBinding providesErrorBinding(ContentMvvmBinding contentMvvmBinding){
+    public ErrorBinding providesErrorBinding(ContentRetrofitMvvmBinding contentMvvmBinding){
         return contentMvvmBinding.mvvmError;
     }
 
     @ViewModelScope
     @Provides
-    public DefaultProgressBinding providesProgressBinding(ContentMvvmBinding contentMvvmBinding){
+    public DefaultProgressBinding providesProgressBinding(ContentRetrofitMvvmBinding contentMvvmBinding){
         return contentMvvmBinding.mvvmDefaultProgress;
     }
 
@@ -95,7 +83,7 @@ public class ViewModelModule {
     @ViewModelScope
     @Provides
     public IModel providesModel(){
-        return new Model(viewModel);
+        return new RetrofitModel(viewModel);
     }
 
     @ViewModelScope
