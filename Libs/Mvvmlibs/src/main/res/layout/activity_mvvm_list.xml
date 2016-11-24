@@ -22,8 +22,8 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_retrofit_mvvm"
-            android:id="@+id/content_mvvm"
+        <include layout="@layout/content_mvvm_list"
+            android:id="@+id/content_mvvm_list"
             />
 
         <android.support.design.widget.FloatingActionButton

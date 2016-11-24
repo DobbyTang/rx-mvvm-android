@@ -9,13 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.rx.mvvmlibs.component.DaggerRetrofitListViewModelComponent;
-import com.rx.mvvmlibs.databinding.ActivityRetrofitMvvmListBinding;
+import com.rx.mvvmlibs.component.DaggerListViewModelComponent;
+import com.rx.mvvmlibs.databinding.ActivityMvvmListBinding;
 import com.rx.mvvmlibs.module.ListViewModelModule;
 import com.rx.mvvmlibs.network.Error;
 import com.rx.mvvmlibs.params.PaginationParams;
-import com.rx.mvvmlibs.view.RetrofitListMvvmActivity;
-import com.rx.mvvmlibs.view.RetrofitListMvvmFragment;
+import com.rx.mvvmlibs.view.ListMvvmActivity;
+import com.rx.mvvmlibs.view.ListMvvmFragment;
 import com.rx.utillibs.ListUtils;
 import com.rx.utillibs.LogUtil;
 
@@ -26,13 +26,13 @@ import javax.inject.Inject;
 
 
 /**
- * @ClassName: RetrofitListMvvmActivity
+ * @ClassName: ListMvvmActivity
  * @author create by Tang
  * @date date 16/11/18 下午3:49
  * @Description: 用于处理列表型数据
  */
 
-public abstract class RetrofitListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
+public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
 
     //分页取数据数，默认为10
     private int mCount = 10;
@@ -61,13 +61,13 @@ public abstract class RetrofitListViewModel<Data extends List> implements IListV
     private int lastVisibleItem;
     private int[] lastPositions;
 
-    public RetrofitListViewModel(RetrofitListMvvmActivity activity){
+    public ListViewModel(ListMvvmActivity activity){
         viewModelWrapper = new ListViewModelWrapper();
         initActivity(activity);
         refresh();
     }
 
-    public RetrofitListViewModel(RetrofitListMvvmFragment fragment){
+    public ListViewModel(ListMvvmFragment fragment){
         viewModelWrapper = new ListViewModelWrapper();
         initFragment(fragment);
         refresh();
@@ -263,10 +263,10 @@ public abstract class RetrofitListViewModel<Data extends List> implements IListV
         }
     }
 
-    private void initActivity(RetrofitListMvvmActivity activity){
-        ActivityRetrofitMvvmListBinding activityMvvmListBinding
-                = DataBindingUtil.setContentView(activity, R.layout.activity_retrofit_mvvm_list);
-        DaggerRetrofitListViewModelComponent.builder()
+    private void initActivity(ListMvvmActivity activity){
+        ActivityMvvmListBinding activityMvvmListBinding
+                = DataBindingUtil.setContentView(activity, R.layout.activity_mvvm_list);
+        DaggerListViewModelComponent.builder()
                 .listViewModelModule(new ListViewModelModule(
                         this,activity,activityMvvmListBinding.contentMvvmList))
                 .build()
@@ -277,8 +277,8 @@ public abstract class RetrofitListViewModel<Data extends List> implements IListV
         init();
     }
 
-    private void initFragment(RetrofitListMvvmFragment fragment){
-        DaggerRetrofitListViewModelComponent.builder()
+    private void initFragment(ListMvvmFragment fragment){
+        DaggerListViewModelComponent.builder()
                 .listViewModelModule(new ListViewModelModule(
                         this,fragment.getContext(),fragment.getContentMvvmListBinding()))
                 .build()

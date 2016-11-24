@@ -1,1 +1,1 @@
-include ':app', ':Libs:MvvmLibs', ':Libs:UtilLibs', ':Libs:BaseAppLibs'
+include ':app', ':Libs:MvvmLibs', ':Libs:UtilLibs', ':Libs:ResLibs'

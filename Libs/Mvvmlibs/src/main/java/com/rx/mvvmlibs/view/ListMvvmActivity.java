@@ -7,24 +7,24 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.rx.mvvmlibs.RetrofitListViewModel;
-import com.rx.mvvmlibs.component.DaggerRetrofitListMvvmActivityComponent;
+import com.rx.mvvmlibs.ListViewModel;
+import com.rx.mvvmlibs.component.DaggerListMvvmActivityComponent;
 import com.rx.mvvmlibs.module.BindListViewModelModule;
 import com.rx.mvvmlibs.view.iview.BindListViewModel;
 
 import javax.inject.Inject;
 
 /**
- * @ClassName: RetrofitListMvvmActivity
+ * @ClassName: ListMvvmActivity
  * @author create by Tang
  * @date date 16/11/18 下午3:54
  * @Description: 列表型activty
  */
 
-public abstract class RetrofitListMvvmActivity extends AppCompatActivity implements BindListViewModel {
+public abstract class ListMvvmActivity extends AppCompatActivity implements BindListViewModel {
 
     @Inject
-    RetrofitListViewModel listViewModel;
+    ListViewModel listViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,13 +73,13 @@ public abstract class RetrofitListMvvmActivity extends AppCompatActivity impleme
     }
 
     @Override
-    public RetrofitListViewModel onBindingViewModel() {
+    public ListViewModel onBindingViewModel() {
         return null;
     }
 
     @Override
     public void init() {
-        DaggerRetrofitListMvvmActivityComponent
+        DaggerListMvvmActivityComponent
                 .builder()
                 .bindListViewModelModule(new BindListViewModelModule(this))
                 .build()

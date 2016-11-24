@@ -4,10 +4,10 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.rx.mvvmlibs.IModel;
-import com.rx.mvvmlibs.RetrofitListViewModel;
+import com.rx.mvvmlibs.ListViewModel;
 import com.rx.mvvmlibs.RetrofitModel;
 import com.rx.mvvmlibs.bean.ErrorBean;
-import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmListBinding;
+import com.rx.mvvmlibs.databinding.ContentMvvmListBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
 import com.rx.mvvmlibs.scope.ListViewModelScope;
 import com.rx.mvvmlibs.view.BindingListAdapter;
@@ -25,13 +25,13 @@ import dagger.Provides;
 @Module
 public class ListViewModelModule {
 
-    private RetrofitListViewModel listViewModel;
+    private ListViewModel listViewModel;
     private Context context;
-    private ContentRetrofitMvvmListBinding contentMvvmListBinding;
+    private ContentMvvmListBinding contentMvvmListBinding;
 
 
-    public ListViewModelModule(RetrofitListViewModel listViewModel, Context context
-            , ContentRetrofitMvvmListBinding binding){
+    public ListViewModelModule(ListViewModel listViewModel, Context context
+            , ContentMvvmListBinding binding){
 
         this.listViewModel = listViewModel;
         this.context = context;
@@ -40,13 +40,13 @@ public class ListViewModelModule {
 
     @ListViewModelScope
     @Provides
-    public ContentRetrofitMvvmListBinding providesContentMvvmListBinding(){
+    public ContentMvvmListBinding providesContentMvvmListBinding(){
         return contentMvvmListBinding;
     }
 
     @ListViewModelScope
     @Provides
-    public RecyclerView providesRecyclerView(ContentRetrofitMvvmListBinding contentMvvmBinding
+    public RecyclerView providesRecyclerView(ContentMvvmListBinding contentMvvmBinding
             ,BindingListAdapter adapter, RecyclerView.LayoutManager layoutManager){
 
         contentMvvmBinding.recyclerView.setLayoutManager(layoutManager);
@@ -68,7 +68,7 @@ public class ListViewModelModule {
 
     @ListViewModelScope
     @Provides
-    public ErrorBinding providesErrorBinding(ContentRetrofitMvvmListBinding contentMvvmBinding){
+    public ErrorBinding providesErrorBinding(ContentMvvmListBinding contentMvvmBinding){
         return contentMvvmBinding.error;
     }
 

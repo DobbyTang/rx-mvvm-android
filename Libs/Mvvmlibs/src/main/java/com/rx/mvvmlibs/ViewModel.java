@@ -8,22 +8,22 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.rx.mvvmlibs.bean.ProgressBean;
-import com.rx.mvvmlibs.component.DaggerRetrofitViewModelComponent;
-import com.rx.mvvmlibs.databinding.ActivityRetrofitMvvmBinding;
+import com.rx.mvvmlibs.component.DaggerViewModelComponent;
+import com.rx.mvvmlibs.databinding.ActivityMvvmBinding;
 import com.rx.mvvmlibs.module.ViewModelModule;
 import com.rx.mvvmlibs.network.Error;
-import com.rx.mvvmlibs.view.RetrofitMvvmActivity;
-import com.rx.mvvmlibs.view.RetrofitMvvmFragment;
+import com.rx.mvvmlibs.view.MvvmActivity;
+import com.rx.mvvmlibs.view.MvvmFragment;
 import com.rx.utillibs.LogUtil;
 
 /**
- * @ClassName: RetrofitViewModel
+ * @ClassName: ViewModel
  * @author create by Tang
  * @date date 16/11/15 上午10:21
  * @Description: TODO
  */
 
-public abstract class RetrofitViewModel<Data> implements IViewModel<Data>,IErrorInfo{
+public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     private boolean isSuccess;
 
@@ -31,13 +31,13 @@ public abstract class RetrofitViewModel<Data> implements IViewModel<Data>,IError
 
     private Context context;
 
-    public RetrofitViewModel(RetrofitMvvmActivity activity){
+    public ViewModel(MvvmActivity activity){
         this.context = activity;
         initActivity(activity);
 
     }
 
-    public RetrofitViewModel(RetrofitMvvmFragment fragment){
+    public ViewModel(MvvmFragment fragment){
         this.context = fragment.getContext();
         initFragment(fragment);
     }
@@ -194,10 +194,10 @@ public abstract class RetrofitViewModel<Data> implements IViewModel<Data>,IError
         enqueue();
     }
 
-    private void initActivity(RetrofitMvvmActivity activity){
-        ActivityRetrofitMvvmBinding activityMvvmBinding
-                = DataBindingUtil.setContentView(activity,R.layout.activity_retrofit_mvvm);
-        DaggerRetrofitViewModelComponent.builder()
+    private void initActivity(MvvmActivity activity){
+        ActivityMvvmBinding activityMvvmBinding
+                = DataBindingUtil.setContentView(activity,R.layout.activity_mvvm);
+        DaggerViewModelComponent.builder()
                 .viewModelModule(new ViewModelModule(this,activity,activityMvvmBinding.contentMvvm))
                 .build()
                 .inject(viewModelWrapper);
@@ -207,9 +207,9 @@ public abstract class RetrofitViewModel<Data> implements IViewModel<Data>,IError
         init();
     }
 
-    private void initFragment(RetrofitMvvmFragment fragment){
+    private void initFragment(MvvmFragment fragment){
 
-        DaggerRetrofitViewModelComponent.builder()
+        DaggerViewModelComponent.builder()
                 .viewModelModule(new ViewModelModule(this,fragment.getContext()
                         ,fragment.getContentMvvmBinding()))
                 .build()

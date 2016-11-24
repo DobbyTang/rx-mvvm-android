@@ -1,6 +1,6 @@
 package com.rx.mvvmlibs.module;
 
-import com.rx.mvvmlibs.RetrofitListViewModel;
+import com.rx.mvvmlibs.ListViewModel;
 import com.rx.mvvmlibs.view.iview.BindListViewModel;
 
 import dagger.Module;
@@ -23,7 +23,7 @@ public class BindListViewModelModule {
     }
 
     @Provides
-    public RetrofitListViewModel providesListViewModel(){
+    public ListViewModel providesListViewModel(){
         return bindListViewModel.onBindingViewModel();
     }
 }

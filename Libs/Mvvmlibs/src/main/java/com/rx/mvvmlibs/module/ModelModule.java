@@ -1,5 +1,6 @@
 package com.rx.mvvmlibs.module;
 
+import com.rx.mvvmlibs.IRetrofitViewModel;
 import com.rx.mvvmlibs.IViewModel;
 import com.rx.mvvmlibs.Result;
 import com.rx.utillibs.LogUtil;
@@ -18,9 +19,9 @@ import rx.Subscriber;
 @Module
 public class ModelModule {
 
-    private IViewModel viewModel;
+    private IRetrofitViewModel viewModel;
 
-    public ModelModule(IViewModel viewModel){
+    public ModelModule(IRetrofitViewModel viewModel){
         this.viewModel = viewModel;
     }
 

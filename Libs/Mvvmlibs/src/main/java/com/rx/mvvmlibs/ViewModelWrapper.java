@@ -5,7 +5,7 @@ import android.databinding.ViewDataBinding;
 
 import com.rx.mvvmlibs.bean.ErrorBean;
 import com.rx.mvvmlibs.bean.ProgressBean;
-import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmBinding;
+import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 import com.rx.mvvmlibs.databinding.DefaultProgressBinding;
 import com.rx.mvvmlibs.databinding.ErrorBinding;
 
@@ -31,7 +31,7 @@ public class ViewModelWrapper {
     public IModel model;
 
     @Inject
-    ContentRetrofitMvvmBinding contentMvvmBinding;
+    ContentMvvmBinding contentMvvmBinding;
 
     @Inject
     public ViewDataBinding childBinding;

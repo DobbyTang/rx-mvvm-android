@@ -1,6 +1,6 @@
 package com.rx.mvvmlibs.view.iview;
 
-import com.rx.mvvmlibs.RetrofitViewModel;
+import com.rx.mvvmlibs.ViewModel;
 
 
 /**
@@ -19,7 +19,7 @@ public interface BindViewModel {
      * @Description: 绑定ViewModel
      * 必须在该方法中生成ViewModel实例
      */
-    RetrofitViewModel onBindingViewModel();
+    ViewModel onBindingViewModel();
 
     /**
      * @Method: init

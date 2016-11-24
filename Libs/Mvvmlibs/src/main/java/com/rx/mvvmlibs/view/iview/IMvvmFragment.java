@@ -1,7 +1,7 @@
 package com.rx.mvvmlibs.view.iview;
 
 
-import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmBinding;
+import com.rx.mvvmlibs.databinding.ContentMvvmBinding;
 
 /**
  * @ClassName: IMvvmFragment
@@ -12,5 +12,5 @@ import com.rx.mvvmlibs.databinding.ContentRetrofitMvvmBinding;
 
 public interface IMvvmFragment {
 
-    ContentRetrofitMvvmBinding getContentMvvmBinding();
+    ContentMvvmBinding getContentMvvmBinding();
 }

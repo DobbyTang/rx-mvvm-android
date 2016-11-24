@@ -1,4 +1,4 @@
-package com.android.rx_mvvm;
+package com.android.rx_mvvm.activity;
 
 import android.content.Context;
 import android.databinding.ViewDataBinding;
@@ -7,30 +7,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.rx.mvvmlibs.RetrofitListViewModel;
+import com.android.rx_mvvm.BaiduApi;
+import com.android.rx_mvvm.TestAdapter;
+import com.rx.mvvmlibs.ListViewModel;
 import com.rx.mvvmlibs.view.BindingListAdapter;
-import com.rx.mvvmlibs.view.RetrofitListMvvmActivity;
+import com.rx.mvvmlibs.view.ListMvvmActivity;
 import com.rx.utillibs.LogUtil;
 
 import retrofit2.Retrofit;
 import rx.Observable;
 
 /**
- * @ClassName: TestRetrofitListMvvmActivity
+ * @ClassName: TestListMvvmActivity
  * @author create by Tang
  * @date date 16/11/21 下午5:23
  * @Description: TODO
  */
 
-public class TestRetrofitListMvvmActivity extends RetrofitListMvvmActivity {
+public class TestListMvvmActivity extends ListMvvmActivity {
 
     @Override
-    public RetrofitListViewModel onBindingViewModel() {
-        return new RetrofitListViewModel(this) {
-            @Override
-            public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent) {
-                return null;
-            }
+    public ListViewModel onBindingViewModel() {
+        return new ListViewModel(this) {
 
             @Override
             public Observable setApiInterface(Retrofit retrofit) {

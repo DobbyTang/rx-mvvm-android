@@ -3,71 +3,55 @@ package com.rx.mvvmlibs.view;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.rx.mvvmlibs.R;
-import com.rx.mvvmlibs.view.iview.IMvvmActivity;
+import com.rx.mvvmlibs.ViewModel;
+import com.rx.mvvmlibs.component.DaggerMvvmActivityComponent;
+import com.rx.mvvmlibs.module.BindViewModelModule;
+import com.rx.mvvmlibs.view.iview.BindViewModel;
+
+import javax.inject.Inject;
 
 /**
  * @ClassName: MvvmActivity
  * @author create by Tang
- * @date date 16/11/23 下午5:38
- * @Description: 无网络连接的Activity继承该类
+ * @date date 16/11/15 上午10:44
+ * @Description: TODO
  */
 
-public abstract class MvvmActivity extends AppCompatActivity implements IMvvmActivity{
+public abstract class MvvmActivity extends AppCompatActivity implements BindViewModel {
 
-    private CoordinatorLayout contentViewGroup;
-    private View contentView;
-
-
+    @Inject
+    ViewModel viewModel;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mvvm);
-        initBaseView();
+        DaggerMvvmActivityComponent.builder()
+                .bindViewModelModule(new BindViewModelModule(this))
+                .build()
+                .inject(this);
+        init();
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    protected void onPause() {
+        super.onPause();
+        if (viewModel != null){
+            viewModel.cancel();
+        }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void initBaseView(){
-
-
-
-        contentViewGroup = (CoordinatorLayout) ((ViewGroup)
-                findViewById(android.R.id.content)).getChildAt(0);
-        CoordinatorLayout.LayoutParams lp = new CoordinatorLayout.LayoutParams(
-                CoordinatorLayout.LayoutParams.MATCH_PARENT
-                ,CoordinatorLayout.LayoutParams.MATCH_PARENT);
-        lp.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-
-        contentView = setContentView(getLayoutInflater(),contentViewGroup);
-
-        contentViewGroup.addView(contentView,lp);
     }
 
     @Override
@@ -77,8 +61,7 @@ public abstract class MvvmActivity extends AppCompatActivity implements IMvvmAct
             super.startActivity(intent);
 
         }catch (ActivityNotFoundException e){
-            Snackbar.make(contentViewGroup,"找不到对应的页面",Snackbar.LENGTH_SHORT)
-                    .setAction("Action",null).show();
+            e.printStackTrace();
         }
     }
 
@@ -89,9 +72,13 @@ public abstract class MvvmActivity extends AppCompatActivity implements IMvvmAct
             super.startActivityForResult(intent, requestCode);
 
         }catch (ActivityNotFoundException e){
-            Snackbar.make(contentViewGroup,"找不到对应的页面",Snackbar.LENGTH_SHORT)
-                    .setAction("Action",null).show();
+            e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void init() {
 
     }
 }

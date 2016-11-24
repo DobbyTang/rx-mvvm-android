@@ -34,7 +34,7 @@ public class RetrofitModel implements IModel{
     @Inject
     BaseParamsInterceptor.Builder builder;
 
-    private IViewModel viewModel;
+    private IRetrofitViewModel viewModel;
 
     private Scheduler resultScheduler;
 
@@ -42,7 +42,7 @@ public class RetrofitModel implements IModel{
     private int defaultTimeOut = 15;
 
     @Inject
-    public RetrofitModel(IViewModel viewModel){
+    public RetrofitModel(IRetrofitViewModel viewModel){
         this.viewModel = viewModel;
         this.resultScheduler = AndroidSchedulers.mainThread();
         DaggerRetrofitModelComponent

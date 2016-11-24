@@ -9,8 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Libs" />
-            <option value="$PROJECT_DIR$/Libs/BaseAppLibs" />
             <option value="$PROJECT_DIR$/Libs/MvvmLibs" />
+            <option value="$PROJECT_DIR$/Libs/ResLibs" />
             <option value="$PROJECT_DIR$/Libs/UtilLibs" />
             <option value="$PROJECT_DIR$/app" />
           </set>

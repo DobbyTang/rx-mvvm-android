@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -22,9 +23,6 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_retrofit_mvvm_list"
-            android:id="@+id/content_mvvm_list"
-            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

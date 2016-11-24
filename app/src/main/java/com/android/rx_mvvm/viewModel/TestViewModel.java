@@ -1,4 +1,4 @@
-package com.android.rx_mvvm;
+package com.android.rx_mvvm.viewModel;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -9,11 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.rx_mvvm.BaiduApi;
+import com.android.rx_mvvm.R;
+import com.android.rx_mvvm.TestAdapter;
+import com.android.rx_mvvm.activity.TestMvvmActivity;
 import com.android.rx_mvvm.bean.NuoMiCategoryBean;
 import com.android.rx_mvvm.databinding.ActivityTestBinding;
-import com.rx.mvvmlibs.RetrofitViewModel;
+import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.bean.ProgressBean;
-import com.rx.mvvmlibs.view.RetrofitMvvmFragment;
+import com.rx.mvvmlibs.view.MvvmFragment;
 
 import java.util.List;
 
@@ -21,13 +25,13 @@ import retrofit2.Retrofit;
 import rx.Observable;
 
 /**
- * @ClassName: TestRetrofitViewModel
+ * @ClassName: TestViewModel
  * @author create by Tang
  * @date date 16/11/15 下午4:56
  * @Description: TODO
  */
 
-public class TestRetrofitViewModel extends RetrofitViewModel<List<NuoMiCategoryBean>> {
+public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>> {
 
 
     private Observable nuomi;
@@ -37,7 +41,7 @@ public class TestRetrofitViewModel extends RetrofitViewModel<List<NuoMiCategoryB
 
     private Context context;
 
-    public TestRetrofitViewModel(TestRetrofitMvvmActivity activity) {
+    public TestViewModel(TestMvvmActivity activity) {
         super(activity);
         this.context = activity;
         viewModelWrapper.model
@@ -47,7 +51,7 @@ public class TestRetrofitViewModel extends RetrofitViewModel<List<NuoMiCategoryB
 
 
 
-    public TestRetrofitViewModel(RetrofitMvvmFragment fragment) {
+    public TestViewModel(MvvmFragment fragment) {
         super(fragment);
         this.context = fragment.getContext();
         viewModelWrapper.model
@@ -58,7 +62,7 @@ public class TestRetrofitViewModel extends RetrofitViewModel<List<NuoMiCategoryB
 
     @Override
     public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.activity_test,parent,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_test,parent,false);
         binding.setTestViewModel(this);
         return binding;
     }

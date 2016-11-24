@@ -12,7 +12,7 @@ import com.rx.mvvmlibs.view.BindingListAdapter;
  * @Description: 列表型ViewModel
  */
 
-public interface IListViewModel<Data> extends IViewModel<Data>{
+public interface IListViewModel<Data> extends IRetrofitViewModel<Data>{
 
     /**
      * @Method: refresh
@@ -49,4 +49,12 @@ public interface IListViewModel<Data> extends IViewModel<Data>{
      * @Description: 刷新指定页面
      */
     void refreshIndexPage(int index);
+
+    /**
+     * @Method: init
+     * @author create by Tang
+     * @date date 16/11/18 上午10:54
+     * @Description: 可以在此方法作一些初始化操作
+     */
+    void init();
 }

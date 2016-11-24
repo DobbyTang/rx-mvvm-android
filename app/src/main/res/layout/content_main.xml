@@ -18,20 +18,26 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="糯米分类Activity"
+            android:onClick="nuomiActivity"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="糯米分类Fragment"
-            android:onClick="mvvmFragment"/>
+            android:onClick="nuomiFragment"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="糯米分类List Activity"
-            android:onClick="listClick"/>
+            android:onClick="nuomiListActivity"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="糯米分类List Fragment"
-            android:onClick="listFragmentClick"/>
+            android:onClick="nuomiListFragment"/>
     </LinearLayout>
 
 </layout>

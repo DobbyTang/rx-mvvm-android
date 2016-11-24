@@ -1,7 +1,7 @@
 package com.rx.mvvmlibs.module;
 
 
-import com.rx.mvvmlibs.RetrofitViewModel;
+import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.view.iview.BindViewModel;
 
 import dagger.Module;
@@ -25,7 +25,7 @@ public class BindViewModelModule {
 
 
     @Provides
-    public RetrofitViewModel providesViewModel(){
+    public ViewModel providesViewModel(){
         return  mBinding.onBindingViewModel();
     }
 
