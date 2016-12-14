@@ -42,10 +42,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     compile "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
     compile "com.google.code.gson:gson:${GSON_VERSION}"
-    compile "io.reactivex:rxandroid:${RXANDROID_VERSION}"
-    compile "io.reactivex:rxjava:${RXJAVA_VERSION}"
+    compile "io.reactivex.rxjava2:rxjava:${RXANDROID_VERSION}"
+    compile "io.reactivex.rxjava2:rxandroid:${RXJAVA_VERSION}"
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:+'
     provided "com.google.dagger:dagger-compiler:${DAGGER_VERSION}" //指定注解处理器
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"  //dagger公用api

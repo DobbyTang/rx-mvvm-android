@@ -1,28 +1,27 @@
 package com.rx.mvvmlibs.module;
 
 import com.rx.mvvmlibs.IRetrofitViewModel;
-import com.rx.mvvmlibs.IViewModel;
-import com.rx.mvvmlibs.Result;
-import com.rx.utillibs.LogUtil;
+import com.rx.mvvmlibs.scope.RetrofitModelScope;
 
 import dagger.Module;
 import dagger.Provides;
-import rx.Subscriber;
+import io.reactivex.Flowable;
 
 /**
- * @ClassName: ModelModule
+ * @ClassName: RetrofitModelModule
  * @author create by Tang
  * @date date 16/11/17 上午11:25
  * @Description: TODO
  */
 
 @Module
-public class ModelModule {
+public class RetrofitModelModule {
 
     private IRetrofitViewModel viewModel;
 
-    public ModelModule(IRetrofitViewModel viewModel){
+    public RetrofitModelModule(IRetrofitViewModel viewModel){
         this.viewModel = viewModel;
     }
+
 
 }

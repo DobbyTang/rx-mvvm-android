@@ -2,6 +2,7 @@ package com.rx.mvvmlibs.component;
 
 import com.rx.mvvmlibs.RxMvvmApplication;
 import com.rx.mvvmlibs.module.RetrofitModule;
+import com.rx.mvvmlibs.scope.RetrofitModelScope;
 import com.rx.mvvmlibs.scope.RetrofitScope;
 
 import dagger.Component;

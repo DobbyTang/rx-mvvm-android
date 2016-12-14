@@ -1,7 +1,7 @@
 package com.rx.mvvmlibs.component;
 
 import com.rx.mvvmlibs.RetrofitModel;
-import com.rx.mvvmlibs.module.ModelModule;
+import com.rx.mvvmlibs.module.RetrofitModelModule;
 import com.rx.mvvmlibs.module.RetrofitModule;
 import com.rx.mvvmlibs.scope.RetrofitScope;
 
@@ -15,7 +15,7 @@ import dagger.Component;
  */
 
 @RetrofitScope
-@Component(modules = {RetrofitModule.class,ModelModule.class})
+@Component(modules = {RetrofitModule.class,RetrofitModelModule.class})
 public interface RetrofitModelComponent {
 
     void inject(RetrofitModel model);

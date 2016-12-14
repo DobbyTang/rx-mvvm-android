@@ -1,7 +1,7 @@
 package com.rx.mvvmlibs;
 
+import io.reactivex.Flowable;
 import retrofit2.Retrofit;
-import rx.Observable;
 
 /**
  * @ClassName: IRetrofitViewModel
@@ -36,7 +36,7 @@ public interface IRetrofitViewModel<Data> {
      * @Description:
      * 设置对应的接口文件
      */
-    Observable setApiInterface(Retrofit retrofit);
+    Flowable setApiInterface(Retrofit retrofit);
 
 
     /**

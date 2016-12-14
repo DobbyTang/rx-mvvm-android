@@ -21,8 +21,8 @@ import com.rx.mvvmlibs.view.MvvmFragment;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import retrofit2.Retrofit;
-import rx.Observable;
 
 /**
  * @ClassName: TestViewModel
@@ -34,7 +34,7 @@ import rx.Observable;
 public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>> {
 
 
-    private Observable nuomi;
+    private Flowable nuomi;
 
     private ActivityTestBinding binding;
 
@@ -68,7 +68,7 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>> {
     }
 
     @Override
-    public Observable setApiInterface(Retrofit retrofit) {
+    public Flowable setApiInterface(Retrofit retrofit) {
         return retrofit
                 .create(BaiduApi.class)
                 .rxGetCategory();

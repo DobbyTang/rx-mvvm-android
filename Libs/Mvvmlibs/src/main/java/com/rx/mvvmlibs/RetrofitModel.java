@@ -1,22 +1,21 @@
 package com.rx.mvvmlibs;
 
-
-
-
 import com.rx.mvvmlibs.component.DaggerRetrofitModelComponent;
-import com.rx.mvvmlibs.module.ModelModule;
+import com.rx.mvvmlibs.module.RetrofitModelModule;
 import com.rx.mvvmlibs.module.RetrofitModule;
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 import com.rx.utillibs.LogUtil;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * @ClassName: RetrofitModel
@@ -26,6 +25,7 @@ import rx.schedulers.Schedulers;
  */
 public class RetrofitModel implements IModel{
 
+    Flowable flowable;
     private Subscription subscription;
 
     @Inject
@@ -47,7 +47,7 @@ public class RetrofitModel implements IModel{
         this.resultScheduler = AndroidSchedulers.mainThread();
         DaggerRetrofitModelComponent
                 .builder()
-                .modelModule(new ModelModule(viewModel))
+                .retrofitModelModule(new RetrofitModelModule(viewModel))
                 .retrofitModule(new RetrofitModule(defaultUrl,defaultTimeOut))
                 .build().inject(this);
     }
@@ -55,19 +55,25 @@ public class RetrofitModel implements IModel{
     @Override
     public void enqueueRequest() {
 
-        subscription = viewModel.setApiInterface(retrofit)
-                .subscribeOn(Schedulers.io())
+        flowable = viewModel.setApiInterface(retrofit);
+        flowable.subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
                 .subscribe(new Subscriber<Result>() {
-                    @Override
-                    public void onCompleted() {
-                        LogUtil.d( "onSuccess");
-                    }
 
                     @Override
                     public void onError(Throwable e) {
                         viewModel.onNetworkError(e);
                         e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtil.d( "onSuccess");
+                    }
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        subscription = s;
                     }
 
                     @Override
@@ -80,9 +86,9 @@ public class RetrofitModel implements IModel{
 
     @Override
     public void cancelRequest() {
-        if (subscription != null && !subscription.isUnsubscribed()){
+        if (subscription != null ){
             LogUtil.d("");
-            subscription.unsubscribe();
+            subscription.cancel();
         }
     }
 

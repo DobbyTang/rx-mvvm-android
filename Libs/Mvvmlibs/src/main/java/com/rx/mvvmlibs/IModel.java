@@ -3,8 +3,8 @@ package com.rx.mvvmlibs;
 
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 
+import io.reactivex.Scheduler;
 import retrofit2.Retrofit;
-import rx.Scheduler;
 
 /**
  * @ClassName: IModel

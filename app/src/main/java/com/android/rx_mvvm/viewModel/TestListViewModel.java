@@ -1,11 +1,8 @@
 package com.android.rx_mvvm.viewModel;
 
 import android.content.Context;
-import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import com.android.rx_mvvm.BaiduApi;
 import com.android.rx_mvvm.TestAdapter;
@@ -15,8 +12,8 @@ import com.rx.mvvmlibs.view.ListMvvmActivity;
 import com.rx.mvvmlibs.view.ListMvvmFragment;
 import com.rx.utillibs.LogUtil;
 
+import io.reactivex.Flowable;
 import retrofit2.Retrofit;
-import rx.Observable;
 
 /**
  * @ClassName: TestListMvvmActivity
@@ -37,7 +34,7 @@ public class TestListViewModel extends ListViewModel {
     }
 
     @Override
-    public Observable setApiInterface(Retrofit retrofit) {
+    public Flowable setApiInterface(Retrofit retrofit) {
         return retrofit.create(BaiduApi.class).rxGetCategory();
     }
 
