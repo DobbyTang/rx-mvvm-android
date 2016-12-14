@@ -6,6 +6,7 @@ import com.rx.mvvmlibs.module.RetrofitModule;
 import com.rx.mvvmlibs.scope.RetrofitScope;
 
 import dagger.Component;
+import retrofit2.Retrofit;
 
 /**
  * @ClassName: RetrofitModelComponent
@@ -19,4 +20,6 @@ import dagger.Component;
 public interface RetrofitModelComponent {
 
     void inject(RetrofitModel model);
+
+    Retrofit getRetrofit();
 }

@@ -49,4 +49,12 @@ public interface IModel {
      * @Description: okHttp拦截器
      */
     BaseParamsInterceptor.Builder getBuilder();
+
+     /**
+       * @Method: resetServerAddress
+       * @author create by Tang
+       * @date 2016/12/14 下午9:59
+       * @Description: 重设服务器地址
+       */
+     String resetServerAddress();
 }

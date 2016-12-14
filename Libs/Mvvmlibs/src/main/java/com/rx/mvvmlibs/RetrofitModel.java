@@ -1,5 +1,7 @@
 package com.rx.mvvmlibs;
 
+import android.text.TextUtils;
+
 import com.rx.mvvmlibs.component.DaggerRetrofitModelComponent;
 import com.rx.mvvmlibs.module.RetrofitModelModule;
 import com.rx.mvvmlibs.module.RetrofitModule;
@@ -25,8 +27,14 @@ import retrofit2.Retrofit;
  */
 public class RetrofitModel implements IModel{
 
+    @Inject
     Flowable flowable;
-    private Subscription subscription;
+
+    @Inject
+    Subscriber<Result> subscriber;
+
+    @Inject
+    Subscription subscription;
 
     @Inject
     Retrofit retrofit;
@@ -38,17 +46,22 @@ public class RetrofitModel implements IModel{
 
     private Scheduler resultScheduler;
 
-    private String defaultUrl = "http://apis.baidu.com";
+    private String url;
     private int defaultTimeOut = 15;
 
     @Inject
     public RetrofitModel(IRetrofitViewModel viewModel){
         this.viewModel = viewModel;
         this.resultScheduler = AndroidSchedulers.mainThread();
+        if (!TextUtils.isEmpty(resetServerAddress())){
+            url = resetServerAddress();
+        }else {
+            url = ServerManager.getServerAddress();
+        }
         DaggerRetrofitModelComponent
                 .builder()
                 .retrofitModelModule(new RetrofitModelModule(viewModel))
-                .retrofitModule(new RetrofitModule(defaultUrl,defaultTimeOut))
+                .retrofitModule(new RetrofitModule(url,defaultTimeOut))
                 .build().inject(this);
     }
 
@@ -58,30 +71,7 @@ public class RetrofitModel implements IModel{
         flowable = viewModel.setApiInterface(retrofit);
         flowable.subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
-                .subscribe(new Subscriber<Result>() {
-
-                    @Override
-                    public void onError(Throwable e) {
-                        viewModel.onNetworkError(e);
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        LogUtil.d( "onSuccess");
-                    }
-
-                    @Override
-                    public void onSubscribe(Subscription s) {
-                        subscription = s;
-                    }
-
-                    @Override
-                    public void onNext(Result result) {
-                        viewModel.onResult(result);
-
-                    }
-                });
+                .subscribe(subscriber);
     }
 
     @Override
@@ -107,5 +97,8 @@ public class RetrofitModel implements IModel{
         return builder;
     }
 
-
+    @Override
+    public String resetServerAddress() {
+        return null;
+    }
 }
