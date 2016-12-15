@@ -10,10 +10,10 @@ package com.rx.mvvmlibs;
 public class ServerManager {
 
     //默认发布服务器地址
-    private static final String RELEASE_URL = "";
+    private static final String RELEASE_URL = "http://apis.baidu.com/";
 
     //默认测试服务器地址
-    private static final String DEBUG_URL = "";
+    private static final String DEBUG_URL = "http://apis.baidu.com/";
 
     private static boolean debug = false;
 

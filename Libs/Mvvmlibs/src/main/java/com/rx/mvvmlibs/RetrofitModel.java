@@ -14,6 +14,8 @@ import org.reactivestreams.Subscription;
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -27,14 +29,10 @@ import retrofit2.Retrofit;
  */
 public class RetrofitModel implements IModel{
 
+    Subscription subscription;
+
     @Inject
     Flowable flowable;
-
-    @Inject
-    Subscriber<Result> subscriber;
-
-    @Inject
-    Subscription subscription;
 
     @Inject
     Retrofit retrofit;
@@ -58,20 +56,49 @@ public class RetrofitModel implements IModel{
         }else {
             url = ServerManager.getServerAddress();
         }
+        if (TextUtils.isEmpty(url)){
+            throw new NullPointerException("url can be not null");
+        }
         DaggerRetrofitModelComponent
                 .builder()
                 .retrofitModelModule(new RetrofitModelModule(viewModel))
                 .retrofitModule(new RetrofitModule(url,defaultTimeOut))
                 .build().inject(this);
+
+
     }
 
     @Override
     public void enqueueRequest() {
 
         flowable = viewModel.setApiInterface(retrofit);
+
         flowable.subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
-                .subscribe(subscriber);
+                .subscribe(new Subscriber<Result>() {
+
+                    @Override
+                    public void onError(Throwable e) {
+                        viewModel.onNetworkError(e);
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtil.d( "onSuccess");
+                    }
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        subscription = s;
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        viewModel.onResult(result);
+
+                    }
+                });
     }
 
     @Override

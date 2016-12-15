@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Libs/Libs.iml" filepath="$PROJECT_DIR$/Libs/Libs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libs/MvvmLibs/MvvmLibs.iml" filepath="$PROJECT_DIR$/Libs/MvvmLibs/MvvmLibs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" filepath="$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libs/Mvvmlibs/MvvmLibs.iml" filepath="$PROJECT_DIR$/Libs/Mvvmlibs/MvvmLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" filepath="$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libs/UtilLibs/UtilLibs.iml" filepath="$PROJECT_DIR$/Libs/UtilLibs/UtilLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

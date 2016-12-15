@@ -24,7 +24,6 @@ import retrofit2.Retrofit;
 public class RetrofitModelModule {
 
     private IRetrofitViewModel viewModel;
-    private Subscription subscription;
 
     public RetrofitModelModule(IRetrofitViewModel viewModel){
         this.viewModel = viewModel;
@@ -36,38 +35,5 @@ public class RetrofitModelModule {
         return viewModel.setApiInterface(retrofit);
     }
 
-    @Provides
-    @RetrofitScope
-    public Subscriber<Result> providesSubscriber(){
-        return new Subscriber<Result>() {
 
-            @Override
-            public void onError(Throwable e) {
-                viewModel.onNetworkError(e);
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-                LogUtil.d( "onSuccess");
-            }
-
-            @Override
-            public void onSubscribe(Subscription s) {
-                subscription = s;
-            }
-
-            @Override
-            public void onNext(Result result) {
-                viewModel.onResult(result);
-
-            }
-        };
-    }
-
-    @Provides
-    @RetrofitScope
-    public Subscription providesSubscription(){
-        return subscription;
-    }
 }
