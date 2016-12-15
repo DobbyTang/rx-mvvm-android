@@ -19,13 +19,14 @@ import com.android.rx_mvvm.bean.TestBean;
 import com.rx.mvvmlibs.RxMvvmApplication;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    Flowable flowable;
+    Observable observable;
     Retrofit retrofit;
 
     @Override
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         retrofit = RxMvvmApplication.getInstance().getRetrofit();
-        flowable = retrofit.create(BaiduApi.class).rxGetCategory();
+        observable = retrofit.create(BaiduApi.class).rxGetCategory();
 
     }
 

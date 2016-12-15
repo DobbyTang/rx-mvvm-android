@@ -1,16 +1,11 @@
 package com.rx.mvvmlibs.module;
 
 import com.rx.mvvmlibs.IRetrofitViewModel;
-import com.rx.mvvmlibs.Result;
 import com.rx.mvvmlibs.scope.RetrofitScope;
-import com.rx.utillibs.LogUtil;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 
 import dagger.Module;
 import dagger.Provides;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.Retrofit;
 
 /**
@@ -31,7 +26,7 @@ public class RetrofitModelModule {
 
     @Provides
     @RetrofitScope
-    public Flowable providesFlowable(Retrofit retrofit){
+    public Observable providesObservable(Retrofit retrofit){
         return viewModel.setApiInterface(retrofit);
     }
 

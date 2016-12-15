@@ -13,11 +13,11 @@ import org.reactivestreams.Subscription;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -29,10 +29,10 @@ import retrofit2.Retrofit;
  */
 public class RetrofitModel implements IModel{
 
-    Subscription subscription;
+    Disposable disposable;
 
     @Inject
-    Flowable flowable;
+    Observable observable;
 
     @Inject
     Retrofit retrofit;
@@ -71,11 +71,11 @@ public class RetrofitModel implements IModel{
     @Override
     public void enqueueRequest() {
 
-        flowable = viewModel.setApiInterface(retrofit);
+        observable = viewModel.setApiInterface(retrofit);
 
-        flowable.subscribeOn(Schedulers.io())
+        observable.subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
-                .subscribe(new Subscriber<Result>() {
+                .subscribe(new Observer<Result>() {
 
                     @Override
                     public void onError(Throwable e) {
@@ -89,8 +89,8 @@ public class RetrofitModel implements IModel{
                     }
 
                     @Override
-                    public void onSubscribe(Subscription s) {
-                        subscription = s;
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
                     }
 
                     @Override
@@ -103,9 +103,9 @@ public class RetrofitModel implements IModel{
 
     @Override
     public void cancelRequest() {
-        if (subscription != null ){
+        if (disposable != null && !disposable.isDisposed()){
             LogUtil.d("");
-            subscription.cancel();
+            disposable.dispose();
         }
     }
 

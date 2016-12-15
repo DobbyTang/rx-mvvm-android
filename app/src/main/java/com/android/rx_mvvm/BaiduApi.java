@@ -6,7 +6,7 @@ import com.rx.mvvmlibs.Result;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -20,8 +20,8 @@ public interface BaiduApi {
     Call<Result<NuoMiCategoryBean>> getCategory();
 
     @GET("baidunuomi/openapi/categories")
-    Flowable<Result<List<NuoMiCategoryBean>>> rxGetCategory();
+    Observable<Result<List<NuoMiCategoryBean>>> rxGetCategory();
 
     @GET("tngou/store/location")
-    Flowable<Result<List<TngouBean>>> getLocationStore();
+    Observable<Result<List<TngouBean>>> getLocationStore();
 }
