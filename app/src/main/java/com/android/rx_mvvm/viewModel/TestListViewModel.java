@@ -6,17 +6,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.android.rx_mvvm.BaiduApi;
 import com.android.rx_mvvm.TestAdapter;
-import com.android.rx_mvvm.bean.NuoMiCategoryBean;
 import com.rx.mvvmlibs.ListViewModel;
-import com.rx.mvvmlibs.Result;
 import com.rx.mvvmlibs.view.BindingListAdapter;
 import com.rx.mvvmlibs.view.ListMvvmActivity;
 import com.rx.mvvmlibs.view.ListMvvmFragment;
 import com.rx.utillibs.LogUtil;
 
-import java.util.List;
-
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
 

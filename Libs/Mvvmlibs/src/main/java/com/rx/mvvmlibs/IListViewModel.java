@@ -3,6 +3,7 @@ package com.rx.mvvmlibs;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import com.rx.mvvmlibs.params.PaginationParams;
 import com.rx.mvvmlibs.view.BindingListAdapter;
 
 /**
@@ -23,7 +24,7 @@ public interface IListViewModel<Data> extends IRetrofitViewModel<Data>{
     void refresh();
 
     /**
-     * @Method: lodding
+     * @Method: loading
      * @author create by Tang
      * @date date 16/11/19 下午3:06
      * @Description: 加载下一页
@@ -57,4 +58,6 @@ public interface IListViewModel<Data> extends IRetrofitViewModel<Data>{
      * @Description: 可以在此方法作一些初始化操作
      */
     void init();
+
+
 }

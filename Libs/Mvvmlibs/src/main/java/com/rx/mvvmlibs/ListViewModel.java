@@ -46,7 +46,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
     //需要刷新的页码（根据mIndex计算）
     private int mPage;
 
-    PaginationParams paginationParams = new PaginationParams();
+    PaginationParams paginationParams = setPaginationParams();
 
     private boolean isSuccess;
 
@@ -250,14 +250,9 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
              */
             mIndex = index;
             mPage = index / mCount + mStartPage;
-            if (paginationParams == null){
-                paginationParams =  new PaginationParams();
-                paginationParams.count = mCount;
-                paginationParams.page = mPage;
-            }else {
-                paginationParams.count = mCount;
-                paginationParams.page = mPage;
-            }
+
+            paginationParams.count = mCount;
+            paginationParams.page = mPage;
 
             enqueue();
         }
@@ -302,5 +297,15 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
             }
         }
         return max;
+    }
+
+    /**
+     * @Method: setPaginationParams
+     * @author create by Tang
+     * @date date 17/3/28 下午3:31
+     * @Description: 默认方法，用于设置分页字段
+     */
+    public PaginationParams setPaginationParams(){
+        return new PaginationParams("count","page");
     }
 }

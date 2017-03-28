@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.rx.mvvmlibs.component.DaggerRetrofitComponent;
 import com.rx.mvvmlibs.module.RetrofitModule;
 
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import retrofit2.Retrofit;
@@ -19,10 +21,12 @@ import retrofit2.Retrofit;
  * @Description: App初始化
  */
 
-public class RxMvvmApplication extends Application {
+public abstract class RxMvvmApplication extends Application {
 
     private static final String TAG = "RxMvvmApplication";
     private static RxMvvmApplication myApp;
+
+    public abstract Optional<String> setServerUrl();
 
     @Inject
     Retrofit retrofit;
@@ -47,19 +51,19 @@ public class RxMvvmApplication extends Application {
     }
 
     public Retrofit getRetrofit(){
-        Log.d(TAG, "getRetrofit: " + retrofit);
         return retrofit;
     }
 
-    public void initRetrofit(){
+    private void initRetrofit(){
+        Optional<String> serverUrl = setServerUrl();
         DaggerRetrofitComponent
                 .builder()
-                .retrofitModule(new RetrofitModule("http://apis.baidu.com",15))
+                .retrofitModule(new RetrofitModule(serverUrl.orElseGet(() -> "http://tangpj.com/"),15))
                 .build()
                 .inject(this);
-        Log.d(TAG, "init: " + retrofit);
 
     }
+
 
     public Gson getGson(){
         return gson;

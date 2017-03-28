@@ -1,7 +1,8 @@
 package com.rx.mvvmlibs.params;
 
 
-import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName: PaginationParams
@@ -10,14 +11,27 @@ import javax.inject.Inject;
  * @Description: TODO
  */
 
-public class PaginationParams extends BaseParams{
+public class PaginationParams {
 
     public int count;
 
     public int page;
 
-    public PaginationParams(){
+    private final String countKey;
 
+    private final String pageKey;
+
+    private Map paginationParams = new HashMap();
+
+    public PaginationParams(String countKey,String pageKey){
+        this.countKey = countKey;
+        this.pageKey = pageKey;
+    }
+
+    public Map toMap(){
+        paginationParams.put(countKey,count);
+        paginationParams.put(pageKey,page);
+        return paginationParams;
     }
 
 }
