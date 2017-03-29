@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.android.rx_mvvm.BaiduApi;
 import com.android.rx_mvvm.TestAdapter;
 import com.android.rx_mvvm.bean.NuoMiCategoryBean;
+import com.android.rx_mvvm.viewModel.TestListViewModel;
 import com.rx.mvvmlibs.ListViewModel;
 import com.rx.mvvmlibs.Result;
 import com.rx.mvvmlibs.view.BindingListAdapter;
@@ -31,42 +32,6 @@ public class TestListMvvmActivity extends ListMvvmActivity {
 
     @Override
     public ListViewModel onBindingViewModel() {
-        return new ListViewModel(this) {
-
-            @Override
-            public Observable setApiInterface(Retrofit retrofit) {
-                return retrofit.create(BaiduApi.class).rxGetCategory();
-            }
-
-            @Override
-            public BindingListAdapter setAdapter() {
-                LogUtil.d("setAdapter");
-                TestAdapter adapter = new TestAdapter();
-                adapter.setOnItemClickListener(new BindingListAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position, Object o) {
-                        refreshIndexPage(position);
-                    }
-                });
-                return adapter;
-            }
-
-            @Override
-            public RecyclerView.LayoutManager setLayoutManager(Context context) {
-                LogUtil.d("setLayoutManager");
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                return linearLayoutManager;
-            }
-
-            @Override
-            public void init() {
-                super.init();
-                viewModelWrapper.model
-                        .getBuilder()
-                        .addHeader("apikey","05cecef32508c4bd5853a0fed178e322");
-                setCount(7);
-            }
-        };
+        return new TestListViewModel(this);
     }
 }

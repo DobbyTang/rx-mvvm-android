@@ -1,11 +1,13 @@
 package com.rx.mvvmlibs;
 
 import android.app.Application;
+import android.support.annotation.DrawableRes;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rx.mvvmlibs.component.DaggerRetrofitComponent;
 import com.rx.mvvmlibs.module.RetrofitModule;
+import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 
 import java.util.Optional;
 
@@ -26,10 +28,15 @@ public abstract class RxMvvmApplication extends Application {
     private static final String TAG = "RxMvvmApplication";
     private static RxMvvmApplication myApp;
 
-    public abstract Optional<String> setServerUrl();
+    public abstract String setServerUrl();
+
+    public abstract @DrawableRes int setDefaultDrawableResource();
 
     @Inject
     Retrofit retrofit;
+
+    @Inject
+    BaseParamsInterceptor.Builder interceptorBuilder;
 
     @Inject
     Gson gson;
@@ -50,12 +57,9 @@ public abstract class RxMvvmApplication extends Application {
         initRetrofit();
     }
 
-    public Retrofit getRetrofit(){
-        return retrofit;
-    }
 
     private void initRetrofit(){
-        Optional<String> serverUrl = setServerUrl();
+        Optional<String> serverUrl = Optional.ofNullable(setServerUrl());
         DaggerRetrofitComponent
                 .builder()
                 .retrofitModule(new RetrofitModule(serverUrl.orElseGet(() -> "http://tangpj.com/"),15))
@@ -64,6 +68,13 @@ public abstract class RxMvvmApplication extends Application {
 
     }
 
+    public Retrofit getRetrofit(){
+        return retrofit;
+    }
+
+    public BaseParamsInterceptor.Builder getInterceptorBuilder(){
+        return interceptorBuilder;
+    }
 
     public Gson getGson(){
         return gson;

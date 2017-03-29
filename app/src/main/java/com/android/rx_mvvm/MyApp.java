@@ -14,7 +14,12 @@ public class MyApp extends RxMvvmApplication{
 
 
     @Override
-    public Optional<String> setServerUrl() {
-        return Optional.of(serverUrl);
+    public String setServerUrl() {
+        return serverUrl;
+    }
+
+    @Override
+    public int setDefaultDrawableResource() {
+        return R.mipmap.test_error;
     }
 }

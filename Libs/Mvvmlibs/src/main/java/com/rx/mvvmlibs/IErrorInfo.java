@@ -1,6 +1,7 @@
 package com.rx.mvvmlibs;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 
 /**
  * @ClassName: IErrorInfo
@@ -17,7 +18,8 @@ public interface IErrorInfo {
      * @date date 16/10/26 上午10:31
      * @Description: 设置错误显示图片
      */
-    void setErrorImageResource(Drawable drawable);
+    Drawable setErrorImageDrawable();
+
 
     /**
      * @Method: setErrorString
@@ -25,7 +27,7 @@ public interface IErrorInfo {
      * @date date 16/10/26 上午10:31
      * @Description: 设置错误显示信息
      */
-    void setErrorString(String msg);
+    String setErrorString();
 
 
     /**

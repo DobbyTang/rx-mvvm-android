@@ -2,8 +2,11 @@ package com.rx.mvvmlibs;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.databinding.BindingMethod;
+import android.databinding.BindingMethods;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
@@ -16,6 +19,8 @@ import com.rx.mvvmlibs.view.MvvmActivity;
 import com.rx.mvvmlibs.view.MvvmFragment;
 import com.rx.utillibs.LogUtil;
 
+import java.util.Optional;
+
 /**
  * @ClassName: ViewModel
  * @author create by Tang
@@ -23,6 +28,10 @@ import com.rx.utillibs.LogUtil;
  * @Description: TODO
  */
 
+@BindingMethods({
+        @BindingMethod(type = android.widget.ImageView.class,
+                attribute = "app:srcCompat",
+                method = "setImageDrawable") })
 public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     private boolean isSuccess;
@@ -115,14 +124,16 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         }
     }
 
-    @Override
-    public void setErrorImageResource(Drawable drawable) {
-        viewModelWrapper.error.drawable.set(drawable);
-    }
+
+
 
     @Override
-    public void setErrorString(String msg) {
-        viewModelWrapper.error.message.set(msg);
+    public Drawable setErrorImageDrawable() {
+        return null;
+    }
+
+    public String setErrorString() {
+        return null;
     }
 
     @Override
@@ -135,7 +146,13 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         if (!isSuccess){
             viewModelWrapper.childBinding.getRoot().setVisibility(View.GONE);
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.VISIBLE);
-            setErrorString(errorDesc);
+            Optional<String> errorStr = Optional.ofNullable(setErrorString());
+            Optional<Drawable> errorDrawable = Optional.ofNullable(setErrorImageDrawable());
+            viewModelWrapper.error.message.set(errorStr.orElseGet(() -> errorDesc));
+            viewModelWrapper.error.drawable.set(errorDrawable
+                    .orElseGet(() -> context.getResources()
+                            .getDrawable(
+                                    RxMvvmApplication.getInstance().setDefaultDrawableResource())));
         }
 
     }
@@ -147,6 +164,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         viewModelWrapper.error.drawable.set(context.getResources().getDrawable(R.mipmap.ic_launcher));
         viewModelWrapper.error.message.set("网络错误，请重新加载");
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
+//        viewModelWrapper.errorBinding.mvvmErrorImg.setImageDrawable(viewModelWrapper.error.drawable.get());
 
         setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);
         viewModelWrapper.contentMvvmBinding.refreshLayout
@@ -227,5 +245,8 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         viewModelWrapper.progress.progressType = type;
     }
 
+    public Context getContext(){
+        return context;
+    }
 
 }

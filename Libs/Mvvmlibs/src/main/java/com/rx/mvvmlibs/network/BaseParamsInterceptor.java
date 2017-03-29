@@ -98,7 +98,7 @@ public class BaseParamsInterceptor implements Interceptor {
             Iterator iterator = paramsMap.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry entry = (Map.Entry) iterator.next();
-                httpUrlBuilder.addQueryParameter((String) entry.getKey(), (String) entry.getValue());
+                httpUrlBuilder.addQueryParameter(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
             }
         }
 

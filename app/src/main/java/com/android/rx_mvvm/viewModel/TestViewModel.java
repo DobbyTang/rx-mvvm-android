@@ -3,6 +3,7 @@ package com.android.rx_mvvm.viewModel;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -109,4 +110,11 @@ public class TestViewModel extends ViewModel<List<NuoMiCategoryBean>> {
         setProgressType(ProgressBean.PROGRESS_TYPE_DROP_DOWN);
         enqueue();
     }
+
+    @Override
+    public String setErrorString() {
+        return "测试ViewModel错误提示";
+    }
+
+
 }

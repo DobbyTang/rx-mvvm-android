@@ -40,8 +40,6 @@ public interface IModel {
      */
     void setResultScheduler(Scheduler scheduler);
 
-    Retrofit getRetrofit();
-
     /**
      * @Method: getBuilder
      * @author create by Tang
@@ -50,11 +48,4 @@ public interface IModel {
      */
     BaseParamsInterceptor.Builder getBuilder();
 
-     /**
-       * @Method: resetServerAddress
-       * @author create by Tang
-       * @date 2016/12/14 下午9:59
-       * @Description: 重设服务器地址
-       */
-     String resetServerAddress();
 }

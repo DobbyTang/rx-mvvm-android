@@ -1,10 +1,12 @@
 package com.android.rx_mvvm.viewModel;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.rx_mvvm.BaiduApi;
+import com.android.rx_mvvm.R;
 import com.android.rx_mvvm.TestAdapter;
 import com.rx.mvvmlibs.ListViewModel;
 import com.rx.mvvmlibs.view.BindingListAdapter;
@@ -24,6 +26,7 @@ import retrofit2.Retrofit;
 
 public class TestListViewModel extends ListViewModel {
 
+    private Context context;
 
     public TestListViewModel(ListMvvmActivity activity) {
         super(activity);
@@ -58,5 +61,13 @@ public class TestListViewModel extends ListViewModel {
         viewModelWrapper.model
                 .getBuilder()
                 .addHeader("apikey","05cecef32508c4bd5853a0fed178e322");
+
     }
+
+    @Override
+    public String setErrorString() {
+        return "测试ListViewModel错误提示";
+    }
+
+
 }

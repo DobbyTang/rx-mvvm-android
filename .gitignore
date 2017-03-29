@@ -11,3 +11,6 @@
 .idea/markdown-navigator/
 Libs/BaseAppLibs/
 login/
+application/
+/application
+/login

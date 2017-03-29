@@ -1,14 +1,12 @@
 package com.rx.mvvmlibs.component;
 
-import com.rx.mvvmlibs.Result;
 import com.rx.mvvmlibs.RetrofitModel;
 import com.rx.mvvmlibs.module.RetrofitModelModule;
 import com.rx.mvvmlibs.module.RetrofitModule;
-import com.rx.mvvmlibs.scope.RetrofitScope;
+import com.rx.mvvmlibs.scope.RetrofitModelScope;
 
 import dagger.Component;
 import retrofit2.Retrofit;
-import org.reactivestreams.Subscriber;
 
 /**
  * @ClassName: RetrofitModelComponent
@@ -17,13 +15,11 @@ import org.reactivestreams.Subscriber;
  * @Description: TODO
  */
 
-@RetrofitScope
-@Component(modules = {RetrofitModule.class,RetrofitModelModule.class})
+@RetrofitModelScope
+@Component(modules = {RetrofitModelModule.class})
 public interface RetrofitModelComponent {
 
     void inject(RetrofitModel model);
-
-    Retrofit getRetrofit();
 
 
 }

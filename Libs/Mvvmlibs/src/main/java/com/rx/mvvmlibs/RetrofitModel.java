@@ -44,26 +44,20 @@ public class RetrofitModel implements IModel{
 
     private Scheduler resultScheduler;
 
-    private String url;
-    private int defaultTimeOut = 15;
+//    private String url;
+//    private int defaultTimeOut = 15;
 
     @Inject
     public RetrofitModel(IRetrofitViewModel viewModel){
         this.viewModel = viewModel;
         this.resultScheduler = AndroidSchedulers.mainThread();
-        if (!TextUtils.isEmpty(resetServerAddress())){
-            url = resetServerAddress();
-        }else {
-            url = ServerManager.getServerAddress();
-        }
-        if (TextUtils.isEmpty(url)){
-            throw new NullPointerException("url can be not null");
-        }
+
         DaggerRetrofitModelComponent
                 .builder()
                 .retrofitModelModule(new RetrofitModelModule(viewModel))
-                .retrofitModule(new RetrofitModule(url,defaultTimeOut))
-                .build().inject(this);
+
+                .build()
+                .inject(this);
 
 
     }
@@ -72,7 +66,7 @@ public class RetrofitModel implements IModel{
     public void enqueueRequest() {
 
         observable = viewModel.setApiInterface(retrofit);
-
+        LogUtil.d(retrofit.baseUrl());
         observable.subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
                 .subscribe(new Observer<Result>() {
@@ -104,7 +98,7 @@ public class RetrofitModel implements IModel{
     @Override
     public void cancelRequest() {
         if (disposable != null && !disposable.isDisposed()){
-            LogUtil.d("");
+            LogUtil.d(retrofit.baseUrl());
             disposable.dispose();
         }
     }
@@ -115,17 +109,7 @@ public class RetrofitModel implements IModel{
     }
 
     @Override
-    public Retrofit getRetrofit() {
-        return retrofit;
-    }
-
-    @Override
-    public BaseParamsInterceptor.Builder getBuilder(){
+    public BaseParamsInterceptor.Builder getBuilder() {
         return builder;
-    }
-
-    @Override
-    public String resetServerAddress() {
-        return null;
     }
 }

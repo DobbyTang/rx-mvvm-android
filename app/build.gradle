@@ -11,6 +11,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode VERSION_CODE.toInteger()
         versionName "${VERSION_NAME}"
+
+
     }
     buildTypes {
         release {
@@ -21,7 +23,6 @@ android {
     dataBinding{
         enabled true
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

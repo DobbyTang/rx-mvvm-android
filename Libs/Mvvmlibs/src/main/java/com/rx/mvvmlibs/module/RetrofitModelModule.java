@@ -1,7 +1,9 @@
 package com.rx.mvvmlibs.module;
 
 import com.rx.mvvmlibs.IRetrofitViewModel;
-import com.rx.mvvmlibs.scope.RetrofitScope;
+import com.rx.mvvmlibs.RxMvvmApplication;
+import com.rx.mvvmlibs.network.BaseParamsInterceptor;
+import com.rx.mvvmlibs.scope.RetrofitModelScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,10 +27,23 @@ public class RetrofitModelModule {
     }
 
     @Provides
-    @RetrofitScope
+    @RetrofitModelScope
     public Observable providesObservable(Retrofit retrofit){
         return viewModel.setApiInterface(retrofit);
     }
+
+    @Provides
+    @RetrofitModelScope
+    public Retrofit providesRetrofit(){
+        return RxMvvmApplication.getInstance().getRetrofit();
+    }
+
+    @Provides
+    @RetrofitModelScope
+    public BaseParamsInterceptor.Builder providesBuilder(){
+        return RxMvvmApplication.getInstance().getInterceptorBuilder();
+    }
+
 
 
 }

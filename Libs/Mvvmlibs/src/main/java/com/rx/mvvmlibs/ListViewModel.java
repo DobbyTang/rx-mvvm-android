@@ -1,5 +1,8 @@
 package com.rx.mvvmlibs;
 
+import android.content.Context;
+import android.databinding.BindingMethod;
+import android.databinding.BindingMethods;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +23,7 @@ import com.rx.utillibs.ListUtils;
 import com.rx.utillibs.LogUtil;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -32,6 +36,10 @@ import javax.inject.Inject;
  * @Description: 用于处理列表型数据
  */
 
+@BindingMethods({
+        @BindingMethod(type = android.widget.ImageView.class,
+                attribute = "app:srcCompat",
+                method = "setImageDrawable") })
 public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
 
     //分页取数据数，默认为10
@@ -55,6 +63,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
     @Inject
     public ListViewModelWrapper viewModelWrapper;
 
+    private Context context;
 
     Data data;
 
@@ -63,12 +72,14 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     public ListViewModel(ListMvvmActivity activity){
         viewModelWrapper = new ListViewModelWrapper();
+        this.context = activity;
         initActivity(activity);
         refresh();
     }
 
     public ListViewModel(ListMvvmFragment fragment){
         viewModelWrapper = new ListViewModelWrapper();
+        this.context = fragment.getContext();
         initFragment(fragment);
         refresh();
     }
@@ -192,13 +203,13 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
     }
 
     @Override
-    public void setErrorImageResource(Drawable drawable) {
-        viewModelWrapper.error.drawable.set(drawable);
+    public Drawable setErrorImageDrawable() {
+        return null;
     }
 
     @Override
-    public void setErrorString(String msg) {
-        viewModelWrapper.error.message.set(msg);
+    public String setErrorString() {
+        return null;
     }
 
     @Override
@@ -207,7 +218,14 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
         if (!isSuccess){
             viewModelWrapper.recyclerView.setVisibility(View.GONE);
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.VISIBLE);
-            setErrorString(errorDesc);
+            Optional<String> errorStr = Optional.ofNullable(setErrorString());
+            Optional<Drawable> errorDrawable = Optional.ofNullable(setErrorImageDrawable());
+            viewModelWrapper.error.message.set(errorStr.orElseGet(() -> errorDesc));
+            viewModelWrapper.error.drawable.set(errorDrawable
+                    .orElseGet(() -> context
+                            .getResources()
+                            .getDrawable(
+                                    RxMvvmApplication.getInstance().setDefaultDrawableResource())));
         }
     }
 
@@ -307,5 +325,9 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
      */
     public PaginationParams setPaginationParams(){
         return new PaginationParams("count","page");
+    }
+
+    public Context getContext(){
+        return context;
     }
 }
