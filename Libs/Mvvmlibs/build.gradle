@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin:'me.tatarka.retrolambda'
-
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -48,8 +46,6 @@ dependencies {
     compile "com.google.code.gson:gson:${GSON_VERSION}"
     compile "io.reactivex.rxjava2:rxjava:${RXANDROID_VERSION}"
     compile "io.reactivex.rxjava2:rxandroid:${RXJAVA_VERSION}"
-    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:+'
-
 
     compile "com.google.dagger:dagger:${DAGGER_VERSION}"
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
