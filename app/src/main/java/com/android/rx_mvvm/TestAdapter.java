@@ -20,7 +20,7 @@ public class TestAdapter extends BindingListAdapter<NuoMiCategoryBean> {
 
 
     @Override
-    public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent, int viewType) {
+    public ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent) {
         return DataBindingUtil.inflate(inflater,R.layout.list_item_string,parent,false);
     }
 
