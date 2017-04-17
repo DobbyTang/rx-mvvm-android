@@ -6,7 +6,9 @@ import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
@@ -64,6 +66,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         viewModelWrapper.model.cancelRequest();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResult(Result<Data> result) {
         if (result.errNum == 0){
@@ -82,6 +85,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         showProgress(false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onNetworkError(Throwable e) {
         onError(Error.CODE_NETWORK,Error.DESC_NETWORK);
@@ -136,6 +140,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onError(int errorCode, String errorDesc) {
         /**
@@ -148,7 +153,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.VISIBLE);
             Optional<String> errorStr = Optional.ofNullable(setErrorString());
             Optional<Drawable> errorDrawable = Optional.ofNullable(setErrorImageDrawable());
-            viewModelWrapper.error.message.set(errorStr.orElseGet(() -> errorDesc));
+            viewModelWrapper.error.message.set(errorStr.orElse(errorDesc));
             viewModelWrapper.error.drawable.set(errorDrawable
                     .orElseGet(() -> context.getResources()
                             .getDrawable(
@@ -169,28 +174,12 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
         setProgressType(ProgressBean.PROGRESS_TYPE_DEFAULT);
         viewModelWrapper.contentMvvmBinding.refreshLayout
 
-                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onReconnection();
-            }
-        });
+                .setOnRefreshListener(() -> onReconnection());
 
 
-        viewModelWrapper.progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                cancel();
+        viewModelWrapper.progressDialog.setOnCancelListener(dialogInterface -> cancel());
 
-            }
-        });
-
-        viewModelWrapper.errorBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onReconnection();
-            }
-        });
+        viewModelWrapper.errorBinding.getRoot().setOnClickListener(view -> onReconnection());
 
     }
 

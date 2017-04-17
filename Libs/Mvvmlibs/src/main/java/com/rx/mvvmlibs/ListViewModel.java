@@ -5,6 +5,8 @@ import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -100,6 +102,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
         viewModelWrapper.model.cancelRequest();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResult(Result<Data> result) {
         if (result.errNum == 0){
@@ -133,6 +136,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
         showProgress(false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onNetworkError(Throwable e) {
         onError(Error.CODE_NETWORK,Error.DESC_NETWORK);
@@ -193,12 +197,9 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
         viewModelWrapper.contentMvvmListBinding.refreshLayout
 
-                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        progressEnable = false;
-                        refresh();
-                    }
+                .setOnRefreshListener(() -> {
+                    progressEnable = false;
+                    refresh();
                 });
     }
 
@@ -212,6 +213,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onError(int errorCode, String errorDesc) {
         showProgress(false);
@@ -220,7 +222,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.VISIBLE);
             Optional<String> errorStr = Optional.ofNullable(setErrorString());
             Optional<Drawable> errorDrawable = Optional.ofNullable(setErrorImageDrawable());
-            viewModelWrapper.error.message.set(errorStr.orElseGet(() -> errorDesc));
+            viewModelWrapper.error.message.set(errorStr.orElse(errorDesc));
             viewModelWrapper.error.drawable.set(errorDrawable
                     .orElseGet(() -> context
                             .getResources()
