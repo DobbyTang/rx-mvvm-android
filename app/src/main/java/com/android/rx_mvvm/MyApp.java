@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class MyApp extends RxMvvmApplication{
 
-    private static final String serverUrl = "https://api.weibo.com/";
+    private static final String serverUrl = "http://zyfree1.acman.cn/";
 
 
     @Override

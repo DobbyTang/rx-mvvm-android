@@ -70,23 +70,17 @@ public class MainActivity extends AppCompatActivity {
     private void test(){
 
 
-        TestBean testBean = new TestBean();
-        testBean.testBoolean.set(true);
-        testBean.testFloat.set(1.27F);
-        testBean.testString.set("hello test");
-        testBean.testInt.set(10000);
-        Log.d(TAG, "test: " + RxMvvmApplication.getInstance().getGson().toJson(testBean));
+
 
     }
 
     public void nuomiListActivity(View view){
-        Intent intent = new Intent(MainActivity.this,TestListMvvmActivity.class);
-        startActivity(intent);
+
 
     }
 
     public void nuomiActivity(View view){
-        Intent intent = new Intent(this,TestMvvmActivity.class);
+        Intent intent = new Intent(this,ZyActivity.class);
         startActivity(intent);
     }
 

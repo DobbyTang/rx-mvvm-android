@@ -1,15 +1,11 @@
 package com.rx.mvvmlibs;
 
 
-import com.rx.mvvmlibs.component.DaggerRetrofitModelComponent;
-import com.rx.mvvmlibs.module.RetrofitModelModule;
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 import com.rx.utillibs.LogUtil;
 
 
 import java.util.function.Consumer;
-
-import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -28,17 +24,13 @@ import retrofit2.Retrofit;
 public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<Result>{
 
     private Disposable disposable;
-
     private Observable observable;
 
-    @Inject
-    RetrofitModelWrapper retrofitModelWrapper;
-
     private IRetrofitViewModel viewModel;
-
     private Scheduler resultScheduler;
-
     private Consumer<Result> onResult;
+    private Retrofit retrofit;
+    private BaseParamsInterceptor.Builder builder;
 
 //    private String url;
 //    private int defaultTimeOut = 15;
@@ -52,19 +44,16 @@ public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<
         this.viewModel = viewModel;
         this.resultScheduler = AndroidSchedulers.mainThread();
         this.onResult = onResult;
+        this.retrofit = RxMvvmApplication.getInstance().getRetrofit();
+        this.builder = RxMvvmApplication.getInstance().getInterceptorBuilder();
 
-        DaggerRetrofitModelComponent
-                .builder()
-                .retrofitModelModule(new RetrofitModelModule(viewModel))
-                .build()
-                .inject(new RetrofitModelWrapper());
     }
 
     @Override
     public void enqueueRequest() {
 
-        observable = setApiInterface(retrofitModelWrapper.retrofit);
-        LogUtil.d(retrofitModelWrapper.retrofit.baseUrl());
+        observable = setApiInterface(retrofit);
+        LogUtil.d(retrofit.baseUrl());
         observable.subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
                 .subscribe(new Observer<Result>() {
@@ -104,7 +93,7 @@ public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<
     @Override
     public void cancelRequest() {
         if (disposable != null && !disposable.isDisposed()){
-            LogUtil.d(retrofitModelWrapper.retrofit.baseUrl());
+            LogUtil.d(retrofit.baseUrl());
             disposable.dispose();
         }
     }
@@ -116,7 +105,7 @@ public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<
 
     @Override
     public BaseParamsInterceptor.Builder getBuilder() {
-        return retrofitModelWrapper.builder;
+        return builder;
     }
 
     @Override
