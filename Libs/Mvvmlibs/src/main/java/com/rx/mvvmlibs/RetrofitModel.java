@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
  * @date date 16/11/10 下午2:11
  * @Description: MVVM的Model实现
  */
-public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<Result>{
+public class RetrofitModel<Result extends ErrorInfo> implements IModel<Result>{
 
     private Disposable disposable;
 

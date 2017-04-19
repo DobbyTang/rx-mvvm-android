@@ -68,12 +68,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
     List<Data> data;
 
     private RetrofitModel<ListResult<Data>> listModel
-            = new RetrofitModel<ListResult<Data>>(this) {
-        @Override
-        public Observable setApiInterface(Retrofit retrofit) {
-            return null;
-        }
-    };
+            = new RetrofitModel<>(this);
 
     private int lastVisibleItem;
     private int[] lastPositions;
@@ -152,7 +147,8 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     @Override
     public void init() {
-        listModel.setOnResult(result -> onListResult(result));
+        listModel.setOnResult(result -> onListResult(result))
+                .setApiInterface(retrofit -> setListApiInterface(retrofit));
         viewModelWrapper.contentMvvmListBinding.recyclerView
                 .addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
