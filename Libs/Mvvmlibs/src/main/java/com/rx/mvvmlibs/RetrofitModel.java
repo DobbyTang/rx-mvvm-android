@@ -1,15 +1,13 @@
 package com.rx.mvvmlibs;
 
-import android.text.TextUtils;
 
 import com.rx.mvvmlibs.component.DaggerRetrofitModelComponent;
 import com.rx.mvvmlibs.module.RetrofitModelModule;
-import com.rx.mvvmlibs.module.RetrofitModule;
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 import com.rx.utillibs.LogUtil;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -27,46 +25,46 @@ import retrofit2.Retrofit;
  * @date date 16/11/10 下午2:11
  * @Description: MVVM的Model实现
  */
-public class RetrofitModel implements IModel{
+public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<Result>{
 
-    Disposable disposable;
+    private Disposable disposable;
 
-    @Inject
-    Observable observable;
-
-    @Inject
-    Retrofit retrofit;
+    private Observable observable;
 
     @Inject
-    BaseParamsInterceptor.Builder builder;
+    RetrofitModelWrapper retrofitModelWrapper;
 
     private IRetrofitViewModel viewModel;
 
     private Scheduler resultScheduler;
 
+    private Consumer<Result> onResult;
+
 //    private String url;
 //    private int defaultTimeOut = 15;
 
-    @Inject
+
     public RetrofitModel(IRetrofitViewModel viewModel){
+        this(viewModel,null);
+    }
+
+    public RetrofitModel(IRetrofitViewModel viewModel,Consumer<Result> onResult){
         this.viewModel = viewModel;
         this.resultScheduler = AndroidSchedulers.mainThread();
+        this.onResult = onResult;
 
         DaggerRetrofitModelComponent
                 .builder()
                 .retrofitModelModule(new RetrofitModelModule(viewModel))
-
                 .build()
-                .inject(this);
-
-
+                .inject(new RetrofitModelWrapper());
     }
 
     @Override
     public void enqueueRequest() {
 
-        observable = viewModel.setApiInterface(retrofit);
-        LogUtil.d(retrofit.baseUrl());
+        observable = setApiInterface(retrofitModelWrapper.retrofit);
+        LogUtil.d(retrofitModelWrapper.retrofit.baseUrl());
         observable.subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
                 .subscribe(new Observer<Result>() {
@@ -84,12 +82,20 @@ public class RetrofitModel implements IModel{
 
                     @Override
                     public void onSubscribe(Disposable d) {
+                        viewModel.showProgress(true);
                         disposable = d;
                     }
 
                     @Override
                     public void onNext(Result result) {
-                        viewModel.onResult(result);
+                        if (result.errorCode == 0){
+                            if (onResult != null){
+                                onResult.accept(result);
+                            }
+                            viewModel.onSuccess();
+                        }else {
+                            viewModel.onError(result.errorApi,result.errorCode,result.errorMsg);
+                        }
 
                     }
                 });
@@ -98,7 +104,7 @@ public class RetrofitModel implements IModel{
     @Override
     public void cancelRequest() {
         if (disposable != null && !disposable.isDisposed()){
-            LogUtil.d(retrofit.baseUrl());
+            LogUtil.d(retrofitModelWrapper.retrofit.baseUrl());
             disposable.dispose();
         }
     }
@@ -110,6 +116,11 @@ public class RetrofitModel implements IModel{
 
     @Override
     public BaseParamsInterceptor.Builder getBuilder() {
-        return builder;
+        return retrofitModelWrapper.builder;
+    }
+
+    @Override
+    public void setOnResult(Consumer<Result> onResult){
+        this.onResult = onResult;
     }
 }

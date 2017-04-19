@@ -6,6 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import com.rx.mvvmlibs.params.PaginationParams;
 import com.rx.mvvmlibs.view.BindingListAdapter;
 
+import io.reactivex.Observable;
+import retrofit2.Retrofit;
+
 /**
  * @ClassName: IListViewModel
  * @author create by Tang
@@ -13,7 +16,36 @@ import com.rx.mvvmlibs.view.BindingListAdapter;
  * @Description: 列表型ViewModel
  */
 
-public interface IListViewModel<Data> extends IRetrofitViewModel<Data>{
+public interface IListViewModel<Data> extends IRetrofitViewModel{
+
+    /**
+     * @Method: enqueue
+     * @author create by Tang
+     * @date date 16/11/14 下午3:44
+     * @Description:
+     * 通知model的enqueue方法把请求添加到请求队列中
+     */
+    void listEnqueue();
+
+
+    /**
+     * @Method: setApiInterface
+     * @author create by Tang
+     * @date date 16/11/14 下午3:46
+     * @Description:
+     * 设置对应的接口文件
+     */
+    Observable setListApiInterface(Retrofit retrofit);
+
+
+    /**
+     * @Method: modelResult
+     * @author create by Tang
+     * @date date 16/11/14 下午4:08
+     * @Description:
+     * Model层回调的数据
+     */
+    void onListResult(ListResult<Data> result);
 
     /**
      * @Method: refresh

@@ -1,6 +1,5 @@
 package com.rx.mvvmlibs;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
 
@@ -11,15 +10,15 @@ import retrofit2.Retrofit;
  * @Description: 需要使用Retrofit的View需要实现该接口
  */
 
-public interface IRetrofitViewModel<Data> {
-    /**
-     * @Method: enqueue
-     * @author create by Tang
-     * @date date 16/11/14 下午3:44
-     * @Description:
-     * 通知model的enqueue方法把请求添加到请求队列中
-     */
-    void enqueue();
+public interface IRetrofitViewModel {
+//    /**
+//     * @Method: enqueue
+//     * @author create by Tang
+//     * @date date 16/11/14 下午3:44
+//     * @Description:
+//     * 通知model的enqueue方法把请求添加到请求队列中
+//     */
+//    void enqueue();
 
     /**
      * @Method: cancle
@@ -29,25 +28,25 @@ public interface IRetrofitViewModel<Data> {
      * 通知model层取消对应的请求
      */
     void cancel();
-
-    /**
-     * @Method: setApiInterface
-     * @author create by Tang
-     * @date date 16/11/14 下午3:46
-     * @Description:
-     * 设置对应的接口文件
-     */
-    Observable setApiInterface(Retrofit retrofit);
-
-
-    /**
-     * @Method: modelResult
-     * @author create by Tang
-     * @date date 16/11/14 下午4:08
-     * @Description:
-     * Model层回调的数据
-     */
-    void onResult(Result<Data> result);
+//
+//    /**
+//     * @Method: setApiInterface
+//     * @author create by Tang
+//     * @date date 16/11/14 下午3:46
+//     * @Description:
+//     * 设置对应的接口文件
+//     */
+//    Observable setApiInterface(Retrofit retrofit);
+//
+//
+//    /**
+//     * @Method: modelResult
+//     * @author create by Tang
+//     * @date date 16/11/14 下午4:08
+//     * @Description:
+//     * Model层回调的数据
+//     */
+//    void onResult(ErrorInfo result);
 
     /**
      * @Method: onSuccess
@@ -64,6 +63,14 @@ public interface IRetrofitViewModel<Data> {
      * @Description: 网络错误
      */
     void onNetworkError(Throwable e);
+
+    /**
+     * @Method: onError
+     * @author create by Tang
+     * @date date 16/10/26 下午2:52
+     * @Description: 错误处理
+     */
+    void onError(String errorApi,int errorCode, String errorDesc);
 
     /**
      * @Method: showProgress

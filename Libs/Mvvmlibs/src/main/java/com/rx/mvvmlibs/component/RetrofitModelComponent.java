@@ -1,6 +1,7 @@
 package com.rx.mvvmlibs.component;
 
 import com.rx.mvvmlibs.RetrofitModel;
+import com.rx.mvvmlibs.RetrofitModelWrapper;
 import com.rx.mvvmlibs.module.RetrofitModelModule;
 import com.rx.mvvmlibs.module.RetrofitModule;
 import com.rx.mvvmlibs.scope.RetrofitModelScope;
@@ -19,7 +20,7 @@ import retrofit2.Retrofit;
 @Component(modules = {RetrofitModelModule.class})
 public interface RetrofitModelComponent {
 
-    void inject(RetrofitModel model);
+    void inject(RetrofitModelWrapper retrofitModelWrapper);
 
 
 }

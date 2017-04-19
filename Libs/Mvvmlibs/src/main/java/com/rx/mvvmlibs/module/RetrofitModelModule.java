@@ -28,12 +28,6 @@ public class RetrofitModelModule {
 
     @Provides
     @RetrofitModelScope
-    public Observable providesObservable(Retrofit retrofit){
-        return viewModel.setApiInterface(retrofit);
-    }
-
-    @Provides
-    @RetrofitModelScope
     public Retrofit providesRetrofit(){
         return RxMvvmApplication.getInstance().getRetrofit();
     }

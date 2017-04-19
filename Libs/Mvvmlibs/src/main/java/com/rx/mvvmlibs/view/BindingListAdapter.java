@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.tangpj.recyclerviewutils.SimpleAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @ClassName: BindingListAdapter
@@ -34,7 +37,12 @@ public abstract class BindingListAdapter<Data> extends SimpleAdapter<Data>{
         onBinding(((Holder)viewHolder).getBinding(),i,o);
     }
 
-    public abstract ViewDataBinding onCreateBinding(LayoutInflater inflater,ViewGroup parent);
+    @Override
+    public void setData(List<Data> data) {
+        data = new ArrayList<>(data);
+    }
+
+    public abstract ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent);
     public abstract void onBinding(ViewDataBinding binding, int realPosition, Data data);
 
     class Holder extends RecyclerView.ViewHolder {

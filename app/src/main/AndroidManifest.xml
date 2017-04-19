@@ -23,11 +23,6 @@
         </activity>
 
 
-        <activity android:name=".activity.TestMvvmActivity" android:label="test"/>
-        <activity android:name=".activity.TestListMvvmActivity" android:label="testList"/>
-        <activity android:name=".activity.TestMvvmFragmentActivity" android:label="Test Fragment"/>
-        <activity android:name=".activity.TestListMvvmFragmentActivity" android:label="Test List Fragment"/>
-
     </application>
 
 </manifest>

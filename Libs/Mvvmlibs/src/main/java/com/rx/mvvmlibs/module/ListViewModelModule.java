@@ -14,6 +14,8 @@ import com.rx.mvvmlibs.view.BindingListAdapter;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Observable;
+import retrofit2.Retrofit;
 
 /**
  * @ClassName: ListViewModelModule
@@ -76,12 +78,6 @@ public class ListViewModelModule {
     @Provides
     public ErrorBean providesError(){
         return new ErrorBean();
-    }
-
-    @ListViewModelScope
-    @Provides
-    public IModel providesModel(){
-        return new RetrofitModel(listViewModel);
     }
 
 

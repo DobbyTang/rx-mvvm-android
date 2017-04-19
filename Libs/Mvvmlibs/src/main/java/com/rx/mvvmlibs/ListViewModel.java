@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +26,8 @@ import com.rx.utillibs.LogUtil;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Inject;
-
+import io.reactivex.Observable;
+import retrofit2.Retrofit;
 
 
 /**
@@ -42,7 +41,7 @@ import javax.inject.Inject;
         @BindingMethod(type = android.widget.ImageView.class,
                 attribute = "app:srcCompat",
                 method = "setImageDrawable") })
-public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorInfo{
+public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorControl {
 
     //分页取数据数，默认为10
     private int mCount = 10;
@@ -62,12 +61,19 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     private boolean progressEnable = true;
 
-    @Inject
     public ListViewModelWrapper viewModelWrapper;
 
     private Context context;
 
-    Data data;
+    List<Data> data;
+
+    private RetrofitModel<ListResult<Data>> listModel
+            = new RetrofitModel<ListResult<Data>>(this) {
+        @Override
+        public Observable setApiInterface(Retrofit retrofit) {
+            return null;
+        }
+    };
 
     private int lastVisibleItem;
     private int[] lastPositions;
@@ -87,25 +93,23 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
     }
 
     @Override
-    public void enqueue() {
+    public void listEnqueue() {
         showProgress(true);
-        viewModelWrapper.model
-                .getBuilder()
-                .addParams(paginationParams.toMap());
-        viewModelWrapper.model.enqueueRequest();
+       listModel.getBuilder()
+               .addParams(paginationParams.toMap());
+        listModel.enqueueRequest();
 
     }
 
     @Override
     public void cancel() {
         showProgress(false);
-        viewModelWrapper.model.cancelRequest();
+//        viewModelWrapper.model.cancelRequest();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onResult(Result<Data> result) {
-        if (result.errNum == 0){
+    public void onListResult(ListResult<Data> result) {
             if (data == null){
                 data = result.data;
             }else {
@@ -120,12 +124,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
                 }
             }
             viewModelWrapper.adapter.setData(data);
-            onSuccess();
 
-        }else {
-            onError(result.errNum,result.errMsg);
-        }
-        
     }
 
     @Override
@@ -139,7 +138,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onNetworkError(Throwable e) {
-        onError(Error.CODE_NETWORK,Error.DESC_NETWORK);
+        onError("network error",Error.CODE_NETWORK,Error.DESC_NETWORK);
     }
 
     @Override
@@ -153,7 +152,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     @Override
     public void init() {
-
+        listModel.setOnResult(result -> onListResult(result));
         viewModelWrapper.contentMvvmListBinding.recyclerView
                 .addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -215,7 +214,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onError(int errorCode, String errorDesc) {
+    public void onError(String errorApi,int errorCode, String errorDesc) {
         showProgress(false);
         if (!isSuccess){
             viewModelWrapper.recyclerView.setVisibility(View.GONE);
@@ -249,7 +248,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
             paginationParams.page = mStartPage;
         }
         paginationParams.count = mCount;
-        enqueue();
+        listEnqueue();
     }
 
     @Override
@@ -274,7 +273,7 @@ public abstract class ListViewModel<Data extends List> implements IListViewModel
             paginationParams.count = mCount;
             paginationParams.page = mPage;
 
-            enqueue();
+            listEnqueue();
         }
     }
 

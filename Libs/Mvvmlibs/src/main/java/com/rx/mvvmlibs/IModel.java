@@ -3,6 +3,9 @@ package com.rx.mvvmlibs;
 
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 
+import java.util.function.Consumer;
+
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import retrofit2.Retrofit;
 
@@ -13,7 +16,16 @@ import retrofit2.Retrofit;
  * @Description: MVVM的model接口，
  */
 
-public interface IModel {
+public interface IModel<Result> {
+
+
+    /**
+     * @Method: setApiInterface
+     * @author create by Tang
+     * @date 2017/4/19 上午9:21
+     * @Description: 设置接口地址
+     */
+    Observable setApiInterface(Retrofit retrofit);
 
     /**
      * @Method: enqueueRequest
@@ -47,5 +59,13 @@ public interface IModel {
      * @Description: okHttp拦截器
      */
     BaseParamsInterceptor.Builder getBuilder();
+
+    /**
+     * @Method: setOnResult
+     * @author create by Tang
+     * @date 2017/4/19 上午11:50
+     * @Description: 设置回调监听器
+     */
+    void setOnResult(Consumer<Result> onResult);
 
 }

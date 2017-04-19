@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  * @Description: TODO
  */
 
-public interface IViewModel<Data> extends IRetrofitViewModel<Data>{
+public interface IViewModel extends IRetrofitViewModel{
 
     /**
      * @Method: onCreateView

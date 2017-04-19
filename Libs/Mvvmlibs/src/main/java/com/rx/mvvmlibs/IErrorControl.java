@@ -4,13 +4,13 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 
 /**
- * @ClassName: IErrorInfo
+ * @ClassName: IErrorControl
  * @author create by Tang
  * @date date 16/10/26 上午11:11
  * @Description: 重设错误显示View
  */
 
-public interface IErrorInfo {
+public interface IErrorControl {
 
     /**
      * @Method: setErrorImageResource
@@ -29,12 +29,4 @@ public interface IErrorInfo {
      */
     String setErrorString();
 
-
-    /**
-     * @Method: onError
-     * @author create by Tang
-     * @date date 16/10/26 下午2:52
-     * @Description: 错误处理
-     */
-    void onError(int errorCode, String errorDesc);
 }

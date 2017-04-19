@@ -27,8 +27,8 @@ public class ViewModelWrapper {
     @Inject
     ErrorBean error;
 
-    @Inject
-    public IModel model;
+//    @Inject
+//    public IModel model;
 
     @Inject
     ContentMvvmBinding contentMvvmBinding;

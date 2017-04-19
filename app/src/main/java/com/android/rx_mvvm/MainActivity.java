@@ -11,14 +11,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.rx_mvvm.activity.TestListMvvmActivity;
-import com.android.rx_mvvm.activity.TestListMvvmFragmentActivity;
-import com.android.rx_mvvm.activity.TestMvvmActivity;
-import com.android.rx_mvvm.activity.TestMvvmFragmentActivity;
-import com.android.rx_mvvm.bean.TestBean;
 import com.rx.mvvmlibs.RxMvvmApplication;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
 
@@ -47,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         retrofit = RxMvvmApplication.getInstance().getRetrofit();
-        observable = retrofit.create(BaiduApi.class).rxGetCategory();
 
     }
 
@@ -90,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,TestListMvvmActivity.class);
         startActivity(intent);
 
-    }    public void nuomiListFragment(View view){
-        Intent intent = new Intent(MainActivity.this,TestListMvvmFragmentActivity.class);
-        startActivity(intent);
     }
 
     public void nuomiActivity(View view){
@@ -100,8 +90,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void nuomiFragment(View view){
-        Intent intent = new Intent(MainActivity.this,TestMvvmFragmentActivity.class);
-        startActivity(intent);
-    }
 }

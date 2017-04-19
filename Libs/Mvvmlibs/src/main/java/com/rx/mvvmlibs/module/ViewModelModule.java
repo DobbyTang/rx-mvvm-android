@@ -80,11 +80,11 @@ public class ViewModelModule {
         return new ErrorBean();
     }
 
-    @ViewModelScope
-    @Provides
-    public IModel providesModel(){
-        return new RetrofitModel(viewModel);
-    }
+//    @ViewModelScope
+//    @Provides
+//    public IModel providesModel(){
+//        return new RetrofitModel(viewModel);
+//    }
 
     @ViewModelScope
     @Provides

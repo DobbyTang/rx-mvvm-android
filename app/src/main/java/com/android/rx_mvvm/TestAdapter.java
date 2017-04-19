@@ -5,7 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.android.rx_mvvm.bean.NuoMiCategoryBean;
 import com.android.rx_mvvm.databinding.ListItemStringBinding;
 import com.rx.mvvmlibs.view.BindingListAdapter;
 

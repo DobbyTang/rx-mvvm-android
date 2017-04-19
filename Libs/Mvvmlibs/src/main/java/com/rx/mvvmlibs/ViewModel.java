@@ -1,15 +1,12 @@
 package com.rx.mvvmlibs;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.rx.mvvmlibs.bean.ProgressBean;
@@ -34,11 +31,11 @@ import java.util.Optional;
         @BindingMethod(type = android.widget.ImageView.class,
                 attribute = "app:srcCompat",
                 method = "setImageDrawable") })
-public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
+public abstract class ViewModel implements IViewModel,IErrorControl {
 
     private boolean isSuccess;
 
-    public ViewModelWrapper viewModelWrapper = new ViewModelWrapper();
+    public ViewModelWrapper viewModelWrapper = new ViewModelWrapper();;
 
     private Context context;
 
@@ -54,28 +51,28 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     }
 
 
-    @Override
-    public void enqueue() {
-        showProgress(true);
-        viewModelWrapper.model.enqueueRequest();
-    }
+//    @Override
+//    public void enqueue() {
+//        showProgress(true);
+//        viewModelWrapper.model.enqueueRequest();
+//    }
 
     @Override
     public void cancel() {
         showProgress(false);
-        viewModelWrapper.model.cancelRequest();
+//        viewModelWrapper.model.cancelRequest();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onResult(Result<Data> result) {
-        if (result.errNum == 0){
-            result(result.data);
-            onSuccess();
-        }else {
-            onError(result.errNum,result.errMsg);
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.N)
+//    @Override
+//    public void onResult(ErrorInfo result) {
+//        if (result.errNum == 0){
+//            result(result.data);
+//            onSuccess();
+//        }else {
+//            onError(result.errNum,result.errMsg);
+//        }
+//    }
 
     @Override
     public void onSuccess() {
@@ -88,7 +85,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onNetworkError(Throwable e) {
-        onError(Error.CODE_NETWORK,Error.DESC_NETWORK);
+        onError("network error",Error.CODE_NETWORK,Error.DESC_NETWORK);
     }
 
     @Override
@@ -142,11 +139,13 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onError(int errorCode, String errorDesc) {
+    public void onError(String errorApi,int errorCode, String errorDesc) {
         /**
          * 这里没有针对错误代码做处理
          * 如果需要根据错误代码处理特殊情况需要手动实现
          */
+        LogUtil.e("error api = " + errorApi + " error code = " +
+                errorCode + "error msg = " + errorDesc);
         showProgress(false);
         if (!isSuccess){
             viewModelWrapper.childBinding.getRoot().setVisibility(View.GONE);
@@ -183,7 +182,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
 
     }
 
-    public abstract void result(Data resultData);
+//    public abstract void result(Data resultData);
 
 
     /**
@@ -198,7 +197,7 @@ public abstract class ViewModel<Data> implements IViewModel<Data>,IErrorInfo{
                 && viewModelWrapper.errorBinding.getRoot().getVisibility() == View.VISIBLE){
             viewModelWrapper.errorBinding.getRoot().setVisibility(View.GONE);
         }
-        enqueue();
+//        enqueue();
     }
 
     private void initActivity(MvvmActivity activity){

@@ -36,10 +36,6 @@ public class ListViewModelWrapper {
     @Inject
     ErrorBean error;
 
-    @Inject
-    public IModel model;
-
-    @Inject
     public ListViewModelWrapper(){
 
     }
