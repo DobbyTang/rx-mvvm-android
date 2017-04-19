@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/Libs/Mvvmlibs" />
             <option value="$PROJECT_DIR$/Libs/ResLibs" />
             <option value="$PROJECT_DIR$/Libs/UtilLibs" />
+            <option value="$PROJECT_DIR$/oauth2" />
+            <option value="$PROJECT_DIR$/weiboapplication" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
