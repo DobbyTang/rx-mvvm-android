@@ -6,6 +6,7 @@ import com.rx.utillibs.LogUtil;
 
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -24,13 +25,14 @@ import retrofit2.Retrofit;
 public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<Result>{
 
     private Disposable disposable;
-    private Observable observable;
 
     private IRetrofitViewModel viewModel;
     private Scheduler resultScheduler;
     private Consumer<Result> onResult;
     private Retrofit retrofit;
     private BaseParamsInterceptor.Builder builder;
+
+    private Function<Retrofit,Observable<Result>> apiInterface;
 
 //    private String url;
 //    private int defaultTimeOut = 15;
@@ -52,9 +54,11 @@ public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<
     @Override
     public void enqueueRequest() {
 
-        observable = setApiInterface(retrofit);
-        LogUtil.d(retrofit.baseUrl());
-        observable.subscribeOn(Schedulers.io())
+        if (apiInterface == null){
+            throw new NullPointerException("Not set up api interface !!!");
+        }
+
+        apiInterface.apply(retrofit).subscribeOn(Schedulers.io())
                 .observeOn(resultScheduler)
                 .subscribe(new Observer<Result>() {
 
@@ -109,7 +113,14 @@ public abstract class RetrofitModel<Result extends ErrorInfo> implements IModel<
     }
 
     @Override
-    public void setOnResult(Consumer<Result> onResult){
+    public IModel<Result> setOnResult(Consumer<Result> onResult){
         this.onResult = onResult;
+        return this;
+    }
+
+    @Override
+    public IModel<Result> setApiInterface(Function<Retrofit, Observable<Result>> apiInterface) {
+        this.apiInterface = apiInterface;
+        return this;
     }
 }

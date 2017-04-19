@@ -4,6 +4,7 @@ package com.rx.mvvmlibs;
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -17,15 +18,6 @@ import retrofit2.Retrofit;
  */
 
 public interface IModel<Result> {
-
-
-    /**
-     * @Method: setApiInterface
-     * @author create by Tang
-     * @date 2017/4/19 上午9:21
-     * @Description: 设置接口地址
-     */
-    Observable setApiInterface(Retrofit retrofit);
 
     /**
      * @Method: enqueueRequest
@@ -66,6 +58,14 @@ public interface IModel<Result> {
      * @date 2017/4/19 上午11:50
      * @Description: 设置回调监听器
      */
-    void setOnResult(Consumer<Result> onResult);
+    IModel<Result> setOnResult(Consumer<Result> onResult);
+
+    /**
+     * @Method: setApiInterface
+     * @author create by Tang
+     * @date 2017/4/19 下午5:42
+     * @Description: 设置接口地址
+     */
+    IModel<Result> setApiInterface(Function<Retrofit,Observable<Result>> apiInterface);
 
 }
