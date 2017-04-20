@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode VERSION_CODE.toInteger()
+        versionName "${VERSION_NAME}"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -26,7 +26,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:${BUILD_TOOLS_VERSION}"
-    compile "com.android.support:design:${BUILD_TOOLS_VERSION}"
+    //noinspection GradleCompatible
+    compile "com.android.support:appcompat-v7:${SUPER_APPCOMPAT_VERSION}"
+    compile "com.android.support:design:${SUPER_DESION_VERSION}"
     testCompile 'junit:junit:4.12'
 }
