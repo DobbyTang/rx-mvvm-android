@@ -81,6 +81,7 @@
     <color name="background_floating_material_light">@android:color/white</color>
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
+    <color name="black">#000000</color>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -94,8 +95,10 @@
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentLight">#88607D8B</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#B2DFDB</color>
     <color name="design_bottom_navigation_shadow_color">#14000000</color>
     <color name="design_fab_shadow_end_color">@android:color/transparent</color>
     <color name="design_fab_shadow_mid_color">#14000000</color>
@@ -115,6 +118,8 @@
     <color name="foreground_material_light">@android:color/black</color>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
+    <color name="lineColor">#e5e6e7</color>
+    <color name="lineColorDark">#c4c4c4</color>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>
@@ -144,10 +149,19 @@
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
+    <color name="shopRed">#DE4D4E</color>
     <color name="switch_thumb_disabled_material_dark">#ff616161</color>
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
+    <color name="tagColor">#CF689F</color>
+    <color name="textColor">#757575</color>
+    <color name="textColorDark">#212121</color>
+    <color name="textColorLight">#BDBDBD</color>
+    <color name="textColorWhite">#FFFFFF</color>
+    <color name="windowsColor">#F8F7F6</color>
+    <color name="windowsColorDark">#EFEFEF</color>
+    <color name="windowsColorLight">#FFFFFF</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode">
             
             <enum name="normal" value="0"/>
@@ -584,7 +598,17 @@
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin_half">8dp</dimen>
+    <dimen name="activity_horizontal_padding">16dp</dimen>
+    <dimen name="activity_horizontal_padding_half">8dp</dimen>
+    <dimen name="activity_relative_margin">16dp</dimen>
+    <dimen name="activity_relative_margin_half">8dp</dimen>
+    <dimen name="activity_relative_padding">16dp</dimen>
+    <dimen name="activity_relative_padding_half">8dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin_half">8dp</dimen>
+    <dimen name="activity_vertical_padding">16dp</dimen>
+    <dimen name="activity_vertical_padding_half">8dp</dimen>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
@@ -654,6 +678,14 @@
     <dimen name="notification_subtext_size">13sp</dimen>
     <dimen name="notification_top_pad">10dp</dimen>
     <dimen name="notification_top_pad_large_text">5dp</dimen>
+    <dimen name="text_button">14sp</dimen>
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_display_1">34sp</dimen>
+    <dimen name="text_head_line">24sp</dimen>
+    <dimen name="text_main_body">14sp</dimen>
+    <dimen name="text_menu">14sp</dimen>
+    <dimen name="text_sub_head">16sp</dimen>
+    <dimen name="text_title">20sp</dimen>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <drawable name="notification_template_icon_low_bg">#0cffffff</drawable>
     <item name="action_bar_activity_content" type="id"/>
@@ -730,6 +762,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.NoActionBar" parent="">
@@ -2256,5 +2291,14 @@
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:colorPressedHighlight">@color/colorAccent</item>
+    </style>
+    <style name="simpleDraweeStyle">
+        <item name="placeholderImage">@mipmap/ic_launcher</item>
+        <item name="failureImage">@mipmap/ic_launcher</item>
+        <item name="actualImageScaleType">focusCrop</item>
+        <item name="failureImageScaleType">focusCrop</item>
+        <item name="placeholderImageScaleType">focusCrop</item>
+        <item name="retryImage">true</item>
+
     </style>
 </resources>

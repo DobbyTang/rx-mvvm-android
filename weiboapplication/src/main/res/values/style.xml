@@ -2,12 +2,12 @@
 <resources>
 
     <style name="simpleDraweeStyle">
-        <item name="fresco:placeholderImage">@mipmap/ic_launcher</item>
-        <item name="fresco:failureImage">@mipmap/ic_launcher</item>
-        <item name="fresco:actualImageScaleType">focusCrop</item>
-        <item name="fresco:failureImageScaleType">focusCrop</item>
-        <item name="fresco:placeholderImageScaleType">focusCrop</item>
-        <item name="fresco:retryImage">true</item>
+        <item name="placeholderImage">@mipmap/ic_launcher</item>
+        <item name="failureImage">@mipmap/ic_launcher</item>
+        <item name="actualImageScaleType">focusCrop</item>
+        <item name="failureImageScaleType">focusCrop</item>
+        <item name="placeholderImageScaleType">focusCrop</item>
+        <item name="retryImage">true</item>
 
     </style>
 

@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/activity_mvvm_list.xml",
-        "source": "/Users/user/AndroidStudioProjects/rx-mvvm-android/Libs/Mvvmlibs/build/intermediates/bundles/default/res/layout/activity_mvvm_list.xml"
-    },
-    {
         "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/content_mvvm_list.xml",
         "source": "/Users/user/AndroidStudioProjects/rx-mvvm-android/Libs/Mvvmlibs/build/intermediates/bundles/default/res/layout/content_mvvm_list.xml"
+    },
+    {
+        "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/activity_mvvm_list.xml",
+        "source": "/Users/user/AndroidStudioProjects/rx-mvvm-android/Libs/Mvvmlibs/build/intermediates/bundles/default/res/layout/activity_mvvm_list.xml"
     },
     {
         "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
@@ -100,12 +100,12 @@
         "source": "/Users/user/.android/build-cache/602b9f67eed3147c42212ad37fed58c72e0d496f/output/res/layout/abc_alert_dialog_material.xml"
     },
     {
-        "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
-        "source": "/Users/user/.android/build-cache/602b9f67eed3147c42212ad37fed58c72e0d496f/output/res/layout/abc_search_view.xml"
-    },
-    {
         "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
         "source": "/Users/user/.android/build-cache/602b9f67eed3147c42212ad37fed58c72e0d496f/output/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
+        "source": "/Users/user/.android/build-cache/602b9f67eed3147c42212ad37fed58c72e0d496f/output/res/layout/abc_search_view.xml"
     },
     {
         "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
@@ -186,6 +186,10 @@
     {
         "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
         "source": "/Users/user/.android/build-cache/602b9f67eed3147c42212ad37fed58c72e0d496f/output/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/weibo_header.xml",
+        "source": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/src/main/res/layout/weibo_header.xml"
     },
     {
         "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
