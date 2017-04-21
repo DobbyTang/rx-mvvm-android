@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="error"
+            type="com.rx.mvvmlibs.bean.ErrorBean"/>
+
+    </data>
+
+        <LinearLayout
+            android:id="@+id/mvvm_error_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/mvvm_error_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@{error.drawable}"
+               />
+
+            <TextView
+                android:id="@+id/mvvm_error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{error.message}"/>
+
+        </LinearLayout>
+
+
+</layout>

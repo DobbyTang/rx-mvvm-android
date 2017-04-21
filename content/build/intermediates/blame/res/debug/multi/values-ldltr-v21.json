@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/values-ldltr-v21/values-ldltr-v21.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 112,
+                    "endOffset": 163
+                },
+                "from": {
+                    "file": "/Users/user/.android/build-cache/602b9f67eed3147c42212ad37fed58c72e0d496f/output/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 112,
+                        "endOffset": 163
+                    }
+                }
+            }
+        ]
+    }
+]

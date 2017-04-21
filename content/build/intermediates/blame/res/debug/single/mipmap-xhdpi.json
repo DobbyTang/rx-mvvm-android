@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher_round.png",
+        "source": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
+        "source": "/Users/user/AndroidStudioProjects/rx-mvvm-android/content/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    }
+]
