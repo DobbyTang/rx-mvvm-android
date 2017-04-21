@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="simpleDraweeStyle">
+        <item name="fresco:placeholderImage">@mipmap/ic_launcher</item>
+        <item name="fresco:failureImage">@mipmap/ic_launcher</item>
+        <item name="fresco:actualImageScaleType">focusCrop</item>
+        <item name="fresco:failureImageScaleType">focusCrop</item>
+        <item name="fresco:placeholderImageScaleType">focusCrop</item>
+        <item name="fresco:retryImage">true</item>
+
+    </style>
+
+</resources>

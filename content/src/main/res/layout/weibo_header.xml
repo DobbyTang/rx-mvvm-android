@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/weibo_header_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        fresco:roundAsCircle="true"
+        style="@style/simpleDraweeStyle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        fresco:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp" />
+
+    <TextView
+        android:id="@+id/weibo_header_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="一句话心情签名"
+        tools:layout_editor_absoluteX="54dp"
+        tools:ignore="MissingConstraints"
+        android:layout_marginTop="8dp"
+        fresco:layout_constraintTop_toTopOf="parent"
+        fresco:layout_constraintBottom_toBottomOf="@+id/weibo_header_avatar"
+        android:layout_marginBottom="8dp" />
+
+</android.support.constraint.ConstraintLayout>
