@@ -41,7 +41,7 @@ import retrofit2.Retrofit;
         @BindingMethod(type = android.widget.ImageView.class,
                 attribute = "app:srcCompat",
                 method = "setImageDrawable") })
-public abstract class ListViewModel<Data extends List> implements IListViewModel<Data>,IErrorControl {
+public abstract class ListViewModel<Data> implements IListViewModel<Data>,IErrorControl {
 
     //分页取数据数，默认为10
     private int mCount = 10;

@@ -1,5 +1,7 @@
 package com.rx.mvvmlibs;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -11,5 +13,6 @@ import java.util.List;
 
 public class ListResult<Data> extends ErrorInfo{
 
+    @SerializedName(value = "statuses")
     public List<Data> data;
 }
