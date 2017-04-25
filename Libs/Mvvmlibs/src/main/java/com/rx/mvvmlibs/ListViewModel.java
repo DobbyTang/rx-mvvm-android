@@ -327,4 +327,8 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     public Context getContext(){
         return context;
     }
+
+    public Optional<RecyclerView> getRecyclerView(){
+        return Optional.of(viewModelWrapper.recyclerView);
+    }
 }
