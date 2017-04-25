@@ -7,7 +7,6 @@
         <item name="actualImageScaleType">focusCrop</item>
         <item name="failureImageScaleType">focusCrop</item>
         <item name="placeholderImageScaleType">focusCrop</item>
-        <item name="retryImage">true</item>
 
     </style>
 
