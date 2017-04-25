@@ -28,13 +28,13 @@ public abstract class BindingListAdapter<Data> extends SimpleAdapter<Data>{
 
     @Override
     public RecyclerView.ViewHolder onCreateNormalView(ViewGroup viewGroup) {
-        return new Holder(onCreateBinding(
+        return new BindHolder(onCreateBinding(
                 LayoutInflater.from(viewGroup.getContext()),viewGroup).getRoot());
     }
 
     @Override
     public void onBindNormalView(RecyclerView.ViewHolder viewHolder, int i, Data o) {
-        onBinding(((Holder)viewHolder).getBinding(),i,o);
+        onBinding(((BindHolder)viewHolder).getBinding(),i,o);
     }
 
     @Override
@@ -45,11 +45,11 @@ public abstract class BindingListAdapter<Data> extends SimpleAdapter<Data>{
     public abstract ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent);
     public abstract void onBinding(ViewDataBinding binding, int realPosition, Data data);
 
-    class Holder extends RecyclerView.ViewHolder {
+    protected class BindHolder extends RecyclerView.ViewHolder {
 
         private final ViewDataBinding binding;
 
-        public Holder(View itemView) {
+        public BindHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
         }
