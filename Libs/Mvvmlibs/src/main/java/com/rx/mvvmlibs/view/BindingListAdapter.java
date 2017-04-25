@@ -37,11 +37,6 @@ public abstract class BindingListAdapter<Data> extends SimpleAdapter<Data>{
         onBinding(((BindHolder)viewHolder).getBinding(),i,o);
     }
 
-    @Override
-    public void setData(List<Data> data) {
-        data = new ArrayList<>(data);
-    }
-
     public abstract ViewDataBinding onCreateBinding(LayoutInflater inflater, ViewGroup parent);
     public abstract void onBinding(ViewDataBinding binding, int realPosition, Data data);
 
