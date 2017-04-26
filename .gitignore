@@ -14,6 +14,7 @@ Libs/BaseAppLibs/
 
 java_pid31966.hprof
 .gitignore
+<<<<<<< HEAD
 
 
 content/libs/
@@ -26,3 +27,4 @@ src/main/java/tangpj/weibo/content/bean/
 
 java_pid19223.hprof
 
+weibo/

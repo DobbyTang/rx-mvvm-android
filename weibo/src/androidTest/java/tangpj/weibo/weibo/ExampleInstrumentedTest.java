@@ -1,4 +1,4 @@
-package tangpj.weibo.content;
+package tangpj.weibo.weibo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

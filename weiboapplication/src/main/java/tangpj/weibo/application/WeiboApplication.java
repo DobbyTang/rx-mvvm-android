@@ -1,7 +1,10 @@
 package tangpj.weibo.application;
 
 import com.google.gson.Gson;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.gson.GsonBuilder;
 import com.rx.mvvmlibs.RxMvvmApplication;
+import com.rx.mvvmlibs.internal.ObservableFieldTypeAdapter;
 
 /**
  * @className: WeiboApplication
@@ -15,6 +18,12 @@ public class WeiboApplication extends RxMvvmApplication {
     private static final String WEIBO_URL = "https://api.weibo.com/";
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        Fresco.initialize(this);
+    }
+
+    @Override
     public String setServerUrl() {
         return WEIBO_URL;
     }
@@ -26,6 +35,15 @@ public class WeiboApplication extends RxMvvmApplication {
 
     @Override
     protected Gson initGson() {
-        return null;
+
+        return new GsonBuilder()
+                .setDateFormat("EEE MMM d HH:mm:ss Z yyyy")
+                .registerTypeAdapter(ObservableFieldTypeAdapter.class,new ObservableFieldTypeAdapter())
+                .create();
+    }
+
+    @Override
+    protected void init() {
+        super.init();
     }
 }

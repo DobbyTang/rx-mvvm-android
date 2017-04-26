@@ -16,8 +16,6 @@ import com.rx.mvvmlibs.bean.ProgressBean;
 import com.rx.mvvmlibs.view.MvvmActivity;
 import com.rx.utillibs.LogUtil;
 
-import javax.inject.Inject;
-
 import tangpj.weibo.oauth2.Oauth2Api;
 import tangpj.weibo.oauth2.R;
 import tangpj.weibo.oauth2.databinding.ActivityAuthorizeBinding;
@@ -30,7 +28,7 @@ import tangpj.weibo.oauth2.result.AccessTokenResult;
  * @description:
  */
 
-public class AuthorizeViewModel extends ViewModel{
+public class AuthorizeViewModel extends ViewModel {
 
     private static final String REDIRECT_URI = "http://tangpj.com/";
     private static final String CLIENT_ID = "126886166";

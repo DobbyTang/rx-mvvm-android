@@ -2,6 +2,7 @@ package tangpj.weibo.application.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class WeiboBean {
 
     //微博创建时间
     @SerializedName("created_at")
-    public String createdAt;
+    public Date createdAt;
 
     //微博ID
     public long id;

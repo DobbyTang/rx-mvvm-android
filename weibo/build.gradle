@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "tangpj.weibo.content"
+        applicationId "tangpj.weibo.weibo"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

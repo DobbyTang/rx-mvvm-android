@@ -5,7 +5,6 @@ import android.databinding.ObservableField;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.TypeAdapters;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.rx.mvvmlibs.internal.ObservableFieldTypeAdapter;
 import com.rx.mvvmlibs.network.BaseParamsInterceptor;
 import com.rx.mvvmlibs.scope.RetrofitScope;
@@ -16,6 +15,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -55,7 +55,7 @@ public class RetrofitModule {
     public Retrofit providesRetrofit(OkHttpClient okHttpClient){
         return new Retrofit.Builder().baseUrl(serverUrl)
                 .addConverterFactory(initGsonConverterFactory())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
 

@@ -1,4 +1,4 @@
-package tangpj.weibo.content;
+package tangpj.weibo.weibo;
 
 import org.junit.Test;
 

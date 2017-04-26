@@ -5,145 +5,166 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     >
 
-    <android.support.constraint.ConstraintLayout
+    <data>
+        <variable
+            name="weibo"
+            type="tangpj.weibo.application.bean.WeiboBean"/>
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/item_weibo_avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            fresco:roundAsCircle="true"
-            style="@style/simpleDraweeStyle"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp" />
-
-        <TextView
-            android:id="@+id/item_weibo_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="一句话心情签名"
-            android:textColor="@color/textColorDark"
-            tools:ignore="MissingConstraints,PrivateResource"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/item_weibo_avatar"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp" />
-
-        <TextView
-            android:id="@+id/item_weibo_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="昨天 16:41 微博 weibo.com"
-            android:textSize="@dimen/abc_text_size_caption_material"
-            tools:layout_editor_absoluteY="26dp"
-            app:layout_constraintStart_toEndOf="@+id/item_weibo_avatar"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:id="@+id/item_weibo_v"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            app:srcCompat="@mipmap/ic_launcher"
-            tools:ignore="NotSibling"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/item_weibo_name"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp" />
-
-        <ImageView
-            android:id="@+id/item_weibo_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:attr/actionOverflowButtonStyle"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp" />
-
-        <include layout="@layout/item_weibo_content"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_weibo_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            android:id="@+id/item_weibo_content" />
+            android:layout_height="wrap_content">
 
-        <include
-            android:id="@+id/item_weibo_forwarding_stub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/item_weibo_forwarding"
-            android:layout_marginTop="7dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_weibo_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp" />
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/item_weibo_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                fresco:roundAsCircle="true"
+                style="@style/simpleDraweeStyle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp" />
 
-        <TextView
-            android:id="@+id/item_weibo_praise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_favorite_border_black_24dp"
-            android:textSize="@dimen/abc_text_size_caption_material"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_weibo_forwarding_stub"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:gravity="center_vertical"
-            android:drawablePadding="4dp"
-            android:drawableTint="@color/textColor"
-            tools:text="1090"/>
+            <TextView
+                android:id="@+id/item_weibo_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="一句话心情签名"
+                android:text="@{weibo.user.name}"
+                android:textColor="@color/textColorDark"
+                tools:ignore="MissingConstraints,PrivateResource"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@+id/item_weibo_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp" />
 
-        <TextView
-            android:id="@+id/item_weibo_launch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_launch_white_24dp"
-            android:drawableTint="@color/textColor"
-            android:drawablePadding="4dp"
-            android:textSize="@dimen/abc_text_size_caption_material"
-            tools:text="100"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            android:gravity="center_vertical"
-            tools:ignore="MissingConstraints"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_weibo_forwarding_stub"
-            android:layout_marginRight="8dp" />
+            <TextView
+                android:id="@+id/item_weibo_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="昨天 16:41 微博 weibo.com"
+                android:text="@{String.valueOf(weibo.createdAt.hours)}"
+                android:textSize="@dimen/abc_text_size_caption_material"
+                app:layout_constraintStart_toEndOf="@+id/item_weibo_avatar"
+                android:layout_marginStart="8dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@+id/item_weibo_name"
+                android:layout_marginLeft="8dp" />
 
-        <TextView
-            android:id="@+id/item_weibo_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_chat_bubble_outline_white_24dp"
-            android:drawableTint="@color/textColor"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/abc_text_size_caption_material"
-            android:drawablePadding="4dp"
-            tools:text="200"
-            tools:layout_editor_absoluteX="278dp"
-            tools:ignore="MissingConstraints"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_weibo_forwarding_stub" />
+            <ImageView
+                android:id="@+id/item_weibo_v"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                tools:src="@mipmap/ic_launcher"
+                tools:ignore="NotSibling"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@+id/item_weibo_name"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/item_weibo_desc"
+                android:layout_marginLeft="8dp" />
+
+            <ImageView
+                android:id="@+id/item_weibo_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/actionOverflowButtonStyle"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="8dp" />
+
+            <include layout="@layout/item_weibo_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/item_weibo_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:id="@+id/item_weibo_content" />
+
+            <ViewStub
+                android:id="@+id/item_weibo_forwarding_stub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/item_weibo_forwarding"
+                android:layout_marginTop="7dp"
+                app:layout_constraintTop_toBottomOf="@+id/item_weibo_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:id="@+id/item_weibo_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_favorite_border_black_24dp"
+                android:textSize="@dimen/abc_text_size_caption_material"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/item_weibo_forwarding_stub"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/textColor"
+                tools:text="1090"
+                android:text="@{String.valueOf(weibo.attitudesCount)}"/>
+
+            <TextView
+                android:id="@+id/item_weibo_launch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_launch_white_24dp"
+                android:drawableTint="@color/textColor"
+                android:drawablePadding="4dp"
+                android:textSize="@dimen/abc_text_size_caption_material"
+                tools:text="100"
+                android:text="@{String.valueOf(weibo.forwardingCount)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_vertical"
+                tools:ignore="MissingConstraints"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/item_weibo_forwarding_stub"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:id="@+id/item_weibo_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_chat_bubble_outline_white_24dp"
+                android:drawableTint="@color/textColor"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/abc_text_size_caption_material"
+                android:drawablePadding="4dp"
+                tools:text="200"
+                android:text="@{String.valueOf(weibo.commentsCount)}"
+                tools:ignore="MissingConstraints"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/item_weibo_forwarding_stub"
+                app:layout_constraintEnd_toStartOf="@+id/item_weibo_launch"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
 
 
-    </android.support.constraint.ConstraintLayout>
 
 </layout>

@@ -6,8 +6,6 @@ import android.webkit.WebView;
 import com.rx.mvvmlibs.ViewModel;
 import com.rx.mvvmlibs.view.MvvmActivity;
 
-import javax.inject.Inject;
-
 import tangpj.weibo.oauth2.viewmodel.AuthorizeViewModel;
 
 public class AuthorizeActivity extends MvvmActivity {
