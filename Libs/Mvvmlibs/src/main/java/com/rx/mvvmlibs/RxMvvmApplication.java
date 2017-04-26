@@ -28,9 +28,11 @@ public abstract class RxMvvmApplication extends Application {
     private static final String TAG = "RxMvvmApplication";
     private static RxMvvmApplication myApp;
 
-    public abstract String setServerUrl();
+    protected abstract String setServerUrl();
 
-    public abstract @DrawableRes int setDefaultDrawableResource();
+    protected abstract @DrawableRes int setDefaultDrawableResource();
+
+    protected abstract Gson initGson();
 
     @Inject
     Retrofit retrofit;
@@ -38,8 +40,7 @@ public abstract class RxMvvmApplication extends Application {
     @Inject
     BaseParamsInterceptor.Builder interceptorBuilder;
 
-    @Inject
-    Gson gson;
+    private Optional<Gson> gson;
 
     public static RxMvvmApplication getInstance(){
         return myApp;
@@ -54,6 +55,7 @@ public abstract class RxMvvmApplication extends Application {
     }
 
     protected void init(){
+        gson = Optional.of(initGson());
         initRetrofit();
     }
 
@@ -62,7 +64,8 @@ public abstract class RxMvvmApplication extends Application {
         Optional<String> serverUrl = Optional.ofNullable(setServerUrl());
         DaggerRetrofitComponent
                 .builder()
-                .retrofitModule(new RetrofitModule(serverUrl.orElseGet(() -> "http://tangpj.com/"),15))
+                .retrofitModule(new RetrofitModule(serverUrl.orElse("http://tangpj.com/"),
+                        15,getGson()))
                 .build()
                 .inject(this);
 
@@ -77,7 +80,7 @@ public abstract class RxMvvmApplication extends Application {
     }
 
     public Gson getGson(){
-        return gson;
+        return gson.orElse(new Gson());
     }
 
 }
