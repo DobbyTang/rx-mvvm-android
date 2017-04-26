@@ -1,5 +1,6 @@
 package tangpj.weibo.application;
 
+import com.google.gson.Gson;
 import com.rx.mvvmlibs.RxMvvmApplication;
 
 /**
@@ -21,5 +22,10 @@ public class WeiboApplication extends RxMvvmApplication {
     @Override
     public int setDefaultDrawableResource() {
         return R.mipmap.ic_launcher;
+    }
+
+    @Override
+    protected Gson initGson() {
+        return null;
     }
 }

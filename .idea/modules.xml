@@ -6,9 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/Libs/Mvvmlibs/Mvvmlibs.iml" filepath="$PROJECT_DIR$/Libs/Mvvmlibs/Mvvmlibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" filepath="$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libs/UtilLibs/UtilLibs.iml" filepath="$PROJECT_DIR$/Libs/UtilLibs/UtilLibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weibo/content.iml" filepath="$PROJECT_DIR$/weibo/content.iml" />
       <module fileurl="file://$PROJECT_DIR$/oauth2/oauth2.iml" filepath="$PROJECT_DIR$/oauth2/oauth2.iml" />
       <module fileurl="file://$PROJECT_DIR$/rx-mvvm-android.iml" filepath="$PROJECT_DIR$/rx-mvvm-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/weibo/content.iml" filepath="$PROJECT_DIR$/weibo/content.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weibo/weibo.iml" filepath="$PROJECT_DIR$/weibo/weibo.iml" />
       <module fileurl="file://$PROJECT_DIR$/weiboapplication/weiboapplication.iml" filepath="$PROJECT_DIR$/weiboapplication/weiboapplication.iml" />
     </modules>
   </component>

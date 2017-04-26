@@ -32,11 +32,14 @@ public class RetrofitModule {
 
     private int timeout;
 
+    private Gson mGson;
+
     private BaseParamsInterceptor.Builder interceptorBuilder;
 
-    public RetrofitModule(String url,int timeout){
+    public RetrofitModule(String url,int timeout,Gson gson){
         this.serverUrl = url;
         this.timeout = timeout;
+        this.mGson = gson;
 
     }
 
@@ -68,18 +71,9 @@ public class RetrofitModule {
                 .build();
     }
 
-    @RetrofitScope
-    @Provides
-    public Gson initGson(){
-        return new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd hh:mm:ss")
-                .registerTypeAdapterFactory(TypeAdapters.newFactory(ObservableField.class, new ObservableFieldTypeAdapter()))
-                .create();
-    }
-
 
     private GsonConverterFactory initGsonConverterFactory(){
-        return GsonConverterFactory.create(initGson());
+        return GsonConverterFactory.create(mGson);
     }
 
 

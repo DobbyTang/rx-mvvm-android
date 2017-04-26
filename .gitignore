@@ -15,6 +15,7 @@ Libs/BaseAppLibs/
 java_pid31966.hprof
 .gitignore
 
+
 content/libs/
 content/src/main/res/drawable/
 oauth2/libs/
@@ -22,3 +23,6 @@ oauth2/src/main/res/drawable/
 weiboapplication/libs/
 weiboapplication/src/main/res/drawable/
 src/main/java/tangpj/weibo/content/bean/
+
+java_pid19223.hprof
+
