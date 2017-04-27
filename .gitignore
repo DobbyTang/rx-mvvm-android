@@ -1,0 +1,12 @@
+
+.gitignore
+.gradle/
+.idea/libraries/
+.idea/workspace.xml
+Libs/Libs.iml
+build/
+local.properties
+oauth2/
+rx-mvvm-android.iml
+weibo/
+weiboapplication/
