@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/Libs/Mvvmlibs" />
             <option value="$PROJECT_DIR$/Libs/ResLibs" />
             <option value="$PROJECT_DIR$/Libs/UtilLibs" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -10,3 +10,6 @@ oauth2/
 rx-mvvm-android.iml
 weibo/
 weiboapplication/
+app
+app/libs/
+app/src/main/res/drawable/

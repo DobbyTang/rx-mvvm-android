@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/Libs/Mvvmlibs/Mvvmlibs.iml" filepath="$PROJECT_DIR$/Libs/Mvvmlibs/Mvvmlibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" filepath="$PROJECT_DIR$/Libs/ResLibs/ResLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libs/UtilLibs/UtilLibs.iml" filepath="$PROJECT_DIR$/Libs/UtilLibs/UtilLibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rx-mvvm-android.iml" filepath="$PROJECT_DIR$/rx-mvvm-android.iml" />
     </modules>
   </component>
