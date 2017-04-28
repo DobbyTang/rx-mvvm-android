@@ -6,6 +6,7 @@
     >
 
     <data>
+        <import type="com.rx.utillibs.DateFormatUtil"/>
         <variable
             name="weibo"
             type="tangpj.weibo.application.bean.WeiboBean"/>
@@ -50,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="昨天 16:41 微博 weibo.com"
-                android:text="@{String.valueOf(weibo.createdAt.hours)}"
+                android:text="@{DateFormatUtil.format(weibo.createdAt)}"
                 android:textSize="@dimen/abc_text_size_caption_material"
                 app:layout_constraintStart_toEndOf="@+id/item_weibo_avatar"
                 android:layout_marginStart="8dp"

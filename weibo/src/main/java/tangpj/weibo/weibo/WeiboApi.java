@@ -17,6 +17,9 @@ import tangpj.weibo.application.bean.WeiboBean;
 
 public interface WeiboApi {
 
-    @GET("2/statuses/user_timeline.json")
+    @GET("2/statuses/public_timeline.json")
     Observable<ListResult<WeiboBean>> publicTimeLine(@Query("access_token") String accessToken);
+
+    @GET("2/statuses/home_timeline.json")
+    Observable<ListResult<WeiboBean>> homeTimeLine(@Query("access_token") String accessToken);
 }

@@ -29,6 +29,7 @@ dependencies {
     //noinspection GradleCompatible
     compile "com.android.support:appcompat-v7:${SUPER_APPCOMPAT_VERSION}"
     testCompile 'junit:junit:4.12'
-    compile 'com.github.DobbyTang:RecyclerUtil:1.0.6'
+
+    compile 'com.github.DobbyTang:RecyclerUtil:1.0.10'
     compile 'joda-time:joda-time:2.9.9'
 }
