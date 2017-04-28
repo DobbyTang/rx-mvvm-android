@@ -55,6 +55,9 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     //需要刷新的页码（根据mIndex计算）
     private int mPage;
 
+    //数据长度
+    private int length = 0;
+
     PaginationParams paginationParams = setPaginationParams();
 
     private boolean isSuccess;
@@ -65,7 +68,9 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
 
     private Context context;
 
-    List<Data> data;
+
+
+//    List<Data> data;
 
     private RetrofitModel<ListResult<Data>> listModel
             = new RetrofitModel<>(this);
@@ -105,20 +110,22 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onListResult(ListResult<Data> result) {
-            if (data == null){
-                data = result.data;
+            if (length == 0){
+                length = result.data.size();
+                viewModelWrapper.adapter.setData(result.data);
             }else {
+                length += result.data.size();
                 if (mIndex < 0){
-                    data.addAll(result.data);
+                    viewModelWrapper.adapter.addAllItem(result.data);
                 }else {
                     //计算出需要替换的第一个数据在dataList中的位置
                     int start = (mPage - mStartPage) * mCount;
                     LogUtil.d("refresh index = " + mPage);
-                    ListUtils.replaceAssign(start,data,result.data);
+                    viewModelWrapper.adapter.setData(start,result.data);
                     mIndex = -1;
                 }
+
             }
-            viewModelWrapper.adapter.setData(data);
 
     }
 
@@ -230,16 +237,14 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     @Override
     public void refresh() {
         LogUtil.d("onRefresh");
-        if (data != null){
-            data.clear();
-        }
+        length = 0;
         loading();
     }
 
     @Override
     public void loading () {
-        if (data != null){
-            paginationParams.page = data.size() / mCount + mStartPage;
+        if (length != 0){
+            paginationParams.page = length / mCount + mStartPage;
         }else {
             paginationParams.page = mStartPage;
         }
@@ -254,7 +259,7 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
 
     @Override
     public void refreshIndexPage(int index) {
-        if (index > data.size()){
+        if (index > length){
             //如果index超出数组长度则加载下一页
             loading();
         }else {
