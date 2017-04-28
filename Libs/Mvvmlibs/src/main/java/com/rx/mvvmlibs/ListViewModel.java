@@ -52,6 +52,8 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     //需要刷新的数据项位置
     private int mIndex = -1;
 
+    private boolean isRefresh = true ;
+
     //需要刷新的页码（根据mIndex计算）
     private int mPage;
 
@@ -107,8 +109,9 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onListResult(ListResult<Data> result) {
-        if (viewModelWrapper.adapter.size() == 0){
+        if (isRefresh && viewModelWrapper.adapter.size() == 0 ){
             viewModelWrapper.adapter.setData(result.data);
+            isRefresh = false;
         }else {
             int start = (mPage - mStartPage) * mCount;
             if (mIndex < 0){
@@ -151,8 +154,8 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
 
     @Override
     public void init() {
-        listModel.setOnResult(result -> onListResult(result))
-                .setApiInterface(retrofit -> setListApiInterface(retrofit));
+        listModel.setOnResult(this::onListResult)
+                .setApiInterface(this::setListApiInterface);
         viewModelWrapper.contentMvvmListBinding.recyclerView
                 .addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -234,7 +237,7 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     @Override
     public void refresh() {
         LogUtil.d("onRefresh");
-        viewModelWrapper.recyclerView.setVisibility(View.GONE);
+        isRefresh = true;
         loading();
     }
 
