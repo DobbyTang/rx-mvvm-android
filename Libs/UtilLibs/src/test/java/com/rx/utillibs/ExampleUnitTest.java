@@ -2,6 +2,8 @@ package com.rx.utillibs;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -13,5 +15,7 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+        Date date = new Date("Thu Apr 25 23:01:03 +0800 2016");
+        System.out.println(DateFormatUtil.format(date));
     }
 }

@@ -47,7 +47,7 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     private int mCount = 10;
 
     //开始页
-    private int mStartPage = 0;
+    private int mStartPage = 1;
 
     //需要刷新的数据项位置
     private int mIndex = -1;
