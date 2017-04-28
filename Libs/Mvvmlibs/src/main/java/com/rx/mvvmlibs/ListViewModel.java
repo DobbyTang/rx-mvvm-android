@@ -93,9 +93,10 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
 
     @Override
     public void listEnqueue() {
+        LogUtil.d("");
         showProgress(true);
-       listModel.getBuilder()
-               .addParams(paginationParams.toMap());
+        listModel.getBuilder()
+                .addParams(paginationParams.toMap());
         listModel.enqueueRequest();
 
     }
@@ -109,7 +110,10 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onListResult(ListResult<Data> result) {
-        if (isRefresh && viewModelWrapper.adapter.size() == 0 ){
+        if (result == null || result.data == null){
+            return;
+        }
+        if (isRefresh){
             viewModelWrapper.adapter.setData(result.data);
             isRefresh = false;
         }else {
@@ -123,7 +127,6 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
                 mIndex = -1;
             }
 
-            viewModelWrapper.adapter.notifyItemMoved(start,viewModelWrapper.adapter.size());
 
         }
 
@@ -158,42 +161,43 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
                 .setApiInterface(this::setListApiInterface);
         viewModelWrapper.contentMvvmListBinding.recyclerView
                 .addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 
-                if ( newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 1 == viewModelWrapper.adapter.getItemCount()) {
-                    loading();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (viewModelWrapper.layoutManager instanceof LinearLayoutManager){
-
-                    lastVisibleItem = ((LinearLayoutManager)viewModelWrapper.layoutManager)
-                            .findLastVisibleItemPosition();
-
-                }else if (viewModelWrapper.layoutManager instanceof GridLayoutManager){
-
-                    lastVisibleItem = ((GridLayoutManager)viewModelWrapper.layoutManager)
-                            .findLastVisibleItemPosition();
-
-                }else if (viewModelWrapper.layoutManager instanceof StaggeredGridLayoutManager){
-
-                    StaggeredGridLayoutManager staggeredGridLayoutManager
-                            = (StaggeredGridLayoutManager) viewModelWrapper.layoutManager;
-
-                    if (lastPositions == null){
-                        lastPositions = new int[staggeredGridLayoutManager.getSpanCount()];
+                        if ( newState == RecyclerView.SCROLL_STATE_IDLE
+                                && lastVisibleItem + 1 == viewModelWrapper.adapter.getItemCount()
+                                && !viewModelWrapper.contentMvvmListBinding.refreshLayout.isRefreshing()) {
+                            loading();
+                        }
                     }
 
-                    staggeredGridLayoutManager.findLastVisibleItemPositions(lastPositions);
-                    lastVisibleItem = findMax(lastPositions);
-                }
-            }
-        });
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        if (viewModelWrapper.layoutManager instanceof LinearLayoutManager){
+
+                            lastVisibleItem = ((LinearLayoutManager)viewModelWrapper.layoutManager)
+                                    .findLastVisibleItemPosition();
+
+                        }else if (viewModelWrapper.layoutManager instanceof GridLayoutManager){
+
+                            lastVisibleItem = ((GridLayoutManager)viewModelWrapper.layoutManager)
+                                    .findLastVisibleItemPosition();
+
+                        }else if (viewModelWrapper.layoutManager instanceof StaggeredGridLayoutManager){
+
+                            StaggeredGridLayoutManager staggeredGridLayoutManager
+                                    = (StaggeredGridLayoutManager) viewModelWrapper.layoutManager;
+
+                            if (lastPositions == null){
+                                lastPositions = new int[staggeredGridLayoutManager.getSpanCount()];
+                            }
+
+                            staggeredGridLayoutManager.findLastVisibleItemPositions(lastPositions);
+                            lastVisibleItem = findMax(lastPositions);
+                        }
+                    }
+                });
 
         viewModelWrapper.errorBinding.setError(viewModelWrapper.error);
 
@@ -238,13 +242,14 @@ public abstract class ListViewModel<Data> implements IListViewModel<Data>,IError
     public void refresh() {
         LogUtil.d("onRefresh");
         isRefresh = true;
+
         loading();
     }
 
     @Override
     public void loading () {
-        if (viewModelWrapper.adapter.size() != 0){
-            paginationParams.page = viewModelWrapper.adapter.size() / mCount + mStartPage;
+        if (!isRefresh){
+            paginationParams.page = viewModelWrapper.adapter.size() / mCount + mStartPage + 1;
         }else {
             paginationParams.page = mStartPage;
         }
